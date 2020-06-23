@@ -14,17 +14,19 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import JunkPage from 'containers/JunkPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
+import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
   flex-direction: column;
 `;
 
@@ -41,9 +43,11 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
+        <Route path="/junk" component={JunkPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
+      <GlobalTheme />
       <GlobalStyle />
     </AppWrapper>
   );
