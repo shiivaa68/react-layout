@@ -25,14 +25,6 @@ export default defineMessages({
     id: `${scope}.categories`,
     defaultMessage: 'دسته بندی ها',
   },
-  soon: {
-    id: `${scope}.soon`,
-    defaultMessage: 'به زودی',
-  },
-  kids: {
-    id: `${scope}.kids`,
-    defaultMessage: 'کودکان',
-  },
 
   /** FOOTER MENUS */
   AboutTamashakhaneh: {

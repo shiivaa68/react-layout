@@ -2,7 +2,7 @@ import React ,{useCallback} from 'react';
 import { withRouter } from 'react-router-dom';
 import useMenuContext from 'containers/App/context';
 import { FormattedMessage } from 'react-intl';
- 
+
 import {
   NavBar,
   HeaderMenu,
@@ -36,8 +36,10 @@ function Header({history}) {
           </HeaderMenu>
         </HeaderMenu>
         <HeaderDetail>
-          <SearchIcon>Search</SearchIcon>
-          {/* <Button
+          <SearchIcon>
+          <i className="icon-search" />
+          </SearchIcon>
+          <Button
             type="text_only"
             label={<FormattedMessage {...messages.buyPkg} />}
             onClick={handleBuyPkgRoute}
@@ -46,7 +48,7 @@ function Header({history}) {
             type="outlined"
             label={<FormattedMessage {...messages.login_signup} />}
             onClick={handleSigninRoute}
-          /> */}
+          />
         </HeaderDetail>
       </NavBar>
     </>

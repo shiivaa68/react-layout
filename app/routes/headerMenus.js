@@ -16,8 +16,6 @@ const HeaderMenus = [
     label: <FormattedMessage {...messages.categories} />,
     to: '/categories',
   },
-  { id: 5, label: <FormattedMessage {...messages.soon} />, to: '/soon' },
-  { id: 6, label: <FormattedMessage {...messages.kids} />, to: '/kids' },
 ];
 
 export default HeaderMenus;
