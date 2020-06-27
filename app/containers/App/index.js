@@ -8,47 +8,48 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import JunkPage from 'containers/JunkPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import { HeaderMenus, FooterMenus } from 'routes';
+import { AppWrapper, MainWrapper } from './stylecomponent';
+import { Header, Footer } from './component';
 
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
 
-const AppWrapper = styled.div`
-  max-width: 100vw;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-`;
+
+import { MenuContext } from './context';
 
 export default function App() {
   return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="/junk" component={JunkPage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      <Footer />
-      <GlobalTheme />
-      <GlobalStyle />
-    </AppWrapper>
+    <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
+      <AppWrapper>
+        <Helmet
+          titleTemplate="%s - React.js Boilerplate"
+          defaultTitle="React.js Boilerplate"
+        >
+          <meta
+            name="description"
+            content="A React.js Boilerplate application"
+          />
+        </Helmet>
+        <Header />
+
+        <MainWrapper>
+          <Switch>
+            <Route exact path="/" component={JunkPage} />
+            <Route path="/junk" component={HomePage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </MainWrapper>
+
+        <Footer/>
+        <GlobalTheme />
+        <GlobalStyle />
+      </AppWrapper>
+    </MenuContext.Provider>
   );
 }
