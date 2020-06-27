@@ -8,6 +8,7 @@ const GlobalTheme = createGlobalStyle`
         --primary-gray: #838383;
         --primary-light: #ffffff;
         --dim-blue: #6eb8ff;
+        
 
         --blue: blue;
 

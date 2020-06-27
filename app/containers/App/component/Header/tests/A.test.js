@@ -1,12 +1,14 @@
 import React from 'react';
 import { render } from 'react-testing-library';
+import renderer from 'react-test-renderer';
+import 'jest-styled-components';
 
 import A from '../A';
 
 describe('<A />', () => {
-  it('should render an <a> tag', () => {
-    const { container } = render(<A />);
-    expect(container.querySelector('a')).not.toBeNull();
+  it('should match the snapshot', () => {
+    const renderedComponent = renderer.create(<A />).toJSON();
+    expect(renderedComponent).toMatchSnapshot();
   });
 
   it('should have a class attribute', () => {
@@ -22,6 +24,6 @@ describe('<A />', () => {
 
   it('should not adopt an invalid attribute', () => {
     const { container } = render(<A attribute="test" />);
-    expect(container.querySelector('a[attribute="test"]')).toBeNull();
+    expect(container.querySelector('a').getAttribute('attribute')).toBeNull();
   });
 });
