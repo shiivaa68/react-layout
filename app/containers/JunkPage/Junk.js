@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
-// import { SomeComponent } from './components';
+import { SomeComponent } from './components';
 
 import HomePageReducer from './redux/reducer';
 import HomePageSaga from './redux/saga';
@@ -14,7 +14,7 @@ import initialState from './redux/initialState';
 
 const HomePageKeyOnRedux = 'HomePage';
 
-const JunkPage = props => {
+const JunkPage = () => {
   // injectors
   useInjectReducer({ key: HomePageKeyOnRedux, reducer: HomePageReducer });
   useInjectSaga({ key: HomePageKeyOnRedux, saga: HomePageSaga });
@@ -28,20 +28,20 @@ const JunkPage = props => {
   );
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    const pageId = 1;
+    const params = {
+      is_complete: true,
+    };
+    getHomePage({ pageId, params });
+  }, []);
 
-  const handleGetHomePageData = () => {
-    getHomePage();
-  };
+  console.log(data)
 
   return (
     <article>
       <h3>Junk Page</h3>
 
-      {/* <SomeComponent /> */}
-
-      <button onClick={handleGetHomePageData}>Get home Page Data</button>
+      <SomeComponent />
 
       {loading && <h4>loading...</h4>}
       {error && (
@@ -49,19 +49,10 @@ const JunkPage = props => {
           ERROR: <pre>{error}</pre>
         </h4>
       )}
-      {data &&
-        data.data &&
-        data.data.data.map((category, i) => (
-          <article>
-            <p key={i}>{category.type}</p>
-            <div>
-              {category.data.items.map(el => (
-                <>
-                  <img width={150} src={el.image_path} />
-                  <span style={{ padding: '0 1rem' }}>{el.title_fa}</span>
-                </>
-              ))}
-            </div>
+      {data.length > 0 &&
+        data.map((category, i) => (
+          <article key={i}>
+            <p>{category.type}</p>
           </article>
         ))}
     </article>

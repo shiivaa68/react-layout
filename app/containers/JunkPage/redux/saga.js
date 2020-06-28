@@ -1,26 +1,23 @@
-import { call, all, put, select, takeLatest } from 'redux-saga/effects';
+import { all, takeLatest } from 'redux-saga/effects';
+import { apiEndpoints } from 'utils/api';
+import requestCall from 'utils/redux/requestCall';
 
-import request from 'utils/request';
-import { GET_HOME_PAGE_REQUEST } from './constants';
-import { homePageLoaded, homePageFailed } from './actions';
+import { GET_HOMEPAGE } from './constants';
+import { loadingAction, errorAction, updateHomePageAction } from './actions';
 
-export function* getHomePageWorker() {
-  const requestUrl = 'https://api.tamashakhoneh.ir/v3/pages/1?is_complete=true';
+function* getHomePageWorker({ payload: { pageId, params } }) {
+  const url = apiEndpoints.getHomePage(pageId, params);
+  const method = 'GET';
+  const actions = {
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: result => updateHomePageAction(result),
+    failure: error => errorAction(error),
+  };
 
-  try {
-    const homePageResponse = yield call(request, requestUrl);
-    // console.log('SUCCESS', { homePageResponse });
-
-    // call success action
-    yield put(homePageLoaded(homePageResponse));
-  } catch (err) {
-    // call failed action
-    // console.log('FAILED', { err });
-    yield put(homePageFailed(err));
-  }
+  yield requestCall({ url, method, actions });
 }
 
 // Root Saga
 export default function* homePageSaga() {
-  yield all([takeLatest(GET_HOME_PAGE_REQUEST, getHomePageWorker)]);
+  yield all([takeLatest(GET_HOMEPAGE, getHomePageWorker)]);
 }

@@ -4,8 +4,7 @@ const MainWrapper = styled.main`
   max-width: 100vw;
   min-height: 100vh;
   height: fit-content;
-  background-color: red;
-  padding: 1rem 2rem;
-  margin: 80px 2.25rem;
+  padding:0 0 1rem 0rem;
+  margin:0 0  80px 0rem;
 `;
 export default MainWrapper;

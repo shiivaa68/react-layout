@@ -8,13 +8,12 @@ const GlobalTheme = createGlobalStyle`
         --primary-gray: #838383;
         --primary-light: #ffffff;
         --dim-blue: #6eb8ff;
-        
 
         --blue: blue;
 
 
         /** Typography */
-        font-size: 18px;
+        font-size: 16px;
         --primary-text-size: 1.25rem;
         --secondary-text-size: 1rem;
 

@@ -23,18 +23,22 @@ function Footer() {
         <FooterSocial>
           <ul>
             <li>
-              <a href="https://t.me/junk">TELEGRAM</a>
+              <a href="https://t.me/junk"><i className=" icon-paper-plane-empty"></i></a>
             </li>
             <li>
-              <a href="https://t.me/el">INSTAGRAM</a>
+              <a href="https://t.me/el"><i className="icon-camera-alt"></i></a>
             </li>
             <li>
-              <a href="https://t.me/jake">TWITTER</a>
+              <a href="https://t.me/jake"><i className="icon-twitter"></i></a>
             </li>
           </ul>
           <div>NAMAD</div>
         </FooterSocial>
-        <FooterCopyRight>FOOTER_COPY_RIGHT</FooterCopyRight>
+        <FooterCopyRight>
+          <p>
+          خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می باشد و هر گونه بهره برداری و سوء استفاده از محتوای تماشاخونه، پیگرد قانونی دارد.
+          </p>
+          </FooterCopyRight>
       </FooterLayoutContainer>
     </Wrapper>
   );

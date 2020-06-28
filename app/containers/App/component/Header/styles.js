@@ -19,7 +19,7 @@ background: linear-gradient(
 
 export const HeaderDetail = styled.section`
 width:fit-content;
-background-color:green;
+/* background-color:green; */
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -32,15 +32,17 @@ align-items:center;
 export const HeaderLogo = styled.div`
 width:60px;
 height:40px;
-background-color:yellow;
+/* background-color:yellow; */
 display:flex;
 justify-content:center;
 align-items:center;
+color:white;
+font-weight:bold;
 `;
 
 export const HeaderMenu = styled.div`
 width:fit-content;
-background-color:red;
+/* background-color:red; */
 display:flex;
 justify-content:flex-start;
 align-items:center;
@@ -49,10 +51,12 @@ align-items:center;
 export const  SearchIcon = styled.div`
 width:48px;
 height:48px;
-background-color:green;
+/* background-color:green; */
+font-size:1.7rem;
 display:flex;
 justify-content:center;
 align-items:center;
+color:white;
 `;
 
 export const HeaderLink = styled(Link)`
@@ -66,13 +70,13 @@ border-radius:4px;
 user-select:none;
 cursor:pointer;
 outline:0;
-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-family: 'Vazir DF','Helvetica Neue', Helvetica, Arial, sans-serif;
 font-size:16px;
 border: 2px solid #41addd;
-color:#41addd;
+color:#ffffff;
 
 &:active{
     background:#41addd;
-    color:#fff;
+    color:blue;
 }
 `;

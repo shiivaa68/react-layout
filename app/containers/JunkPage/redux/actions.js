@@ -1,25 +1,29 @@
-import {
-  GET_HOME_PAGE_REQUEST,
-  GET_HOME_PAGE_SUCCESS,
-  GET_HOME_PAGE_FAILURE,
-} from './constants';
+import { ERROR, LOADING, GET_HOMEPAGE, UPDATE_HOMEPAGE } from './constants';
 
-export function getHomePageAction() {
+export function loadingAction(loadingStatus) {
   return {
-    type: GET_HOME_PAGE_REQUEST,
+    type: LOADING,
+    payload: { loadingStatus },
   };
 }
 
-export function homePageLoaded(result) {
+export function errorAction(error) {
   return {
-    type: GET_HOME_PAGE_SUCCESS,
-    payload: { result },
-  };
-}
-
-export function homePageFailed(error) {
-  return {
-    type: GET_HOME_PAGE_FAILURE,
+    type: ERROR,
     payload: { error },
+  };
+}
+
+export function getHomePageAction({ ...options }) {
+  return {
+    type: GET_HOMEPAGE,
+    payload: { ...options },
+  };
+}
+
+export function updateHomePageAction(data) {
+  return {
+    type: UPDATE_HOMEPAGE,
+    payload: data,
   };
 }

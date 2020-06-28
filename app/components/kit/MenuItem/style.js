@@ -6,6 +6,12 @@ display:inline-flex;
 text-decoration:none;
 user-select:  none;
 cursor: pointer;
-margin:0 1em
+margin:0 1em;
+list-style-type: none;
+color:white;
+ :hover {
+    color:var(--dim-blue);
+} 
+
 ;
 `;

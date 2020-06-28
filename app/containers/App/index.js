@@ -20,6 +20,7 @@ import { Header, Footer } from './component';
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
 import '../../font_icon.css';
+import '../../font_vazir.css';
 
 import { MenuContext } from './context';
 

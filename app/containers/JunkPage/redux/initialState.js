@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
   error: false,
-  data: {},
+  data: [],
 };
 
 export default initialState;

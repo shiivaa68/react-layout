@@ -2,7 +2,7 @@
     font-family: 'fontello';
     src: url('./fonts/font_icons/fontello.eot?9799180');
     src: url('./fonts/font_icons/fontello.eot?9799180#iefix') format('embedded-opentype'),
-         url('./font/font_icons/fontello.woff2?9799180') format('woff2'),
+         /* url('./font/font_icons/fontello.woff2?9799180') format('woff2'), */
          url('./fonts/font_icons/fontello.woff?9799180') format('woff'),
          url('./fonts/font_icons/fontello.ttf?9799180') format('truetype'),
          url('./fonts/font_icons/fontello.svg?9799180#fontello') format('svg');

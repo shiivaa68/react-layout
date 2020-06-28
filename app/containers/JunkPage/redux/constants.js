@@ -1,3 +1,6 @@
-export const GET_HOME_PAGE_REQUEST = 'SH/Junk/GET_HOME_PAGE_REQUEST';
-export const GET_HOME_PAGE_SUCCESS = 'SH/Junk/GET_HOME_PAGE_SUCCESS';
-export const GET_HOME_PAGE_FAILURE = 'SH/Junk/GET_HOME_PAGE_FAILURE';
+export const ERROR = 'SH/Junk/ERROR';
+export const LOADING = 'SH/Junk/LOADING';
+
+export const GET_HOMEPAGE = 'SH/Junk/GET_HOMEPAGE';
+
+export const UPDATE_HOMEPAGE = 'SH/Junk/UPDATE_HOMEPAGE';

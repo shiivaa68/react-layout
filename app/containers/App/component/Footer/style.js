@@ -4,7 +4,7 @@ export const Wrapper = styled.footer`
   height: fit-content;
   min-height: 430px;
   background-color: var(--secondary-dark);
-  color: var(--primary-light);
+  color:rgb(170, 170, 170);
 `;
 
 export const FooterLayoutContainer = styled.div`
@@ -20,6 +20,8 @@ export const FooterMenu = styled.nav`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
+  color:white;
+ 
 `;
 
 export const FooterSocial = styled.div`
@@ -28,6 +30,7 @@ export const FooterSocial = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* color:inherit; */
   ul {
     padding: 0px;
     margin: 0px;
@@ -36,9 +39,11 @@ export const FooterSocial = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     list-style-type: none;
+    color:white;
 
     li {
       margin-left: 1rem;
+      color:white;
     }
   }
 `;
@@ -46,4 +51,11 @@ export const FooterSocial = styled.div`
 export const FooterCopyRight = styled.div`
   width: 100%;
   height: 20px;
+  font-size:12px;
+  line-height:1.8;
+  margin-top:20px;
+  padding:0 10px;
+  font-family:"iranyekan";
+  color:#aaaaaa;
+  line-height:18px;
 `;
