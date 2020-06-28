@@ -13,7 +13,7 @@ const GlobalTheme = createGlobalStyle`
 
 
         /** Typography */
-        font-size: 16px;
+        font-size: 14px;
         --primary-text-size: 1.25rem;
         --secondary-text-size: 1rem;
 

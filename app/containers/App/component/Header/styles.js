@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 export const NavBar = styled.header`
 min-height:80px;
+z-index:10;
 width:100vmax;
 position:fixed;
 display:flex;
@@ -10,6 +11,7 @@ justify-content:space-between;
 align-items:center;
 padding-left:2.25rem;
 padding-right:2.25rem;
+
 background: linear-gradient(
     to bottom,
     rgba(18, 18, 18, 1),
