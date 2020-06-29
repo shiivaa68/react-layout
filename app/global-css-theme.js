@@ -3,11 +3,12 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalTheme = createGlobalStyle`
     :root {
         /** Colors */
-        --primary-dark: #292923;
+        --primary-dark: #101010;
         --secondary-dark: #222327;
         --primary-gray: #838383;
         --primary-light: #ffffff;
         --dim-blue: #6eb8ff;
+        --primary-white:#FFFFFF;
 
         --blue: blue;
 
@@ -20,6 +21,9 @@ const GlobalTheme = createGlobalStyle`
 
         /** spacing */
         --primary-spacing: 1rem;
+
+        /**font*/
+        --primary-White-Color:"Vazir FD";
     }
 `;
 

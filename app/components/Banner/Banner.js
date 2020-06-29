@@ -1,60 +1,44 @@
-import React from 'react';
-import Slider from 'react-slick';
-import Card from '../kit';
+import React, { useMemo } from 'react';
+import Swiper from 'react-id-swiper';
 
 import { BannerSection } from './styles';
 
 const Banner = ({ style, items = [] }) => {
-  const { type } = style;
+  const options = useMemo(() => {
+    const { type } = style;
+    const opt = {};
 
-  let slidesToShow = 0;
-  let slidesToScroll = 0;
-  switch (type) {
-    case 'full':
-      slidesToShow = 1;
-      slidesToScroll = 1;
-      break;
+    opt.lazy = true;
 
-    case 'long':
-        slidesToShow=4;
-        slidesToScroll=4;
-          
-    case 'item':
-      slidesToShow = 4;
-      slidesToScroll = 4;
-      break;
-      
-     case 'quad':
-         slidesToShow = 4;
-         slidesToScroll = 4;
-         beark; 
+    switch (type) {
+      case 'full':
+        opt.slidesPerView = 1;
+        opt.spaceBetween = 0;
+        break;
 
-    default:
-      slidesToShow = 4;
-      slidesToScroll = 4;
-      break;
-  }
-  const setting = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: slidesToShow,
-    slidesToScroll: slidesToScroll,
-    rtl: true,
-  };
+      case 'item':
+        opt.slidesPerView = 4;
+        opt.spaceBetween = 10;
+
+        break;
+
+      default:
+        break;
+    }
+
+    return opt;
+  }, [style, items]);
 
   return (
-   
-     <BannerSection>
+    <BannerSection>
       {items.length > 0 && (
-        <Slider {...setting}>
+        <Swiper {...options}>
           {items.map(item => (
             <img key={item.id} src={item.image_path} />
           ))}
-        </Slider>
+        </Swiper>
       )}
     </BannerSection>
-   
-    
   );
 };
 

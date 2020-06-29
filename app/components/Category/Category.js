@@ -1,48 +1,56 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React, { useMemo } from 'react';
+import Swiper from 'react-id-swiper';
 
-import { CategorySection } from './styles';
+import {
+  CategorySection,
+  CategoryHeading,
+  CategoryBody,
+  Heading,
+  ShowMore,
+  FooterCategory,
+} from './styles';
 
-const Category = ({ type, items = [] }) => {
+const Category = ({ category, items }) => {
+  const options = useMemo(() => {
+    const opt = {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    };
 
-  let slidesToShow = 0;
-  let slidesToScroll = 0;
+    opt.lazy = true;
+    opt.slidesPerView = 7;
+    opt.spaceBetween = 10;
 
-  switch (type) {
-    case 'categorry':
-      slidesToShow = 7;
-      slidesToScroll = 7;
-      break;
-
-    default:
-      slidesToShow =7;
-      slidesToScroll = 7;
-      break;
-  }
-
-  const setting = {
-    dots:true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: slidesToShow,
-    slidesToScroll: slidesToScroll,
-  };
+    return opt;
+  }, [category, items]);
 
   return (
     <CategorySection>
-     
-      <div>
-      {items.length > 0 && (
-        <Slider {...setting}>
-          {items.map(item => (
-            <img  key={item.id} src={item.poster_path} />
-             
-          ))}
-        </Slider>
-      )}
-      {/* <p>{item.title_fa}</p> */}
-      </div>
-   
+      <CategoryHeading>
+        <Heading>{(!!category && category.name_fa) || ''}</Heading>
+        <ShowMore>
+          <div>
+            <span>نمایش همه</span>
+          </div>
+          <div>
+            <i className="icon-left-open" />
+          </div>
+        </ShowMore>
+      </CategoryHeading>
+      <CategoryBody>
+        {items.length > 0 && (
+          <Swiper {...options}>
+            {items.map(item => (
+              <div key={item.id}>
+                <img width="100%" src={`${item.poster_path}?size=166x248`} />
+                <FooterCategory>{item.title_fa}</FooterCategory>
+              </div>
+            ))}
+          </Swiper>
+        )}
+      </CategoryBody>
     </CategorySection>
   );
 };
