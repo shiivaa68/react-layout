@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useRef, useCallback, useMemo } from 'react';
 import Swiper from 'react-id-swiper';
 
 import {
@@ -8,16 +8,15 @@ import {
   Heading,
   ShowMore,
   FooterCategory,
+  PrevButton,
+  NextButton,
 } from './styles';
 
 const Category = ({ category, items }) => {
+  const swpierRef = useRef(null);
+
   const options = useMemo(() => {
-    const opt = {
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    };
+    const opt = {};
 
     opt.lazy = true;
     opt.slidesPerView = 7;
@@ -25,6 +24,24 @@ const Category = ({ category, items }) => {
 
     return opt;
   }, [category, items]);
+
+  const imageSize = useMemo(() => {
+    const { style } = category;
+    if (style === 'normal') return '216x331';
+    else if (style === 'special') return '420x840';
+  }, [category]);
+
+  const handleSliderPrev = useCallback(() => {
+    if (swpierRef.current !== null && swpierRef.current.swiper !== null) {
+      swpierRef.current.swiper.slidePrev();
+    }
+  }, []);
+
+  const handleSliderNext = useCallback(() => {
+    if (swpierRef.current !== null && swpierRef.current.swiper !== null) {
+      swpierRef.current.swiper.slideNext();
+    }
+  }, []);
 
   return (
     <CategorySection>
@@ -40,16 +57,25 @@ const Category = ({ category, items }) => {
         </ShowMore>
       </CategoryHeading>
       <CategoryBody>
+        <PrevButton onClick={handleSliderPrev}>
+          <i className="icon-right-open" />
+        </PrevButton>
         {items.length > 0 && (
-          <Swiper {...options}>
+          <Swiper {...options} ref={swpierRef}>
             {items.map(item => (
               <div key={item.id}>
-                <img width="100%" src={`${item.poster_path}?size=166x248`} />
+                <img
+                  width="100%"
+                  src={`${item.poster_path}?size=${imageSize}`}
+                />
                 <FooterCategory>{item.title_fa}</FooterCategory>
               </div>
             ))}
           </Swiper>
         )}
+        <NextButton onClick={handleSliderNext}>
+          <i className="icon-left-open" />
+        </NextButton>
       </CategoryBody>
     </CategorySection>
   );

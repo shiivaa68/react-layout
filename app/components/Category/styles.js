@@ -10,8 +10,8 @@ export const CategorySection = styled.section`
 
 export const CategoryHeading = styled.div`
   width: 100vw;
+  min-height: 65px;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
@@ -36,6 +36,56 @@ export const ShowMore = styled.div`
 
 export const CategoryBody = styled.div`
   width: 100vw;
+  position: relative;
+
+  &:hover {
+    & > button {
+      opacity: 1;
+    }
+  }
+`;
+
+export const PrevButton = styled.button`
+  all: unset;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.425rem;
+  color: var(--primary-light);
+  background: linear-gradient(
+    to left,
+    rgba(18, 18, 18, 1),
+    rgba(18, 18, 18, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+`;
+
+export const NextButton = styled.button`
+  all: unset;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 100%;
+  font-size: 1.425rem;
+  color: var(--primary-light);
+  background: linear-gradient(
+    to right,
+    rgba(18, 18, 18, 1),
+    rgba(18, 18, 18, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 `;
 
 export const FooterCategory = styled.p`
