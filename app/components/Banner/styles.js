@@ -5,6 +5,21 @@ export const BannerSection = styled.section`
   position: relative;
 `;
 
+export const BannerItem = styled.div`
+  width: 250px;
+  height: 125px;
+  display: block;
+  background: rgba(255, 0, 0, 0.85);
+  border-radius: 0.2rem;
+  padding: 1rem;
+  font-size: 2rem;
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10%;
+`;
+
 export const BannerNavigators = styled.div`
 
  width:100px;

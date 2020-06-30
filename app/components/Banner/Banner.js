@@ -1,14 +1,16 @@
 import React, { useRef, useMemo, useCallback } from 'react';
 import Swiper from 'react-id-swiper';
 
-import { BannerSection, BannerNavigators } from './styles';
+import { BannerSection, BannerItem, BannerNavigators } from './styles';
 
-const Banner = ({ style, items = [] }) => {
+const Banner = ({ style, items = [], index }) => {
   const swpierRef = useRef(null);
+
+  console.log({ index });
 
   const isHeadingBanner = useMemo(() => {
     const { type } = style;
-    return type === 'full';
+    return type === 'full' && index === 0;
   }, [style]);
 
   /** slider options */
@@ -71,9 +73,16 @@ const Banner = ({ style, items = [] }) => {
     <BannerSection>
       {items.length > 0 && (
         <Swiper {...options} {...extraOptions}>
-          {items.map(item => (
-            <img key={item.id} src={item.image_path} />
-          ))}
+          {items.map(item =>
+            isHeadingBanner ? (
+              <div key={item.id} style={{ minHeight: 250 }}>
+                <BannerItem>{item.title_fa}</BannerItem>
+                <img src={item.image_path} />
+              </div>
+            ) : (
+              <img key={item.id} src={item.image_path} />
+            ),
+          )}
         </Swiper>
       )}
 

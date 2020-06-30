@@ -50,10 +50,10 @@ const JunkPage = () => {
         </h4>
       )}
       {data.length > 0 &&
-        data.map((section, i) => (
+        data.map(({ type, data }, i) => (
           <SectionWrapper key={i}>
-            {section.type === 'banner' && <Banner {...section.data} />}
-            {section.type === 'category' && <Category {...section.data} />}
+            {type === 'banner' && <Banner index={i} {...data} />}
+            {type === 'category' && <Category index={i} {...data} />}
           </SectionWrapper>
         ))}
     </HomePageWrapper>
