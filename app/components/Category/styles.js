@@ -48,3 +48,5 @@ export const FooterCategory = styled.p`
   white-space: initial;
   font-family: var(--primary-White-Color);
 `;
+
+export const CategoryNavigators = styled.div``;

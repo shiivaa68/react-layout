@@ -12,6 +12,7 @@ import HomePageReducer from './redux/reducer';
 import HomePageSaga from './redux/saga';
 import { getHomePageAction } from './redux/actions';
 import initialState from './redux/initialState';
+import { HomePageWrapper, SectionWrapper } from './styles';
 
 const HomePageKeyOnRedux = 'HomePage';
 
@@ -41,7 +42,7 @@ const JunkPage = () => {
   }, [data]);
 
   return (
-    <article>
+    <HomePageWrapper>
       {loading && <h4>loading...</h4>}
       {error && (
         <h4>
@@ -50,12 +51,12 @@ const JunkPage = () => {
       )}
       {data.length > 0 &&
         data.map((section, i) => (
-          <article key={i}>
+          <SectionWrapper key={i}>
             {section.type === 'banner' && <Banner {...section.data} />}
             {section.type === 'category' && <Category {...section.data} />}
-          </article>
+          </SectionWrapper>
         ))}
-    </article>
+    </HomePageWrapper>
   );
 };
 
