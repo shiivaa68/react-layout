@@ -1,16 +1,23 @@
 import React, { useRef, useMemo, useCallback } from 'react';
 import Swiper from 'react-id-swiper';
 
+import { size } from 'lodash';
 import { BannerSection, BannerItem, BannerNavigators } from './styles';
 
 const Banner = ({ style, items = [], index }) => {
   const swpierRef = useRef(null);
 
-  console.log({ index });
-
   const isHeadingBanner = useMemo(() => {
     const { type } = style;
     return type === 'full' && index === 0;
+  }, [style, index]);
+
+  const imageSize = useMemo(() => {
+    const { type } = style;
+    if (type === 'full') return '1920x900';
+    if (type === 'long') return '1920x360';
+    if (type === 'item') return '517x282';
+    if (type === 'quad') return '100x100';
   }, [style]);
 
   /** slider options */
@@ -80,7 +87,7 @@ const Banner = ({ style, items = [], index }) => {
                 <img src={item.image_path} />
               </div>
             ) : (
-              <img key={item.id} src={item.image_path} />
+              <img key={item.id} src={`${item.image_path}&size=${imageSize}`} />
             ),
           )}
         </Swiper>
@@ -89,10 +96,10 @@ const Banner = ({ style, items = [], index }) => {
       {isHeadingBanner && (
         <BannerNavigators>
           <button onClick={handlePrevSlide}>
-            <i className="icon-right-open" />
+            <i className="fas fa-angle-right" />
           </button>
           <button onClick={handleNextSlide}>
-            <i className="icon-left-open" />
+            <i className="fas fa-angle-left" />
           </button>
         </BannerNavigators>
       )}

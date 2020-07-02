@@ -1,25 +1,24 @@
-import React ,{useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import useMenuContext from 'containers/App/context';
 import { FormattedMessage } from 'react-intl';
 
+import { MenuItem, Button } from 'components/kit';
 import {
   NavBar,
   HeaderMenu,
   HeaderLogo,
   HeaderDetail,
   SearchIcon,
-  HeaderLink
+  HeaderLink,
 } from './styles';
-import { MenuItem ,Button } from 'components/kit';
 
 import messages from './messages';
 
-function Header({history}) {
-
+function Header({ history }) {
   const { push } = history;
 
-  const {HeaderMenus} = useMenuContext();
+  const { HeaderMenus } = useMenuContext();
 
   const handleBuyPkgRoute = useCallback(e => push('/package'), []);
   const handleSigninRoute = useCallback(e => push('/signin'), []);
@@ -30,14 +29,13 @@ function Header({history}) {
         <HeaderMenu>
           <HeaderLogo>تماشاخونه</HeaderLogo>
           <HeaderMenu>
-            {!!HeaderMenus && HeaderMenus.map(menu => (
-              <MenuItem key={menu.id} {...menu} />
-            ))}
+            {!!HeaderMenus &&
+              HeaderMenus.map(menu => <MenuItem key={menu.id} {...menu} />)}
           </HeaderMenu>
         </HeaderMenu>
         <HeaderDetail>
           <SearchIcon>
-          <i className="icon-search" />
+            <i className="fas fa-search" />
           </SearchIcon>
           <Button
             type="text_only"

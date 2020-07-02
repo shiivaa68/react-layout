@@ -28,7 +28,7 @@ export const ShowMore = styled.div`
   font-size: 1rem;
   margin-left: 1rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   font-family: var(--primary-White-Color);
   padding: 0 1rem;
   cursor: pointer;
@@ -37,7 +37,9 @@ export const ShowMore = styled.div`
 export const CategoryBody = styled.div`
   width: 100vw;
   position: relative;
-
+  & img {
+    border-radius: 10px;
+  }
   &:hover {
     & > button {
       opacity: 1;
@@ -86,6 +88,7 @@ export const NextButton = styled.button`
   );
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  padding: 0 1rem;
 `;
 
 export const FooterCategory = styled.p`
@@ -98,5 +101,3 @@ export const FooterCategory = styled.p`
   white-space: initial;
   font-family: var(--primary-White-Color);
 `;
-
-export const CategoryNavigators = styled.div``;

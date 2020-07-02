@@ -23,22 +23,30 @@ function Footer() {
         <FooterSocial>
           <ul>
             <li>
-              <a href="https://t.me/junk"><i className=" icon-paper-plane-empty"></i></a>
+              <a href="https://t.me/junk">
+                <i className="fa fa-telegram fa-4x" />
+              </a>
             </li>
             <li>
-              <a href="https://t.me/el"><i className="icon-camera-alt"></i></a>
+              <a href="https://t.me/el">
+                <i className="fa fa-instagram fa-4x" />
+              </a>
             </li>
             <li>
-              <a href="https://t.me/jake"><i className="icon-twitter"></i></a>
+              <a href="https://t.me/jake">
+                <i className="fa fa-twitter fa-4x" />
+              </a>
             </li>
           </ul>
           <div>NAMAD</div>
         </FooterSocial>
         <FooterCopyRight>
           <p>
-          خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می باشد و هر گونه بهره برداری و سوء استفاده از محتوای تماشاخونه، پیگرد قانونی دارد.
+            خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می
+            باشد و هر گونه بهره برداری و سوء استفاده از محتوای تماشاخونه، پیگرد
+            قانونی دارد.
           </p>
-          </FooterCopyRight>
+        </FooterCopyRight>
       </FooterLayoutContainer>
     </Wrapper>
   );

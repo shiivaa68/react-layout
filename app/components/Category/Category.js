@@ -28,7 +28,7 @@ const Category = ({ category, items }) => {
   const imageSize = useMemo(() => {
     const { style } = category;
     if (style === 'normal') return '216x331';
-    else if (style === 'special') return '420x840';
+    if (style === 'special') return '420x840';
   }, [category]);
 
   const handleSliderPrev = useCallback(() => {
@@ -52,13 +52,13 @@ const Category = ({ category, items }) => {
             <span>نمایش همه</span>
           </div>
           <div>
-            <i className="icon-left-open" />
+            <i className="fas fa-angle-double-left" />
           </div>
         </ShowMore>
       </CategoryHeading>
       <CategoryBody>
         <PrevButton onClick={handleSliderPrev}>
-          <i className="icon-right-open" />
+          <i className="fas fa-arrow-circle-left" />
         </PrevButton>
         {items.length > 0 && (
           <Swiper {...options} ref={swpierRef}>
@@ -74,7 +74,7 @@ const Category = ({ category, items }) => {
           </Swiper>
         )}
         <NextButton onClick={handleSliderNext}>
-          <i className="icon-left-open" />
+          <i className="fas fa-arrow-circle-left" />
         </NextButton>
       </CategoryBody>
     </CategorySection>
