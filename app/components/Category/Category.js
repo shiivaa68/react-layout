@@ -1,16 +1,7 @@
 import React, { useRef, useCallback, useMemo } from 'react';
 import Swiper from 'react-id-swiper';
 
-import {
-  CategorySection,
-  CategoryHeading,
-  CategoryBody,
-  Heading,
-  ShowMore,
-  FooterCategory,
-  PrevButton,
-  NextButton,
-} from './styles';
+import { CategorySection, CategoryHeading, CategoryBody, Heading, ShowMore, FooterCategory, PrevButton, NextButton } from './styles';
 
 const Category = ({ category, items }) => {
   const swpierRef = useRef(null);
@@ -47,13 +38,9 @@ const Category = ({ category, items }) => {
     <CategorySection>
       <CategoryHeading>
         <Heading>{(!!category && category.name_fa) || ''}</Heading>
-        <ShowMore>
-          <div>
-            <span>نمایش همه</span>
-          </div>
-          <div>
-            <i className="fas fa-angle-double-left" />
-          </div>
+        <ShowMore to="/detail">
+          <span>نمایش همه</span>
+          <i className="fas fa-angle-double-left" />
         </ShowMore>
       </CategoryHeading>
       <CategoryBody>
@@ -64,10 +51,7 @@ const Category = ({ category, items }) => {
           <Swiper {...options} ref={swpierRef}>
             {items.map(item => (
               <div key={item.id}>
-                <img
-                  width="100%"
-                  src={`${item.poster_path}?size=${imageSize}`}
-                />
+                <img width="100%" src={`${item.poster_path}?size=${imageSize}`} />
                 <FooterCategory>{item.title_fa}</FooterCategory>
               </div>
             ))}

@@ -1,8 +1,12 @@
 import React, { useRef, useMemo, useCallback } from 'react';
 import Swiper from 'react-id-swiper';
 
-import { size } from 'lodash';
-import { BannerSection, BannerItem, BannerNavigators } from './styles';
+import {
+  BannerSection,
+  HeadingBanner,
+  BannerItem,
+  BannerNavigators,
+} from './styles';
 
 const Banner = ({ style, items = [], index }) => {
   const swpierRef = useRef(null);
@@ -49,8 +53,9 @@ const Banner = ({ style, items = [], index }) => {
         break;
 
       case 'quad':
-        opt.slidesPerView = 4;
+        opt.slidesPerView = 2;
         opt.spaceBetween = 10;
+        // opt.slidesPerColumn = 2;
         break;
 
       default:
@@ -82,12 +87,16 @@ const Banner = ({ style, items = [], index }) => {
         <Swiper {...options} {...extraOptions}>
           {items.map(item =>
             isHeadingBanner ? (
-              <div key={item.id} style={{ minHeight: 250 }}>
+              <HeadingBanner key={item.id}>
                 <BannerItem>{item.title_fa}</BannerItem>
-                <img src={item.image_path} />
-              </div>
+                <img src={item.image_path} className="swiper-lazy" />
+              </HeadingBanner>
             ) : (
-              <img key={item.id} src={`${item.image_path}&size=${imageSize}`} />
+              <img
+                key={item.id}
+                src={`${item.image_path}&size=${imageSize}`}
+                className="swiper-lazy"
+              />
             ),
           )}
         </Swiper>

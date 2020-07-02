@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Banner from 'components/Banner';
 import Category from 'components/Category';
+import ErrorComponent from 'components/ErrorComponent';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
@@ -25,9 +26,7 @@ const JunkPage = () => {
   const [getHomePage] = useBindDispatch([getHomePageAction]);
 
   // redux state
-  const { loading, error, data } = useSelector(
-    state => state[HomePageKeyOnRedux] || initialState,
-  );
+  const { loading, error, data = [] } = useSelector(state => state[HomePageKeyOnRedux] || initialState);
 
   useEffect(() => {
     const pageId = 1;
@@ -41,23 +40,18 @@ const JunkPage = () => {
     console.log({ data });
   }, [data]);
 
+  console.log({ loading, error, data });
+
   return (
     <HomePageWrapper>
       {loading && <h4>loading...</h4>}
-      {error && (
-        <h4>
-          ERROR: <pre>{error}</pre>
-        </h4>
-      )}
-      {data.length > 0 &&
+      {error && <ErrorComponent message={error} />}
+      {data &&
+        data.length > 0 &&
         data.map((section, i) => (
           <SectionWrapper key={i}>
-            {section.type === 'banner' && (
-              <Banner index={i} {...section.data} />
-            )}
-            {section.type === 'category' && (
-              <Category index={i} {...section.data} />
-            )}
+            {section.type === 'banner' && <Banner index={i} {...section.data} />}
+            {section.type === 'category' && <Category index={i} {...section.data} />}
           </SectionWrapper>
         ))}
     </HomePageWrapper>

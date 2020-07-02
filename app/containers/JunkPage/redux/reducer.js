@@ -6,7 +6,7 @@ const HomePageReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case ERROR:
-        draft.error = action.payload;
+        draft.error = action.payload.error.message;
         return draft;
 
       case LOADING:

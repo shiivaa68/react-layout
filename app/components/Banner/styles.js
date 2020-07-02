@@ -5,6 +5,11 @@ export const BannerSection = styled.section`
   position: relative;
 `;
 
+export const HeadingBanner = styled.div`
+  position: 'relative';
+  min-height: 50vh;
+`;
+
 export const BannerItem = styled.div`
   width: 250px;
   height: 125px;
@@ -27,12 +32,13 @@ export const BannerItem = styled.div`
 export const BannerNavigators = styled.div`
   width: 100px;
   height: 46px;
+
   background-color: #807371;
   border-radius: 30px;
   position: absolute;
   z-index: 2;
   left: 2.5rem;
-  bottom: calc(1rem + 46px);
+  bottom: calc(3rem + 46px);
   display: flex;
   justify-content: space-evenly;
   align-items: center;

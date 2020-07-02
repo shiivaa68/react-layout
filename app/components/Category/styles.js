@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const CategorySection = styled.section`
   margin-bottom: 1rem;
@@ -23,7 +24,8 @@ export const Heading = styled.h3`
   margin: 0 0.3rem 0 0;
 `;
 
-export const ShowMore = styled.div`
+export const ShowMore = styled(Link)`
+  all: unset;
   color: var(--primary-light);
   font-size: 1rem;
   margin-left: 1rem;
@@ -32,6 +34,8 @@ export const ShowMore = styled.div`
   font-family: var(--primary-White-Color);
   padding: 0 1rem;
   cursor: pointer;
+  width: 85px;
+  align-items: center;
 `;
 
 export const CategoryBody = styled.div`

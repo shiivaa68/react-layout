@@ -27,9 +27,21 @@ function apiRequest({ url, method, data, headers = {} }) {
       return data;
     })
     .catch(error => {
-      console.log('ERROR FROM API CALL FAILURE', { error });
       const { message } = error;
-      return Promise.reject({ message });
+      console.log('ERROR FROM API CALL FAILURE', {
+        name: message,
+        error,
+      });
+
+      if (message === 'Network Error') {
+        return Promise.reject({
+          status: 400,
+          message: 'اینترنت خود را چک کنید',
+        });
+      }
+
+      const { message: errMessage } = error;
+      return Promise.reject({ message: errMessage });
     });
 }
 
