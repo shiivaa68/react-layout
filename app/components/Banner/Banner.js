@@ -1,12 +1,7 @@
 import React, { useRef, useMemo, useCallback } from 'react';
 import Swiper from 'react-id-swiper';
 
-import {
-  BannerSection,
-  HeadingBanner,
-  BannerItem,
-  BannerNavigators,
-} from './styles';
+import { BannerSection, HeadingBanner, BannerItem, BannerNavigators } from './styles';
 
 const Banner = ({ style, items = [], index }) => {
   const swpierRef = useRef(null);
@@ -53,7 +48,7 @@ const Banner = ({ style, items = [], index }) => {
         break;
 
       case 'quad':
-        opt.slidesPerView = 2;
+        opt.slidesPerView = 4;
         opt.spaceBetween = 10;
         // opt.slidesPerColumn = 2;
         break;
@@ -92,11 +87,7 @@ const Banner = ({ style, items = [], index }) => {
                 <img src={item.image_path} className="swiper-lazy" />
               </HeadingBanner>
             ) : (
-              <img
-                key={item.id}
-                src={`${item.image_path}&size=${imageSize}`}
-                className="swiper-lazy"
-              />
+              <img key={item.id} src={`${item.image_path}&size=${imageSize}`} className="swiper-lazy" />
             ),
           )}
         </Swiper>

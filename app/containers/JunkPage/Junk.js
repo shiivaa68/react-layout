@@ -36,11 +36,9 @@ const JunkPage = () => {
     getHomePage({ pageId, params });
   }, []);
 
-  useEffect(() => {
-    console.log({ data });
-  }, [data]);
-
-  console.log({ loading, error, data });
+  // useEffect(() => {
+  //   console.log({ data });
+  // }, [data]);
 
   return (
     <HomePageWrapper>
@@ -48,7 +46,7 @@ const JunkPage = () => {
       {error && <ErrorComponent message={error} />}
       {data &&
         data.length > 0 &&
-        data.map((section, i) => (
+        data.slice(0, 9).map((section, i) => (
           <SectionWrapper key={i}>
             {section.type === 'banner' && <Banner index={i} {...section.data} />}
             {section.type === 'category' && <Category index={i} {...section.data} />}

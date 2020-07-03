@@ -1,12 +1,25 @@
 import React, { useRef, useCallback, useMemo } from 'react';
 import Swiper from 'react-id-swiper';
 
-import { CategorySection, CategoryHeading, CategoryBody, Heading, ShowMore, FooterCategory, PrevButton, NextButton } from './styles';
+import CategoryItem from '../CategoryItem';
+
+import {
+  CategorySection,
+  CategoryHeading,
+  CategoryBody,
+  Heading,
+  ShowMore,
+  FooterCategory,
+  PrevButton,
+  NextButton,
+  CategoryItemContainer,
+} from './styles';
 
 const Category = ({ category, items }) => {
   const swpierRef = useRef(null);
 
-  const options = useMemo(() => {
+  /** SLIDER OPTIONS */
+  const SliderOptions = useMemo(() => {
     const opt = {};
 
     opt.lazy = true;
@@ -15,12 +28,6 @@ const Category = ({ category, items }) => {
 
     return opt;
   }, [category, items]);
-
-  const imageSize = useMemo(() => {
-    const { style } = category;
-    if (style === 'normal') return '216x331';
-    if (style === 'special') return '420x840';
-  }, [category]);
 
   const handleSliderPrev = useCallback(() => {
     if (swpierRef.current !== null && swpierRef.current.swiper !== null) {
@@ -45,18 +52,19 @@ const Category = ({ category, items }) => {
       </CategoryHeading>
       <CategoryBody>
         <PrevButton onClick={handleSliderPrev}>
-          <i className="fas fa-arrow-circle-left" />
+          <i className="fas fa-arrow-circle-right" />
         </PrevButton>
+
         {items.length > 0 && (
-          <Swiper {...options} ref={swpierRef}>
+          <Swiper {...SliderOptions} ref={swpierRef}>
             {items.map(item => (
-              <div key={item.id}>
-                <img width="100%" src={`${item.poster_path}?size=${imageSize}`} />
-                <FooterCategory>{item.title_fa}</FooterCategory>
-              </div>
+              <CategoryItemContainer key={item.id}>
+                <CategoryItem category={category} {...item} />
+              </CategoryItemContainer>
             ))}
           </Swiper>
         )}
+
         <NextButton onClick={handleSliderNext}>
           <i className="fas fa-arrow-circle-left" />
         </NextButton>

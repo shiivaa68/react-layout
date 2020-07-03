@@ -18,6 +18,10 @@ export const CategoryHeading = styled.div`
   padding: 0 1rem;
 `;
 
+export const CategoryItemContainer = styled.section`
+  position: relative;
+`;
+
 export const Heading = styled.h3`
   color: var(--primary-light);
   font-size: 1rem;
@@ -31,7 +35,7 @@ export const ShowMore = styled(Link)`
   margin-left: 1rem;
   display: flex;
   justify-content: space-between;
-  font-family: var(--primary-White-Color);
+  font-family: var(--primary-font-family);
   padding: 0 1rem;
   cursor: pointer;
   width: 85px;
@@ -41,9 +45,7 @@ export const ShowMore = styled(Link)`
 export const CategoryBody = styled.div`
   width: 100vw;
   position: relative;
-  & img {
-    border-radius: 10px;
-  }
+
   &:hover {
     & > button {
       opacity: 1;
@@ -63,11 +65,7 @@ export const PrevButton = styled.button`
   height: 100%;
   font-size: 1.425rem;
   color: var(--primary-light);
-  background: linear-gradient(
-    to left,
-    rgba(18, 18, 18, 1),
-    rgba(18, 18, 18, 0)
-  );
+  background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 `;
@@ -85,11 +83,7 @@ export const NextButton = styled.button`
   height: 100%;
   font-size: 1.425rem;
   color: var(--primary-light);
-  background: linear-gradient(
-    to right,
-    rgba(18, 18, 18, 1),
-    rgba(18, 18, 18, 0)
-  );
+  background: linear-gradient(to right, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   padding: 0 1rem;
@@ -103,5 +97,5 @@ export const FooterCategory = styled.p`
   vertical-align: middle;
   user-select: none;
   white-space: initial;
-  font-family: var(--primary-White-Color);
+  font-family: var(--primary-font-family);
 `;
