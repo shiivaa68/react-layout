@@ -2,6 +2,14 @@ import styled, { css } from 'styled-components';
 
 export const CategoryItemContainer = styled.section`
   position: relative;
+  top: 0;
+  transition: all 0.15s ease-in-out;
+
+  ${props =>
+    props.quickViewMode &&
+    css`
+      top: 1rem;
+    `}
 `;
 
 export const CategoryImage = styled.div`
@@ -61,4 +69,24 @@ export const ItemTitle = styled.p`
   user-select: none;
   white-space: initial;
   font-family: var(--primary-font-family);
+`;
+
+export const CategoryItemActiveNuddle = styled.div`
+  position: absolute;
+  bottom: -1rem;
+  height: 5px;
+  opacity: 0;
+  right: 50%;
+  transform: translateX(50%);
+  border-radius: 1rem;
+  width: calc(100% - 40%);
+  background-color: var(--primary-light);
+  transition: all 0.15s ease-in-out;
+
+  ${props =>
+    props.shouldShow &&
+    css`
+      bottom: -2rem;
+      opacity: 0.75;
+    `}
 `;

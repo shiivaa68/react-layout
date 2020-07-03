@@ -22,5 +22,5 @@ export const HomePageWrapper = styled.article`
 `;
 
 export const SectionWrapper = styled.article`
-  padding-bottom: 1rem;
+  padding: 1rem 0;
 `;

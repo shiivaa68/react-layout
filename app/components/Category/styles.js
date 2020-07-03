@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const CategorySection = styled.section`
@@ -89,13 +89,22 @@ export const NextButton = styled.button`
   padding: 0 1rem;
 `;
 
-export const FooterCategory = styled.p`
-  color: var(--primary-white);
-  cursor: pointer;
-  font-size: 1rem;
-  max-height: 3.58e;
-  vertical-align: middle;
-  user-select: none;
-  white-space: initial;
-  font-family: var(--primary-font-family);
+export const ActiveItemDescription = styled.section`
+  width: 100vw;
+  margin-top: 3rem;
+  height: 0;
+  position: relative;
+  top: 0rem;
+  background: var(--primary-light);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${props =>
+    props.shouldShow &&
+    css`
+      height: 425px;
+      top: 1rem;
+    `}
 `;
