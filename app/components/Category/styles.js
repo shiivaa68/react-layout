@@ -94,17 +94,23 @@ export const ActiveItemDescription = styled.section`
   margin-top: 3rem;
   height: 0;
   position: relative;
+  overflow: hidden;
   top: 0rem;
   background: var(--primary-light);
   transition: all 0.3s ease-in-out;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+
+  & pre {
+    font-size: 0.7rem;
+    direction: ltr;
+  }
 
   ${props =>
     props.shouldShow &&
     css`
       height: 425px;
       top: 1rem;
-    `}
+    `};
 `;

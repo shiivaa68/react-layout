@@ -10,7 +10,7 @@ import {
 
 const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
   const {
-    data: { category, activeItemId },
+    data: { category, activeItem },
     actions: { handleActiveItem },
   } = useCategoryContext();
 
@@ -37,12 +37,12 @@ const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
 
   /** HANDLERS */
   const toggleQuikView = useCallback(() => {
-    handleActiveItem(id);
-  }, [activeItemId]);
+    handleActiveItem({ id, poster_path, title_fa, ...rest });
+  }, [activeItem]);
 
   return (
     <>
-      <CategoryItemContainer onClick={toggleQuikView} quickViewMode={activeItemId === id}>
+      <CategoryItemContainer onClick={toggleQuikView} quickViewMode={activeItem && activeItem.id === id}>
         <CategoryImage>
           <img width="100%" src={`${poster_path}?size=${IMAGE_SIZE}`} />
 
@@ -58,7 +58,7 @@ const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
         {!isSpecialCategoryItem && <ItemTitle>{title_fa}</ItemTitle>}
       </CategoryItemContainer>
 
-      <CategoryItemActiveNuddle shouldShow={activeItemId === id} />
+      <CategoryItemActiveNuddle shouldShow={activeItem && activeItem.id === id} />
     </>
   );
 };

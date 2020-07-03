@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { withRouter } from 'react-router-dom';
 import Swiper from 'react-id-swiper';
 
 import CategoryContext from './context';
 import { CategoryItem } from './Components';
+import { PublicRoutes } from 'utils/routes';
 
 import {
   CategorySection,
@@ -16,10 +18,13 @@ import {
   ActiveItemDescription,
 } from './styles';
 
-const Category = ({ category, items }) => {
+const Category = ({ history, category, items }) => {
+  /** GETTING REQUIRED FUNCTION FROM WITH ROUTER */
+  const { push } = history;
+
   /** COMPONENTS STATES */
   const swpierRef = useRef(null);
-  const [activeItemId, setActiveItemId] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
 
   /** SLIDER OPTIONS */
   const SliderOptions = useMemo(() => {
@@ -46,15 +51,23 @@ const Category = ({ category, items }) => {
   }, []);
 
   const handleActiveItem = useCallback(
-    id => {
-      if (id === activeItemId) setActiveItemId(null);
-      else setActiveItemId(id);
+    selectedItem => {
+      if (activeItem && selectedItem.id === activeItem.id) setActiveItem(null);
+      else setActiveItem(selectedItem);
     },
-    [activeItemId],
+    [activeItem],
   );
 
+  /** ایتم اکتیو را میگیریم و ایز سریز را ازش میکشیم بیرون و از طریق اون تصمیم میگیریم که کجا بفرستیمش */
+  const handleNavigateToPage = useCallback(() => {
+    const { id, is_series } = activeItem;
+
+    if (is_series) push(PublicRoutes.serieDetailRoute(id));
+    else push(PublicRoutes.movieDetailRoute(id));
+  }, [activeItem]);
+
   return (
-    <CategoryContext.Provider value={{ data: { category, activeItemId }, actions: { handleActiveItem } }}>
+    <CategoryContext.Provider value={{ data: { category, activeItem }, actions: { handleActiveItem } }}>
       <CategorySection>
         <CategoryHeading>
           <Heading>{(!!category && category.name_fa) || ''}</Heading>
@@ -84,10 +97,16 @@ const Category = ({ category, items }) => {
           </NextButton>
         </CategoryBody>
 
-        <ActiveItemDescription shouldShow={Boolean(activeItemId)}>API_CALL_HERE</ActiveItemDescription>
+        <ActiveItemDescription shouldShow={!!activeItem}>
+          <div>
+            <h2>API_CALL_HERE</h2>
+            <button onClick={handleNavigateToPage}>MORE</button>
+          </div>
+          <pre>{JSON.stringify(activeItem, null, 2)}</pre>
+        </ActiveItemDescription>
       </CategorySection>
     </CategoryContext.Provider>
   );
 };
 
-export default Category;
+export default withRouter(Category);
