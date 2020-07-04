@@ -14,6 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import MoviesPage from 'containers/MoviesPage/Loadable';
 import SeriesPage from 'containers/SeriesPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import ListViewPage from 'containers/ListViewPage/Loadable';
 import JunkPage from 'containers/JunkPage/Loadable';
 import { HeaderMenus, FooterMenus } from 'routes';
 import { AppWrapper, MainWrapper } from './stylecomponent';
@@ -43,6 +44,7 @@ export default function App() {
             <Route path={RouterRoutes.junk} component={HomePage} />
             <Route path={RouterRoutes.movieDetailRoute} component={MoviesPage} />
             <Route path={RouterRoutes.serieDetailRoute} component={SeriesPage} />
+            <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </MainWrapper>

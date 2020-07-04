@@ -8,6 +8,8 @@ const getPage = id => `${baseURL}/pages/${id}`;
 const apiEndpoints = {
   getHomePage: (pageId, params) => `${getPage(pageId)}?${toUrlParams(params)}`,
   // getDetails: (pageId, categoryId, param) => `${getPage(pageId)}`
+
+  getListData: (categoryId, queryOptions) => `${baseURL}/movies/categories/${categoryId}?${toUrlParams(queryOptions)}`,
 };
 
 export default apiEndpoints;

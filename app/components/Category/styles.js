@@ -26,9 +26,11 @@ export const Heading = styled.h3`
   color: var(--primary-light);
   font-size: 1rem;
   margin: 0 0.3rem 0 0;
+  cursor: pointer;
+  user-select: none;
 `;
 
-export const ShowMore = styled(Link)`
+export const ShowMore = styled.button`
   all: unset;
   color: var(--primary-light);
   font-size: 1rem;
@@ -40,6 +42,7 @@ export const ShowMore = styled(Link)`
   cursor: pointer;
   width: 85px;
   align-items: center;
+  user-select: none;
 `;
 
 export const CategoryBody = styled.div`

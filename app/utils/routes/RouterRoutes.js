@@ -9,6 +9,7 @@ const RouterRoutes = {
   junk: '/junk',
   movieDetailRoute: '/movies/:movieId',
   serieDetailRoute: '/series/:serieId',
+  listViewRoute: '/list',
 };
 
 export default RouterRoutes;

@@ -66,12 +66,17 @@ const Category = ({ history, category, items }) => {
     else push(PublicRoutes.movieDetailRoute(id));
   }, [activeItem]);
 
+  const handleNavigateToListView = useCallback(() => {
+    const { id, item_sort, sort_type } = category;
+    push(PublicRoutes.listViewRoute({ id, item_sort, sort_type }));
+  }, []);
+
   return (
     <CategoryContext.Provider value={{ data: { category, activeItem }, actions: { handleActiveItem } }}>
       <CategorySection>
         <CategoryHeading>
-          <Heading>{(!!category && category.name_fa) || ''}</Heading>
-          <ShowMore to="/detail">
+          <Heading onClick={handleNavigateToListView}>{(!!category && category.name_fa) || ''}</Heading>
+          <ShowMore onClick={handleNavigateToListView}>
             <span>نمایش همه</span>
             <i className="fas fa-angle-double-left" />
           </ShowMore>
