@@ -1,6 +1,6 @@
 import produce from 'immer';
 import initialState from './initialState';
-import { ERROR, LOADING, UPDATE_LIST_DATA } from './constants';
+import { ERROR, LOADING, UPDATE_LIST_DATA, RESET_LIST_DATA } from './constants';
 
 const ListViewReducer = (state = initialState, action) =>
   produce(state, draft => {
@@ -14,7 +14,12 @@ const ListViewReducer = (state = initialState, action) =>
         return draft;
 
       case UPDATE_LIST_DATA:
-        draft.data = action.payload[0];
+        draft.data.category = action.payload[0].data.category;
+        draft.data.items = [...draft.data.items, ...action.payload[0].data.items];
+        return draft;
+
+      case RESET_LIST_DATA:
+        draft.data = action.payload.data;
         return draft;
     }
   });

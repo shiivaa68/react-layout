@@ -1,7 +1,10 @@
 const initialState = {
   loading: false,
   error: false,
-  data: {},
+  data: {
+    category: {},
+    items: [],
+  },
 };
 
 export default initialState;

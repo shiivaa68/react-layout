@@ -1,4 +1,4 @@
-import { ERROR, LOADING, GET_LIST_DATA, UPDATE_LIST_DATA } from './constants';
+import { ERROR, LOADING, GET_LIST_DATA, UPDATE_LIST_DATA, RESET_LIST_DATA } from './constants';
 
 export function loadingAction(loadingStatus) {
   return {
@@ -25,5 +25,12 @@ export function updateListDataAction(data) {
   return {
     type: UPDATE_LIST_DATA,
     payload: data,
+  };
+}
+
+export function resetListDataAction(initialState) {
+  return {
+    type: RESET_LIST_DATA,
+    payload: initialState,
   };
 }

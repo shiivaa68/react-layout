@@ -1,5 +1,4 @@
-import styled ,{css} from 'styled-components';
-
+import styled, { css } from 'styled-components';
 
 // Card.defaultProps = {
 //   hasShadow: true,
@@ -13,58 +12,26 @@ import styled ,{css} from 'styled-components';
 //   hasAnimation: true,
 // };
 
-const styledCard = styled.div`
-${props => props.width?css`
-width:${props.width};
-`:null
-};
+export const CardItemContainer = styled.section`
+  background: var(--primary-light);
+  font-size: 1rem;
+  border-radius: 0.625em;
+  padding: 0.8em;
 
-${props =>
+  ${props =>
+    props.width
+      ? css`
+          width: ${props.width};
+        `
+      : css`
+          width: 200px;
+        `}
+  ${props =>
     props.height
       ? css`
           height: ${props.height};
         `
-      : null};
-      ${props =>
-    props.hasShadow
-      ? css`
-          box-shadow: ${props =>
-            props.sliderShadow ? red : blue};
-        `
-      : null};
-  border-radius: ${props => (props.hasRadius ? props.radius : 0)};
-  ${props =>
-    props.hasAnimation
-      ? css`
-          transition: all 0.5s;
-        `
-      : null};
-
-  background-color: red;
-  ${props =>
-    props.hasBorder
-      ? css`
-          border: 1px ${props.borderStyle} ${color};
-        `
-      : null};
-
-  &:hover {
-    ${props =>
-      props.hasShadow
-        ? css`
-            box-shadow: ${props =>
-              props.sliderShadow
-                ? orange
-                : purple};
-          `
-        : null};
-    ${props =>
-      props.hoverType
-        ? css`
-            background-color: ${color};
-          `
-        : null};
-  }
+      : css`
+          height: 300px;
+        `}
 `;
-
-export default styledCard;

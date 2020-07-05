@@ -1,5 +1,5 @@
 const globalConfigs = {
-  pageLimit: 20,
+  pageLimit: 10,
   apiTimeout: 10,
   debounceDelay: 750,
   // ...

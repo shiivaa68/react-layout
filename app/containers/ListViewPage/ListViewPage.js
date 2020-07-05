@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
+import { Waypoint } from 'react-waypoint';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
-import { ListViewContainer } from './style';
-
 import ListViewReducer from './redux/reducer';
 import ListViewSaga from './redux/saga';
 import initialState from './redux/initialState';
-import { getListDataAction } from './redux/actions';
+import { getListDataAction, resetListDataAction } from './redux/actions';
 
 import globalConfigs from 'utils/globalConfigs';
+import { MovieItem } from 'components/kit';
+
+import { ListViewLayout, Title, ListWrapper, WayPointArea } from './style';
 
 const ListViewKeyOnRedux = 'ListView';
 
@@ -23,37 +25,62 @@ const ListViewPage = ({ location }) => {
   useInjectSaga({ key: ListViewKeyOnRedux, saga: ListViewSaga });
 
   // local states
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   // bounded redux actions
-  const [getListData] = useBindDispatch([getListDataAction]);
+  const [getListData, resetListData] = useBindDispatch([getListDataAction, resetListDataAction]);
 
   // redux store
   const { loading, error, data = {} } = useSelector(state => state[ListViewKeyOnRedux] || initialState);
 
   // did mount
   useEffect(() => {
+    // getNextPage(page);
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
+
+  /** requestPage api Call */
+  const getNextPage = useCallback(() => {
+    /** INCREMENT PAGE */
+    const newPageIndex = page + 1;
+    setPage(newPageIndex);
+
+    /** get Default parametrs */
     const { pageLimit } = globalConfigs;
 
+    /** make query String */
     const { search } = location;
     const parsedQueryString = qs.parse(search.slice(1));
 
-    getListData({ pageLimit, page, parsedQueryString });
-
-    window.scrollTo({ top: 0, left: 0 });
+    getListData({ pageLimit, page: newPageIndex, parsedQueryString });
   }, [page]);
 
+  const handleNextPage = useCallback(() => {
+    const nextPageIndex = page + 1;
+    getNextPage(nextPageIndex);
+  }, [page]);
+
+  /** COMPONENT WILL UNMOUNT */
   useEffect(() => {
-    console.log({ loading, error, data });
-  }, [loading, error, data]);
+    return () => {
+      console.log('I AM UNMOUNTED');
+      resetListData(initialState);
+    };
+  }, []);
 
   return (
-    <ListViewContainer>
-      {data &&
-        data.data &&
-        data.data.items.length > 0 &&
-        data.data.items.map(item => <h3 key={item.id}>{item.title_fa}</h3>)}
-    </ListViewContainer>
+    <ListViewLayout>
+      <Title>{data.data && data.data.category && data.data.category.name_fa}</Title>
+
+      <ListWrapper>
+        {data && data.items.length > 0 && data.items.map(item => <MovieItem key={item.id} {...item} />)}
+      </ListWrapper>
+
+      <WayPointArea>
+        WAY_POINT_AREA
+        <Waypoint onEnter={handleNextPage} />
+      </WayPointArea>
+    </ListViewLayout>
   );
 };
 

@@ -1,13 +1,8 @@
 import React from 'react';
-import { styledCard } from './styles';
+import { CardItemContainer } from './styles';
 
-const Card = props => {
-  const { children, hasShadow, hasRadius, hasBorder, ...restProps } = props;
-  return (
-    <styledCard hasShadow={hasShadow} hasRadius={hasRadius} hasBorder={hasBorder} {...restProps}>
-      {children}
-    </styledCard>
-  );
+const Card = ({ children, hasShadow, hasRadius, hasBorder, ...restProps }) => {
+  return <CardItemContainer>{children}</CardItemContainer>;
 };
 
 export default Card;
