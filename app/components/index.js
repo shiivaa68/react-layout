@@ -1,2 +1,9 @@
 export { default as Banner } from './Banner';
 export { default as Category } from './Category';
+export { default as Movie } from './Movie';
+export { default as HeadingCover } from './HeadingCover';
+export { default as Casts } from './Casts';
+export { default as MovieDetail } from './MovieDetail';
+export { default as Suggestions } from './Suggestions';
+export { default as Comments } from './Comments';
+export { default as ScreenShots } from './ScreenShots';

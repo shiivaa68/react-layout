@@ -19,6 +19,12 @@ const Button = ({ type, label, onClick }) => {
         options.text_only = true;
         break;
 
+      case ButtonTypes.FULLFILL:
+        options.fullfill = true;
+        break;
+
+      case ButtonTypes.OUTFILL:
+        options.outfill = true;
         break;
     }
     return options;

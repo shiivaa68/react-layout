@@ -21,7 +21,6 @@ export const Image = styled.div`
   justify-content: center;
   align-items: flex-start;
   background-color: var(--primary-light);
-
   & > img {
     width: 100%;
   }

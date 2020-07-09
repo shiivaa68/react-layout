@@ -1,7 +1,9 @@
 import React from 'react';
 
-const Suggestions = props => {
-  return <section>Suggestions_COMPONENT</section>;
-};
+const Comments = () => (
+  <section>
+    <h1>here is commnet</h1>
+  </section>
+);
 
-export default Suggestions;
+export default Comments;

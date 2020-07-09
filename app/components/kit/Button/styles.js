@@ -28,4 +28,33 @@ export const ButtonComponent = styled.button`
         color: var(--dim-blue);
       }
     `}
+
+    ${props =>
+      props.fullfill &&
+      css`
+        font-size: 1rem;
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+
+        &:hover {
+          background-color: var(--dark-blue);
+          color: var(--primary-light);
+        }
+      `}
+      ${props =>
+        props.outfill &&
+        css`
+          font-size: 1rem;
+          border: 1px solid var(--primary-light);
+
+          &:hover {
+            background-color: var(--dark-blue);
+            color: var(--primary-light);
+            border: 1px solid var(--dark-blue);
+          }
+        `}
+
+
+
+
 `;

@@ -4,7 +4,6 @@ export const CategoryItemContainer = styled.section`
   position: relative;
   top: 0;
   transition: all 0.15s ease-in-out;
-
   ${props =>
     props.quickViewMode &&
     css`
@@ -31,7 +30,6 @@ export const CategoryItemHoverDetails = styled.div`
       padding: 1rem;
       opacity: 0;
       transition: all 0.3s ease-in-out;
-
       & > h3 {
         color: var(--primary-light);
         position: absolute;
@@ -39,11 +37,9 @@ export const CategoryItemHoverDetails = styled.div`
         bottom: 1rem;
         z-index: 2;
       }
-
       &:hover {
         opacity: 1;
       }
-
       &:after {
         content: '';
         z-index: 1;
@@ -55,7 +51,11 @@ export const CategoryItemHoverDetails = styled.div`
         width: 100%;
         height: 100%;
         pointer-events: none;
-        background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 1),
+          rgba(0, 0, 0, 0.5)
+        );
       }
     `}
 `;
@@ -82,7 +82,6 @@ export const CategoryItemActiveNuddle = styled.div`
   width: calc(100% - 40%);
   background-color: var(--primary-light);
   transition: all 0.15s ease-in-out;
-
   ${props =>
     props.shouldShow &&
     css`

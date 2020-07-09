@@ -26,8 +26,6 @@ export const Heading = styled.h3`
   color: var(--primary-light);
   font-size: 1rem;
   margin: 0 0.3rem 0 0;
-  cursor: pointer;
-  user-select: none;
 `;
 
 export const ShowMore = styled.button`
@@ -42,13 +40,11 @@ export const ShowMore = styled.button`
   cursor: pointer;
   width: 85px;
   align-items: center;
-  user-select: none;
 `;
 
 export const CategoryBody = styled.div`
   width: 100vw;
   position: relative;
-
   &:hover {
     & > button {
       opacity: 1;
@@ -68,7 +64,11 @@ export const PrevButton = styled.button`
   height: 100%;
   font-size: 1.425rem;
   color: var(--primary-light);
-  background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+  background: linear-gradient(
+    to left,
+    rgba(18, 18, 18, 1),
+    rgba(18, 18, 18, 0)
+  );
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 `;
@@ -86,7 +86,11 @@ export const NextButton = styled.button`
   height: 100%;
   font-size: 1.425rem;
   color: var(--primary-light);
-  background: linear-gradient(to right, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+  background: linear-gradient(
+    to right,
+    rgba(18, 18, 18, 1),
+    rgba(18, 18, 18, 0)
+  );
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   padding: 0 1rem;
@@ -96,8 +100,8 @@ export const ActiveItemDescription = styled.section`
   width: 100vw;
   margin-top: 3rem;
   height: 0;
-  position: relative;
   overflow: hidden;
+  position: relative;
   top: 0rem;
   background: var(--primary-light);
   transition: all 0.3s ease-in-out;
@@ -109,11 +113,10 @@ export const ActiveItemDescription = styled.section`
     font-size: 0.7rem;
     direction: ltr;
   }
-
   ${props =>
     props.shouldShow &&
     css`
       height: 425px;
       top: 1rem;
-    `};
+    `}
 `;

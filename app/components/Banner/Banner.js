@@ -1,15 +1,19 @@
 import React, { useRef, useMemo, useCallback } from 'react';
 import Swiper from 'react-id-swiper';
 
-import { BannerSection, HeadingBanner, BannerItem, BannerNavigators } from './styles';
+import {
+  BannerSection,
+  BannerNavigators,
+  HeadingBanner,
+} from './styles';
 
-const Banner = ({ style, items = [], index }) => {
+const Banner = ({ style, items = [] }) => {
   const swpierRef = useRef(null);
 
   const isHeadingBanner = useMemo(() => {
     const { type } = style;
-    return type === 'full' && index === 0;
-  }, [style, index]);
+    return type === 'full';
+  }, [style]);
 
   const imageSize = useMemo(() => {
     const { type } = style;
@@ -50,7 +54,6 @@ const Banner = ({ style, items = [], index }) => {
       case 'quad':
         opt.slidesPerView = 4;
         opt.spaceBetween = 10;
-        // opt.slidesPerColumn = 2;
         break;
 
       default:
@@ -83,11 +86,15 @@ const Banner = ({ style, items = [], index }) => {
           {items.map(item =>
             isHeadingBanner ? (
               <HeadingBanner key={item.id}>
-                <BannerItem>{item.title_fa}</BannerItem>
+                {/* <BannerItem>{item.title_fa}</BannerItem> */}
                 <img src={item.image_path} className="swiper-lazy" />
               </HeadingBanner>
             ) : (
-              <img key={item.id} src={`${item.image_path}&size=${imageSize}`} className="swiper-lazy" />
+              <img
+                key={item.id}
+                src={`${item.image_path}&size=${imageSize}`}
+                className="swiper-lazy"
+              />
             ),
           )}
         </Swiper>
@@ -96,10 +103,10 @@ const Banner = ({ style, items = [], index }) => {
       {isHeadingBanner && (
         <BannerNavigators>
           <button onClick={handlePrevSlide}>
-            <i className="fas fa-angle-right" />
+            <i className="fas fa-chevron-right" />
           </button>
           <button onClick={handleNextSlide}>
-            <i className="fas fa-angle-left" />
+            <i className="fas fa-chevron-left" />
           </button>
         </BannerNavigators>
       )}

@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useRef, useCallback, useMemo, useState, useEffect } from 'react';
 import Swiper from 'react-id-swiper';
-
-import CategoryContext from './context';
-import { CategoryItem } from './Components';
+import { withRouter } from 'react-router-dom';
 import { PublicRoutes } from 'utils/routes';
+import CategoryItem from '../CategoryItem';
+import CategoryContext from './context';
 
 import {
   CategorySection,
@@ -19,10 +18,8 @@ import {
 } from './styles';
 
 const Category = ({ history, category, items }) => {
-  /** GETTING REQUIRED FUNCTION FROM WITH ROUTER */
   const { push } = history;
 
-  /** COMPONENTS STATES */
   const swpierRef = useRef(null);
   const [activeItem, setActiveItem] = useState(null);
 
@@ -37,7 +34,6 @@ const Category = ({ history, category, items }) => {
     return opt;
   }, [category, items]);
 
-  /** HANDLERS */
   const handleSliderPrev = useCallback(() => {
     if (swpierRef.current !== null && swpierRef.current.swiper !== null) {
       swpierRef.current.swiper.slidePrev();
@@ -50,6 +46,11 @@ const Category = ({ history, category, items }) => {
     }
   }, []);
 
+  const handleNavigateToListView = useCallback(() => {
+    const { id, item_sort, sort_type } = category;
+    push(PublicRoutes.listViewRoute({ category_id: id, item_sort, sort_type }));
+  }, []);
+
   const handleActiveItem = useCallback(
     selectedItem => {
       if (activeItem && selectedItem.id === activeItem.id) setActiveItem(null);
@@ -58,18 +59,11 @@ const Category = ({ history, category, items }) => {
     [activeItem],
   );
 
-  /** ایتم اکتیو را میگیریم و ایز سریز را ازش میکشیم بیرون و از طریق اون تصمیم میگیریم که کجا بفرستیمش */
   const handleNavigateToPage = useCallback(() => {
     const { id, is_series } = activeItem;
-
     if (is_series) push(PublicRoutes.serieDetailRoute(id));
     else push(PublicRoutes.movieDetailRoute(id));
   }, [activeItem]);
-
-  const handleNavigateToListView = useCallback(() => {
-    const { id, item_sort, sort_type } = category;
-    push(PublicRoutes.listViewRoute({ id, item_sort, sort_type }));
-  }, []);
 
   return (
     <CategoryContext.Provider value={{ data: { category, activeItem }, actions: { handleActiveItem } }}>
@@ -81,7 +75,6 @@ const Category = ({ history, category, items }) => {
             <i className="fas fa-angle-double-left" />
           </ShowMore>
         </CategoryHeading>
-
         <CategoryBody>
           <PrevButton onClick={handleSliderPrev}>
             <i className="fas fa-arrow-circle-right" />
@@ -91,7 +84,7 @@ const Category = ({ history, category, items }) => {
             <Swiper {...SliderOptions} ref={swpierRef}>
               {items.map(item => (
                 <CategoryItemContainer key={item.id}>
-                  <CategoryItem {...item} />
+                  <CategoryItem category={category} {...item} />
                 </CategoryItemContainer>
               ))}
             </Swiper>
@@ -101,12 +94,11 @@ const Category = ({ history, category, items }) => {
             <i className="fas fa-arrow-circle-left" />
           </NextButton>
         </CategoryBody>
-
         <ActiveItemDescription shouldShow={!!activeItem}>
           <div>
-            <h2>API_CALL_HERE</h2>
-            <button onClick={handleNavigateToPage}>MORE</button>
+            <button onClick={handleNavigateToPage}>more.....</button>
           </div>
+
           <pre>{JSON.stringify(activeItem, null, 2)}</pre>
         </ActiveItemDescription>
       </CategorySection>

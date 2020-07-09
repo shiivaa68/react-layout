@@ -9,6 +9,7 @@ const GlobalTheme = createGlobalStyle`
         --primary-light: #ffffff;
         --dim-blue: #6eb8ff;
         --primary-white:#FFFFFF;
+        --dark-blue:#2990EB;
         --blue: blue;
 
 

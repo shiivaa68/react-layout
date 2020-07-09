@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import HeadingCover from 'components/HeadingCover';
-import MovieDetail from 'components/MovieDetail';
-import Casts from 'components/Casts';
-import Suggestions from 'components/Suggestions';
-import Comments from 'components/Comments';
+
+import MovieDetail from 'Components/MovieDetail';
+import Casts from 'Components/Casts';
+import Suggestions from 'Components/Suggestions';
+import Comments from 'Components/Comments';
+import ScreenShots from 'Components/ScreenShots';
 
 import { useSelector } from 'react-redux';
 
@@ -31,7 +32,6 @@ const MoviesPage = ({ match }) => {
   useEffect(() => {
     const id = match.params.movieId;
     getMoviesPage({ id });
-
     window.scrollTo({ top: 0, left: 0 });
   }, []);
 
@@ -41,15 +41,11 @@ const MoviesPage = ({ match }) => {
 
   return (
     <MoviesContainer>
-      <HeadingCover type="MOVIE" {...data} />
+      {/* <ScreenShots {...data} /> */}
       <MovieDetail />
-      <Casts casts={data.casts || []} />
+      {/* <Casts casts={data.casts || []} /> */}
       <Suggestions />
       <Comments />
-      {/* 
-      <h2>MOVIES_PAGE</h2>
-      <h3>MOVIE ID:{match.params.movieId}</h3>
-      <h3>title_fa: {data && data.title_fa}</h3> */}
     </MoviesContainer>
   );
 };

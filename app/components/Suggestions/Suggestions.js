@@ -1,7 +1,9 @@
 import React from 'react';
 
-const Suggestions = props => {
-  return <section>Suggestions_COMPONENT</section>;
-};
+const Suggestions = props => (
+  <section>
+    <h1> suggestion -section</h1>
+  </section>
+);
 
 export default Suggestions;

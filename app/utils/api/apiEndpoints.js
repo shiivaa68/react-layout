@@ -1,7 +1,7 @@
 import { toUrlParams } from './toUrlParams';
 
-// const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
-const baseURL = 'https://api.tamashakhoneh.ir/v3';
+const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
+// const baseURL = 'https://api.tamashakhoneh.ir/v3';
 
 const apiEndpoints = {
   getHomePage: (pageId, params) => `${baseURL}/pages/${pageId}?${toUrlParams(params)}`,
