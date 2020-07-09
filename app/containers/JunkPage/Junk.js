@@ -15,6 +15,8 @@ import { getHomePageAction } from './redux/actions';
 import initialState from './redux/initialState';
 import { HomePageWrapper, SectionWrapper } from './styles';
 
+import { getRolesAction } from 'containers/App/actions';
+
 const HomePageKeyOnRedux = 'HomePage';
 
 const JunkPage = () => {
@@ -23,7 +25,7 @@ const JunkPage = () => {
   useInjectSaga({ key: HomePageKeyOnRedux, saga: HomePageSaga });
 
   // bounded redux actions
-  const [getHomePage] = useBindDispatch([getHomePageAction]);
+  const [getHomePage, getRoles] = useBindDispatch([getHomePageAction, getRolesAction]);
 
   // redux state
   const { loading, error, data = [] } = useSelector(state => state[HomePageKeyOnRedux] || initialState);
@@ -34,6 +36,8 @@ const JunkPage = () => {
       is_complete: true,
     };
     getHomePage({ pageId, params });
+
+    getRoles();
   }, []);
 
   // useEffect(() => {

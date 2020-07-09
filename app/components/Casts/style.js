@@ -10,7 +10,7 @@ export const CastWrapper = styled.section`
   margin: 2re;
 `;
 
-export const container = styled.div`
+export const Container = styled.div`
   display: block;
   vertical-align: middle;
 `;

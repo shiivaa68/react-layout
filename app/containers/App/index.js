@@ -20,6 +20,7 @@ import { HeaderMenus, FooterMenus } from 'routes';
 import { AppWrapper, MainWrapper } from './stylecomponent';
 import { Header, Footer } from './component';
 import { RouterRoutes } from 'utils/routes';
+import SimpleReactLightbox from 'simple-react-lightbox';
 
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
@@ -32,27 +33,29 @@ import { MenuContext } from './context';
 export default function App() {
   return (
     <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
-      <AppWrapper>
-        <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
-          <meta name="description" content="A React.js Boilerplate application" />
-        </Helmet>
-        <Header />
+      <SimpleReactLightbox>
+        <AppWrapper>
+          <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
+            <meta name="description" content="A React.js Boilerplate application" />
+          </Helmet>
+          <Header />
 
-        <MainWrapper>
-          <Switch>
-            <Route exact path={RouterRoutes.home} component={JunkPage} />
-            <Route path={RouterRoutes.junk} component={HomePage} />
-            <Route path={RouterRoutes.movieDetailRoute} component={MoviesPage} />
-            <Route path={RouterRoutes.serieDetailRoute} component={SeriesPage} />
-            <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </MainWrapper>
+          <MainWrapper>
+            <Switch>
+              <Route exact path={RouterRoutes.home} component={JunkPage} />
+              <Route path={RouterRoutes.junk} component={HomePage} />
+              <Route path={RouterRoutes.movieDetailRoute} component={MoviesPage} />
+              <Route path={RouterRoutes.serieDetailRoute} component={SeriesPage} />
+              <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </MainWrapper>
 
-        <Footer />
-        <GlobalTheme />
-        <GlobalStyle />
-      </AppWrapper>
+          <Footer />
+          <GlobalTheme />
+          <GlobalStyle />
+        </AppWrapper>
+      </SimpleReactLightbox>
     </MenuContext.Provider>
   );
 }

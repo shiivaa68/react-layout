@@ -1,24 +1,15 @@
 import styled from 'styled-components';
 
 export const ScreenShotWrapper = styled.section`
+  min-height: 300px;
   position: relative;
   display: flex;
-justify-content:flex-start;
-// align-item:center;
-
+  justify-content: flex-start;
+  flex-direction: column;
+  z-index: 1;
 `;
 
-export const screen = styled.div`
-  margin: 0.5em;
-  overflow: hidden;
-  border-radius: 0.5em;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-
-  & > img {
-    width: 50px;
-    height:50px
-    border-radius: 50%;
-  }
+export const Title = styled.h3`
+  width: 100%;
+  margin: 2rem 0;
 `;
