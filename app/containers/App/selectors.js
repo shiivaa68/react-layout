@@ -3,7 +3,7 @@
  */
 
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
+import initialState from './initialState';
 
 const selectGlobal = state => state.global || initialState;
 
@@ -39,11 +39,4 @@ const makeSelectLocation = () =>
     routerState => routerState.location,
   );
 
-export {
-  selectGlobal,
-  makeSelectCurrentUser,
-  makeSelectLoading,
-  makeSelectError,
-  makeSelectRepos,
-  makeSelectLocation,
-};
+export { selectGlobal, makeSelectCurrentUser, makeSelectLoading, makeSelectError, makeSelectRepos, makeSelectLocation };

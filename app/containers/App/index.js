@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
@@ -22,6 +22,14 @@ import { Header, Footer } from './component';
 import { RouterRoutes } from 'utils/routes';
 import SimpleReactLightbox from 'simple-react-lightbox';
 
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+import { useBindDispatch } from 'utils/redux/useBindDispatch';
+
+import GlobalReducer from './reducer';
+import GlobalSaga from './saga';
+import { getRolesAction } from './actions';
+
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
 import '../../font_icon.css';
@@ -30,7 +38,20 @@ import '../../react-id-swiper.css';
 
 import { MenuContext } from './context';
 
+const globalKeyOnRedux = 'global';
+
 export default function App() {
+  /** injectors */
+  useInjectReducer({ key: globalKeyOnRedux, reducer: GlobalReducer });
+  useInjectSaga({ key: globalKeyOnRedux, saga: GlobalSaga });
+
+  const [getRoles] = useBindDispatch([getRolesAction]);
+
+  useEffect(() => {
+    console.log('APP_MOUNTED');
+    getRoles();
+  }, []);
+
   return (
     <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
       <SimpleReactLightbox>

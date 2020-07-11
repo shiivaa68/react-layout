@@ -15,7 +15,7 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR, GET_ROLES } from './constants';
+import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR, GET_ROLES, UPDATE_ROLES } from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -58,8 +58,16 @@ export function repoLoadingError(error) {
   };
 }
 
+/** ROLES */
 export function getRolesAction() {
   return {
     type: GET_ROLES,
+  };
+}
+
+export function updateRolesAction(data) {
+  return {
+    type: UPDATE_ROLES,
+    payload: { data },
   };
 }

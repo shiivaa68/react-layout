@@ -12,4 +12,9 @@
 export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
 export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+
+/** ROLES */
 export const GET_ROLES = 'SH/GLOBAL/GET_ROLES';
+export const UPDATE_ROLES = 'SH/GLOBAL/UPDATE_ROLES';
+
+/** VOICERS */

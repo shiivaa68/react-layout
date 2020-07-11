@@ -29,6 +29,7 @@ const MoviesPage = ({ match }) => {
   const [getMoviesPage] = useBindDispatch([getMoviesAction]);
 
   const { loading, error, data = [] } = useSelector(state => state[MoviesPageKeyOnRedux] || initialState);
+  const { rols = [] } = useSelector(state => state.global);
 
   useEffect(() => {
     const id = match.params.movieId;
@@ -40,12 +41,16 @@ const MoviesPage = ({ match }) => {
   //   console.log({ data });
   // }, [data]);
 
+  // useEffect(() => {
+  //   console.log({ rols });
+  // }, [rols]);
+
   return (
     <MoviesContainer>
       <HeadingCover type="MOVIE" {...data} />
       <ScreenShots {...data} />
       <MovieDetail />
-      <Casts casts={data.casts || []} />
+      <Casts casts={data.casts || []} rols={rols} />
       <MovieSuggestions movieId={match.params.movieId} />
       <Comments />
     </MoviesContainer>

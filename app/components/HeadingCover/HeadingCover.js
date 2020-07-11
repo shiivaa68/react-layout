@@ -31,7 +31,10 @@ const HeadingCover = ({
       <CoverImage src={coverImage} />
 
       <CoverDetails>
-        <Title>{title_fa}</Title>
+        {type === 'MOVIE' && <Title>{title_fa}</Title>}
+        {/* {type === 'SERIE' && <TitleRED>{title_fa}</TitleRED>} */}
+        {/* {type === 'DOCUMENTARY' && <TitleGREEN>{title_fa}</TitleGREEN>} */}
+        {/* {type === 'SERIE' && <PlayWithOldPlayer />} */}
         <MovieInformation>
           <div>
             <span>{publish_date}</span>
