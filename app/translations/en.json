@@ -1,4 +1,6 @@
 {
+  "boilerplate.components.Casts.subtitle": "",
+  "boilerplate.components.EpisodeControl.title": "",
   "boilerplate.components.Footer.author.message": "Made with love by {author}.",
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.buyPkg": "",
@@ -7,8 +9,14 @@
   "boilerplate.components.Header.home": "Home",
   "boilerplate.components.Header.login_signup": "",
   "boilerplate.components.Header.series": "",
-  "boilerplate.components.HeadingCover.download": "",
+  "boilerplate.components.HeadingCover.double": "",
+  "boilerplate.components.HeadingCover.genres": "",
+  "boilerplate.components.HeadingCover.movie_length": "",
   "boilerplate.components.HeadingCover.playFilm": "",
+  "boilerplate.components.HeadingCover.quality": "",
+  "boilerplate.components.HeadingCover.review": "",
+  "boilerplate.components.HeadingCover.rewards": "",
+  "boilerplate.components.HeadingCover.subtitle": "",
   "boilerplate.components.Menus.AboutUs": "",
   "boilerplate.components.Menus.Application": "",
   "boilerplate.components.Menus.Blog": "",
@@ -22,7 +30,8 @@
   "boilerplate.components.Menus.home": "",
   "boilerplate.components.Menus.messageAboutTamashakhaneh": "",
   "boilerplate.components.Menus.series": "",
-  "boilerplate.components.movielightbox.title": "",
+  "boilerplate.components.ScreenShots.title": "",
+  "boilerplate.components.category.moreDetail": "",
   "boilerplate.containers.FeaturePage.css.header": "Features",
   "boilerplate.containers.FeaturePage.css.message": "Next generation CSS",
   "boilerplate.containers.FeaturePage.feedback.header": "Instant feedback",
@@ -47,5 +56,7 @@
   "boilerplate.containers.HomePage.tryme.message": "Show Github repositories by",
   "boilerplate.containers.LocaleToggle.de": "de",
   "boilerplate.containers.LocaleToggle.en": "en",
-  "boilerplate.containers.NotFoundPage.header": "Page not found."
+  "boilerplate.containers.MovieSuggestions.title": "",
+  "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.SerieSuggestions.title": ""
 }

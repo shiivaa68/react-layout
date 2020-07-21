@@ -1,4 +1,10 @@
-import { ERROR, LOADING, GET_LIST_DATA, UPDATE_LIST_DATA, RESET_LIST_DATA } from './constants';
+import {
+  ERROR,
+  LOADING,
+  GET_LIST_DATA,
+  UPDATE_LIST_DATA,
+  RESET_LIST_DATA,
+} from './constants';
 
 export function loadingAction(loadingStatus) {
   return {

@@ -9,18 +9,22 @@ export const ButtonComponent = styled.button`
   margin: 0 0.5rem;
   padding: 0.625em 1.5em;
   border-radius: 0.25em;
-
+  transition: all 0.3s ease-in-out;
   ${props =>
     props.outlined &&
     css`
       border: 1px solid var(--primary-light);
-
       &:hover {
         background-color: var(--primary-light);
         color: var(--primary-dark);
       }
     `}
-
+  ${props =>
+    props.keepActive &&
+    css`
+      background-color: var(--dark-blue) !important;
+      color: var(--primary-light) !important;
+    `}
   ${props =>
     props.text_only &&
     css`
@@ -28,14 +32,12 @@ export const ButtonComponent = styled.button`
         color: var(--dim-blue);
       }
     `}
-
     ${props =>
       props.fullfill &&
       css`
         font-size: 1rem;
         background-color: var(--primary-light);
         color: var(--primary-dark);
-
         &:hover {
           background-color: var(--dark-blue);
           color: var(--primary-light);
@@ -46,15 +48,10 @@ export const ButtonComponent = styled.button`
         css`
           font-size: 1rem;
           border: 1px solid var(--primary-light);
-
           &:hover {
             background-color: var(--dark-blue);
             color: var(--primary-light);
             border: 1px solid var(--dark-blue);
           }
         `}
-
-
-
-
 `;

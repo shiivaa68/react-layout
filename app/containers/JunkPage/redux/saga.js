@@ -17,19 +17,6 @@ function* getHomePageWorker({ payload: { pageId, params } }) {
   yield requestCall({ url, method, actions });
 }
 
-/** GLOBAL WORKERS */
-// function* getRolesWorker() {
-//   const url = apiEndpoints.getRoles();
-//   const method = 'GET';
-//   const actions = {
-//     loading: loadingStatus => console.log('LOADING >>> ', loadingStatus),
-//     success: result => console.log('SUCCESS >>> ', result),
-//     failure: error => console.log('ERROR >>> ', error),
-//   };
-
-//   yield requestCall({ url, method, actions });
-// }
-
 // Root Saga
 export default function* homePageSaga() {
   yield all([takeLatest(GET_HOMEPAGE, getHomePageWorker)]);

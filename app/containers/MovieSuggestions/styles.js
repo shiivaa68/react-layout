@@ -1,6 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const SectionWrapper = styled.section`
-  width: 100%;
-  padding: 2rem;
+
+export const SuggestionMovieLayout = styled.article`
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  color: var(--primary-light);
+  
 `;
+
+export const Title = styled.h2`
+ 
+  width: 100%;
+  padding: 3rem;
+`;
+
+export const SuggestionMovieWrapper = styled.section`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+`;
+

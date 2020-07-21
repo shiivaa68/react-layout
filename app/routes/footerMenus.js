@@ -9,7 +9,15 @@ const FooterMenus = [
     label: <FormattedMessage {...message.AboutTamashakhaneh} />,
     to: '/',
   },
-  { id: 2, label: <FormattedMessage {...message.Blog} />, to: '/blog' },
+  {
+    id: 2,
+    target: '_blank',
+    type: 'BLANK_URL',
+    to: 'http://blog.tamashakhoneh.ir',
+    label: <FormattedMessage {...message.Blog} />,
+    // to: () => window.location.href,
+    // onClick: () => window.open('http://blog.tamashakhoneh.ir'),
+  },
   { id: 3, label: <FormattedMessage {...message.Question} />, to: '/question' },
   {
     id: 4,

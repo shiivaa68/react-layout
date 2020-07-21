@@ -10,6 +10,7 @@ const GlobalTheme = createGlobalStyle`
         --dim-blue: #6eb8ff;
         --primary-white:#FFFFFF;
         --dark-blue:#2990EB;
+
         --blue: blue;
 
 
@@ -23,7 +24,7 @@ const GlobalTheme = createGlobalStyle`
         --primary-spacing: 1rem;
 
         /**font*/
-        --primary-font-family:"Vazir FD";
+        --primary-White-Color:"Vazir FD";
     }
 `;
 

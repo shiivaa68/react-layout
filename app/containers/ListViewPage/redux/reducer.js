@@ -15,7 +15,10 @@ const ListViewReducer = (state = initialState, action) =>
 
       case UPDATE_LIST_DATA:
         draft.data.category = action.payload[0].data.category;
-        draft.data.items = [...draft.data.items, ...action.payload[0].data.items];
+        draft.data.items = [
+          ...draft.data.items,
+          ...action.payload[0].data.items,
+        ];
         return draft;
 
       case RESET_LIST_DATA:

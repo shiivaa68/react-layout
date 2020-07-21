@@ -24,6 +24,7 @@ export const FooterMenu = styled.nav`
 `;
 
 export const FooterSocial = styled.div`
+  padding: 0 1rem;
   width: 100%;
   height: 85px;
   display: flex;
@@ -41,6 +42,10 @@ export const FooterSocial = styled.div`
 
     li {
       margin-left: 1rem;
+
+      img {
+        width: 30px;
+      }
     }
   }
 `;

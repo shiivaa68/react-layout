@@ -2,11 +2,12 @@ const initialState = {
   loading: false,
   error: false,
   rols: [],
-  subtitles: {},
-  genres: {},
-  agerange: {},
-  languages: {},
-  qualities: {},
+  languages: [],
+  agerange: [],
+  genres:[],
+  country:[],
+  // subtitles: {},
+  // qualities: {},
 };
 
 export default initialState;

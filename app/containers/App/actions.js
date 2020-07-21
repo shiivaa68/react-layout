@@ -15,7 +15,7 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR, GET_ROLES, UPDATE_ROLES } from './constants';
+import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR ,GET_ROLES,UPDATE_ROLES ,GET_LANGUAGES,UPDATE_LANGUAGES,GET_AGERANGE,UPDATE_AGERANGE,GET_GENRES,UPDATE_GENRES,GET_COUNTRY,UPDATE_COUNTRY} from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -56,13 +56,13 @@ export function repoLoadingError(error) {
     type: LOAD_REPOS_ERROR,
     error,
   };
+  
 }
-
-/** ROLES */
-export function getRolesAction() {
+export function getRolesAction(){
   return {
-    type: GET_ROLES,
+    type:GET_ROLES,
   };
+ 
 }
 
 export function updateRolesAction(data) {
@@ -70,4 +70,57 @@ export function updateRolesAction(data) {
     type: UPDATE_ROLES,
     payload: { data },
   };
+}
+
+export function getLanguagesAction(){
+  return{
+    type:GET_LANGUAGES,
+  };
+}
+
+export function updateLanguagesAction(data){
+  return{
+    type:UPDATE_LANGUAGES,
+    payload: { data },
+  };
+}
+
+export function getAgeRangeAction(){
+  return{
+    type:GET_AGERANGE,
+  };
+}
+
+export function updateAgeRangeAction(data){
+  return {
+    type:UPDATE_AGERANGE,
+    payload:{data},
+  };
+}
+
+
+export function getGenresAction(){
+  return{
+    type:GET_GENRES,
+  };
+}
+export function updateGenrsAction(data){
+  return {
+
+    type:UPDATE_GENRES,
+    payload:{data},
+  }
+}
+
+export function getCountryAction(){
+  return{
+    type:GET_COUNTRY,
+  };
+}
+
+export function updateCountryAction(data){
+  return {
+    type:UPDATE_COUNTRY,
+    payload:{data},
+  }
 }

@@ -1,7 +1,16 @@
 import React from 'react';
 
-import  {HeaderLink}  from './style';
+import { HeaderLink, HeaderBlankLink } from './style';
 
-const MenuItem = ({ to, label }) => <HeaderLink to={to}>{label}</HeaderLink>;
+const MenuItem = ({ to, label, type, ...rest }) =>
+  type === 'BLANK_URL' ? (
+    <HeaderBlankLink target={rest.target} href={to}>
+      {label}
+    </HeaderBlankLink>
+  ) : (
+    <HeaderLink to={to} {...rest}>
+      {label}
+    </HeaderLink>
+  );
 
 export default MenuItem;

@@ -1,15 +1,7 @@
-/*
- * AppReducer
- *
- * The reducer takes care of our data. Using actions, we can
- * update our application state. To add a new action,
- * add it to the switch statement in the reducer function
- *
- */
 
 import produce from 'immer';
 import initialState from './initialState';
-import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR, UPDATE_ROLES } from './constants';
+import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR, UPDATE_ROLES ,UPDATE_LANGUAGES,UPDATE_AGERANGE,UPDATE_GENRES,UPDATE_COUNTRY} from './constants';
 
 /* eslint-disable default-case, no-param-reassign */
 const appReducer = (state = initialState, action) =>
@@ -35,6 +27,21 @@ const appReducer = (state = initialState, action) =>
       case UPDATE_ROLES:
         draft.rols = action.payload.data;
         return draft;
+
+       case UPDATE_LANGUAGES:
+         draft.languages =action.payload.data;
+         return draft; 
+         case UPDATE_AGERANGE:
+           draft.agerange = action.payload.data;
+           return draft;
+
+       case UPDATE_GENRES:
+         draft.genres = action.payload.data;
+         return draft;   
+         
+       case UPDATE_COUNTRY:
+         draft.country =action.payload.data;
+         return draft;  
     }
   });
 

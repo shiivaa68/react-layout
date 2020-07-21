@@ -9,11 +9,11 @@ function* getListDataWorker({
   payload: {
     page,
     pageLimit,
-    parsedQueryString: { id, item_sort, sort_type },
+    parsedQueryString: { category_id, item_sort, sort_type },
   },
 }) {
   const queryOptions = { limit: pageLimit, page, item_sort, sort_type };
-  const url = apiEndpoints.getListData(id, queryOptions);
+  const url = apiEndpoints.getListData(category_id, queryOptions);
   const method = 'GET';
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),

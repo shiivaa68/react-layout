@@ -1,4 +1,6 @@
 {
+  "boilerplate.components.Casts.subtitle": "عوامل",
+  "boilerplate.components.EpisodeControl.title": "فصل",
   "boilerplate.components.Footer.author.message": "Made with love by {author}.",
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.buyPkg": "خرید اشتراک",
@@ -7,8 +9,14 @@
   "boilerplate.components.Header.home": "خونه",
   "boilerplate.components.Header.login_signup": "ورود/ثبت نام",
   "boilerplate.components.Header.series": "سریال ها",
-  "boilerplate.components.HeadingCover.download": "دانلود",
+  "boilerplate.components.HeadingCover.double": "دوبله",
+  "boilerplate.components.HeadingCover.genres": "دسته بندی",
+  "boilerplate.components.HeadingCover.movie_length": "دقیقه",
   "boilerplate.components.HeadingCover.playFilm": "ورود و پخش فیلم",
+  "boilerplate.components.HeadingCover.quality": "کیفیت",
+  "boilerplate.components.HeadingCover.review": "نقد و بررسی",
+  "boilerplate.components.HeadingCover.rewards": "جوایز و افتخارات",
+  "boilerplate.components.HeadingCover.subtitle": "زیرنویس",
   "boilerplate.components.Menus.AboutUs": "درباره ما",
   "boilerplate.components.Menus.Application": "اپلیکیشن ها",
   "boilerplate.components.Menus.Blog": "وبلاگ",
@@ -22,7 +30,8 @@
   "boilerplate.components.Menus.home": "خانه",
   "boilerplate.components.Menus.messageAboutTamashakhaneh": "درباره تماشاخونه",
   "boilerplate.components.Menus.series": "سریال ها",
-  "boilerplate.components.movielightbox.title": "تریلر، تصاویر و جزییات",
+  "boilerplate.components.ScreenShots.title": "تریلر، تصاویر و جزییات",
+  "boilerplate.components.category.moreDetail": "اطلاعات بیشتر..",
   "boilerplate.containers.FeaturePage.css.header": "Features",
   "boilerplate.containers.FeaturePage.css.message": "Next generation CSS",
   "boilerplate.containers.FeaturePage.feedback.header": "Instant feedback",
@@ -47,5 +56,7 @@
   "boilerplate.containers.HomePage.tryme.message": "Show Github repositories by",
   "boilerplate.containers.LocaleToggle.de": "de",
   "boilerplate.containers.LocaleToggle.en": "en",
-  "boilerplate.containers.NotFoundPage.header": "Page not found."
+  "boilerplate.containers.MovieSuggestions.title": "همچنین تماشا کنید",
+  "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.SerieSuggestions.title": "همچنین تماشا کنید"
 }

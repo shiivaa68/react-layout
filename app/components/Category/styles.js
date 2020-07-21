@@ -103,20 +103,123 @@ export const ActiveItemDescription = styled.section`
   overflow: hidden;
   position: relative;
   top: 0rem;
-  background: var(--primary-light);
+  color:white;
+  font-weight: bold;
+  background: url(${props => props.background} )
+  no-repeat top
+  center
+  ;
+  
+  background: url(${props => props.background}) no-repeat top center;
+
+  background-size: cover;
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 
-  & pre {
-    font-size: 0.7rem;
-    direction: ltr;
-  }
   ${props =>
     props.shouldShow &&
     css`
       height: 425px;
       top: 1rem;
     `}
+`;
+
+ export const ContanerAccordion = styled.div`
+  position:relative;
+  width: 100vw;
+  height:80vh;
+  z-index: 1;
+   display:flex;
+   justify-content: flex-start;
+   align-items: center;
+ 
+ ` ;
+
+ export const PosterWrapper=styled.div`
+
+ & img {
+  width:200px;
+  hieght:150px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-right:2rem;
+  border-radius: 10%;
+ }
+ 
+ `;
+
+ export const InformationFilm=styled.div`
+  width:400px;
+  hieght:200px;
+  padding: 2rem;
+
+ `;
+
+ export const TitleAccordion=styled.div`
+ line-height: 1;
+ user-select: text;
+ font-weight: bold;
+ margin: 2rem;
+ font-size: 1rem;
+  z-index: 2;
+ `;
+
+
+ export const DescriptionAccordion=styled.div`
+
+ 
+ `;
+
+ export const BGImage = styled.img`
+ position: absolute;
+ z-index: 0;
+ width: 100%;
+ filter: blur(7px);
+`;
+
+export const Dim = styled.div`
+ width: 100%;
+ height: 100%;
+ position: absolute;
+ left: 0;
+ right: 0;
+ top: 0;
+ bottom: 0;
+ background-color: rgba(0, 0, 0, 0.75);
+ z-index: 0;
+`;
+
+export const RangeAgeStyle=styled.div`
+display: flex;
+justify-content: flex-start;
+align-item: center;
+padding:10px;
+
+margin-bottom:2rem;
+z-index:2;
+& img {
+width:40px;
+margin-left:1rem;
+
+
+}
+& img:nth-child(2){
+  text-color:white;
+  width:60px;
+
+}
+`;
+
+export const Genrs= styled.div`
+display: flex;
+justify-content: flex-start;
+align-item: center;
+
+margin-bottom: 1rem;
+& div {
+  padding: 1rem;
+}
+
 `;

@@ -7,3 +7,5 @@ export { default as MovieDetail } from './MovieDetail';
 export { default as Suggestions } from './Suggestions';
 export { default as Comments } from './Comments';
 export { default as ScreenShots } from './ScreenShots';
+export { default as EpisodeControl } from './EpisodeControl';
+export { default as EpisodeSeries } from './EpisodeSeries';

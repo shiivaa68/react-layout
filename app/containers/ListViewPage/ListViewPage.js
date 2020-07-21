@@ -7,13 +7,13 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
+import globalConfigs from 'utils/globalConfigs';
+import { MovieItem } from 'components/kit';
+
 import ListViewReducer from './redux/reducer';
 import ListViewSaga from './redux/saga';
 import initialState from './redux/initialState';
 import { getListDataAction, resetListDataAction } from './redux/actions';
-
-import globalConfigs from 'utils/globalConfigs';
-import { MovieItem } from 'components/kit';
 
 import { ListViewLayout, Title, ListWrapper, WayPointArea } from './style';
 
@@ -28,10 +28,15 @@ const ListViewPage = ({ location }) => {
   const [page, setPage] = useState(0);
 
   // bounded redux actions
-  const [getListData, resetListData] = useBindDispatch([getListDataAction, resetListDataAction]);
+  const [getListData, resetListData] = useBindDispatch([
+    getListDataAction,
+    resetListDataAction,
+  ]);
 
   // redux store
-  const { loading, error, data = {} } = useSelector(state => state[ListViewKeyOnRedux] || initialState);
+  const { loading, error, data = {} } = useSelector(
+    state => state[ListViewKeyOnRedux] || initialState,
+  );
 
   // did mount
   useEffect(() => {
@@ -61,23 +66,24 @@ const ListViewPage = ({ location }) => {
   }, [page]);
 
   /** COMPONENT WILL UNMOUNT */
-  useEffect(() => {
-    return () => {
-      console.log('I AM UNMOUNTED');
+  useEffect(
+    () => () => {
+      console.log(initialState);
       resetListData(initialState);
-    };
-  }, []);
+    },
+    [],
+  );
 
   return (
     <ListViewLayout>
-      <Title>{data.data && data.data.category && data.data.category.name_fa}</Title>
-
+      <Title>{data && data.category && data.category.name_fa}</Title>
       <ListWrapper>
-        {data && data.items.length > 0 && data.items.map(item => <MovieItem key={item.id} {...item} />)}
+        {data &&
+          data.items.length > 0 &&
+          data.items.map(item => <MovieItem key={item.id} {...item} />)}
       </ListWrapper>
 
       <WayPointArea>
-        WAY_POINT_AREA
         <Waypoint onEnter={handleNextPage} />
       </WayPointArea>
     </ListViewLayout>

@@ -6,8 +6,8 @@ export const CastWrapper = styled.section`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 2rem;
-  color: red;
-  margin: 2re;
+
+
 `;
 
 export const Container = styled.div`
@@ -44,3 +44,9 @@ export const Title = styled.h4`
 `;
 
 export const Role = styled.h3``;
+
+export const SubTitle = styled.h3`
+padding: 0 0.75rem;
+width:100%;
+margin:1rem 0 ;
+`;

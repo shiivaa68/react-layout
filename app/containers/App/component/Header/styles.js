@@ -32,8 +32,8 @@ align-items:center;
 `;
 
 export const HeaderLogo = styled.div`
-width:60px;
-height:40px;
+width:10px;
+height:10px;
 /* background-color:yellow; */
 display:flex;
 justify-content:center;

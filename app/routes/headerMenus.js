@@ -9,7 +9,7 @@ const HeaderMenus = [
   {
     id: 3,
     label: <FormattedMessage {...messages.series} />,
-    to: '/series',
+    to: '/page/32',
   },
   {
     id: 4,

@@ -1,11 +1,6 @@
-/*
- * HomePage Messages
- *
- * This contains all the text for the HomePage component.
- */
 import { defineMessages } from 'react-intl';
 
-export const scope = 'boilerplate.components.movielightbox';
+export const scope = 'boilerplate.components.ScreenShots';
 
 export default defineMessages({
   title: {

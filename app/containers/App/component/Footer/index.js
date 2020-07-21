@@ -1,50 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useMenuContext from 'containers/App/context';
 
+import INSTA from 'images/instagram.svg';
+import TWITTER from 'images/twiter.svg';
+import TELEGRAM from 'images/telegram.svg';
+
 import { MenuItem } from 'components/kit';
-import {
-  Wrapper,
-  FooterLayoutContainer,
-  FooterMenu,
-  FooterSocial,
-  FooterCopyRight,
-} from './style';
+import { Wrapper, FooterLayoutContainer, FooterMenu, FooterSocial, FooterCopyRight } from './style';
 
 function Footer() {
   const { FooterMenus } = useMenuContext();
 
+  const socialData = useMemo(() => {
+    return [
+      { id: 0, uri: 'https://www.instagram.com/tmk_ir/', image: INSTA },
+      { id: 1, uri: 'https://t.me/el', image: TELEGRAM },
+      { id: 2, uri: 'https://t.me/jake', image: TWITTER },
+    ];
+  }, []);
+
   return (
     <Wrapper>
       <FooterLayoutContainer>
-        <FooterMenu>
-          {!!FooterMenus &&
-            FooterMenus.map(menu => <MenuItem key={menu.id} {...menu} />)}
-        </FooterMenu>
+        <FooterMenu>{!!FooterMenus && FooterMenus.map(menu => <MenuItem key={menu.id} {...menu} />)}</FooterMenu>
         <FooterSocial>
           <ul>
-            <li>
-              <a href="https://t.me/junk">
-                <i className="fa fa-telegram fa-4x" />
-              </a>
-            </li>
-            <li>
-              <a href="https://t.me/el">
-                <i className="fa fa-instagram fa-4x" />
-              </a>
-            </li>
-            <li>
-              <a href="https://t.me/jake">
-                <i className="fa fa-twitter fa-4x" />
-              </a>
-            </li>
+            {socialData.map(social => (
+              <li key={social.id}>
+                <a target="_blank" href={social.uri}>
+                  <img alt="social icon" src={social.image} />
+                </a>
+              </li>
+            ))}
           </ul>
           <div>NAMAD</div>
         </FooterSocial>
         <FooterCopyRight>
           <p>
-            خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می
-            باشد و هر گونه بهره برداری و سوء استفاده از محتوای تماشاخونه، پیگرد
-            قانونی دارد.
+            خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می باشد و هر گونه بهره برداری و سوء
+            استفاده از محتوای تماشاخونه، پیگرد قانونی دارد.
           </p>
         </FooterCopyRight>
       </FooterLayoutContainer>

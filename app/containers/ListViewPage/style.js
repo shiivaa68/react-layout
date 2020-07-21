@@ -9,10 +9,11 @@ export const ListViewLayout = styled.article`
   color: var(--primary-light);
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   margin-top: 100px;
+
   width: 100%;
-  padding: 2rem;
+  padding: 3rem;
 `;
 
 export const ListWrapper = styled.section`
@@ -27,7 +28,6 @@ export const WayPointArea = styled.div`
   position: relative;
   width: 100%;
   height: 150px;
-  background: red;
   display: flex;
   justify-content: center;
   align-items: center;

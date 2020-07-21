@@ -30,6 +30,11 @@ const MoviesPage = ({ match }) => {
 
   const { loading, error, data = [] } = useSelector(state => state[MoviesPageKeyOnRedux] || initialState);
   const { rols = [] } = useSelector(state => state.global);
+  const { languages = [] } = useSelector(state => state.global);
+  const {agerange =[] } = useSelector(state=>state.global);
+  const {genres =[]} = useSelector(state =>state.global );
+  const {country =[]} = useSelector(state =>state.global );
+
 
   useEffect(() => {
     const id = match.params.movieId;
@@ -42,17 +47,17 @@ const MoviesPage = ({ match }) => {
   // }, [data]);
 
   // useEffect(() => {
-  //   console.log({ rols });
-  // }, [rols]);
+  //   console.log({ languages },'DATA HAST INJA MOVIEPAGE');
+  // }, [languages]);
 
   return (
     <MoviesContainer>
-      <HeadingCover type="MOVIE" {...data} />
+      <HeadingCover type="MOVIE" {...data} languages={languages} agerange={agerange} genresUtility={genres} countryUtility={country} />
       <ScreenShots {...data} />
-      <MovieDetail />
-      <Casts casts={data.casts || []} rols={rols} />
-      <MovieSuggestions movieId={match.params.movieId} />
-      <Comments />
+      {/* <MovieDetail /> */}
+      <Casts type="MOVIE" casts={data.casts || []} rols={rols} />
+      <MovieSuggestions type="MOVIE" {...data}  movieId={match.params.movieId} />
+      {/* <Comments /> */}
     </MoviesContainer>
   );
 };

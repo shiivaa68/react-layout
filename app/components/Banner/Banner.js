@@ -1,13 +1,14 @@
 import React, { useRef, useMemo, useCallback } from 'react';
+import {ParseUrl} from  '../../utils/routes'
+
+import { withRouter } from 'react-router-dom';
+import { PublicRoutes } from 'utils/routes/PublicRoutes';
+
 import Swiper from 'react-id-swiper';
 
-import {
-  BannerSection,
-  BannerNavigators,
-  HeadingBanner,
-} from './styles';
+import { BannerSection, BannerNavigators, HeadingBanner } from './styles';
 
-const Banner = ({ style, items = [] }) => {
+const Banner = ({ style, items = [], history  }) => {
   const swpierRef = useRef(null);
 
   const isHeadingBanner = useMemo(() => {
@@ -23,12 +24,39 @@ const Banner = ({ style, items = [] }) => {
     if (type === 'quad') return '100x100';
   }, [style]);
 
+  const callPageSingle = useCallback(item => {
+
+    const { url } = item;
+    const {id,kind} =ParseUrl(url);
+    
+    switch (kind){
+      
+      case 'MOVIE':
+        history.push(PublicRoutes.movieDetailRoute(id));
+        break;
+
+      case 'SERIES':
+        history.push(PublicRoutes.seriesDetailRoute(id));
+        break;
+
+      case 'PAGE':
+        history.push(PublicRoutes.pageSingle(id));
+        break;
+
+        default:
+          break;    
+    }
+   
+  }, []);
+
   /** slider options */
   const options = useMemo(() => {
     const { type } = style;
     const opt = {};
 
     opt.lazy = true;
+  
+  
 
     switch (type) {
       case 'full':
@@ -87,13 +115,18 @@ const Banner = ({ style, items = [] }) => {
             isHeadingBanner ? (
               <HeadingBanner key={item.id}>
                 {/* <BannerItem>{item.title_fa}</BannerItem> */}
-                <img src={item.image_path} className="swiper-lazy" />
+                <img
+                  src={item.image_path}
+                  className="swiper-lazy"
+                  onClick={() => callPageSingle(item)}
+                />
               </HeadingBanner>
             ) : (
               <img
                 key={item.id}
                 src={`${item.image_path}&size=${imageSize}`}
                 className="swiper-lazy"
+                onClick={() => callPageSingle(item)}
               />
             ),
           )}
@@ -114,4 +147,4 @@ const Banner = ({ style, items = [] }) => {
   );
 };
 
-export default Banner;
+export default withRouter(Banner);
