@@ -90,8 +90,6 @@ const Category = ({ history, category, items }) => {
   }, [activeItem]);
 
   const GnrsData = useMemo(() => {
-    console.log({ genres, activeItem });
-
     const itemGnrs = activeItem && activeItem.genres;
 
     const result = [];

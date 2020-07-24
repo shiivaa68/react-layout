@@ -13,11 +13,7 @@ export const HomePageWrapper = styled.article`
       position: absolute;
       bottom: 0;
 
-      background: linear-gradient(
-        to top,
-        rgba(18, 18, 18, 1),
-        rgba(18, 18, 18, 0)
-      );
+      background: linear-gradient(to top, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
       height: 200px;
       width: 100%;
       pointer-events: none;
@@ -27,4 +23,8 @@ export const HomePageWrapper = styled.article`
 
 export const SectionWrapper = styled.article`
   padding: 1rem 0;
+
+  &:first-child {
+    padding: 0;
+  }
 `;

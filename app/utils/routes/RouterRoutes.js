@@ -3,10 +3,11 @@
 const RouterRoutes = {
   home: '/',
   junk: '/junk',
+  search: '/search',
   movieDetailRoute: '/movies/:movieId',
   seriesDetailRoute: '/series/:serieId',
   listViewRoute: '/videos',
-  pageSingle:'/page/:pageId',
+  pageSingle: '/page/:pageId',
 };
 
 export default RouterRoutes;

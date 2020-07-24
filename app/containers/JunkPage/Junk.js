@@ -17,10 +17,9 @@ import { getHomePageAction } from './redux/actions';
 import initialState from './redux/initialState';
 import { HomePageWrapper, SectionWrapper } from './styles';
 
-
 const HomePageKeyOnRedux = 'HomePage';
 
-const JunkPage = ({match}) => {
+const JunkPage = ({ match }) => {
   // injectors
   useInjectReducer({ key: HomePageKeyOnRedux, reducer: HomePageReducer });
   useInjectSaga({ key: HomePageKeyOnRedux, saga: HomePageSaga });
@@ -29,11 +28,8 @@ const JunkPage = ({match}) => {
   const [getHomePage] = useBindDispatch([getHomePageAction]);
 
   // redux state
-  const { loading, error, data = [] } = useSelector(
-    state => state[HomePageKeyOnRedux] || initialState,
-  );
+  const { loading, error, data = [] } = useSelector(state => state[HomePageKeyOnRedux] || initialState);
   useEffect(() => {
-    console.log({ match });
     let pageId = null;
     if (match.params.pageId) {
       const pageSingle = match.params.pageId;
@@ -47,10 +43,6 @@ const JunkPage = ({match}) => {
     };
     getHomePage({ pageId, params });
   }, [match.params.pageId]);
-  
-  useEffect(() => {
-    console.log({ data });
-  }, [data]);
 
   return (
     <HomePageWrapper>
@@ -60,12 +52,8 @@ const JunkPage = ({match}) => {
         data.length > 0 &&
         data.map((section, i) => (
           <SectionWrapper key={i}>
-            {section.type === 'banner' && (
-              <Banner index={i} {...section.data} />
-            )}
-            {section.type === 'category' && (
-              <Category index={i} {...section.data} />
-            )}
+            {section.type === 'banner' && <Banner index={i} {...section.data} />}
+            {section.type === 'category' && <Category index={i} {...section.data} />}
           </SectionWrapper>
         ))}
     </HomePageWrapper>

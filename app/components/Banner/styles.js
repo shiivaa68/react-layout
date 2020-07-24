@@ -7,6 +7,17 @@ export const BannerSection = styled.section`
   & img {
     border-radius: 10px;
   }
+
+  &:hover {
+    & > button {
+      opacity: 1;
+    }
+  }
+`;
+
+export const HeadingBanner = styled.div`
+  position: relative;
+  min-height: 50vh;
 `;
 
 export const BannerNavigators = styled.div`
@@ -34,26 +45,39 @@ export const BannerNavigators = styled.div`
  }
  `;
 
-export const BannerItem = styled.div`
-  width: 250px;
-  hieght: 125px;
-  display: block;
-  background: rgba(255, 0, 0, 0.85);
-  border-radius: 0.2rem;
-  padding: 1rem;
-  font-size: 2rem;
+export const PrevButton = styled.button`
+  all: unset;
   position: absolute;
-  z-index: 100;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 10%;
-  border-radius: 30px;
-  &img {
-    border-radius: 10px;
-  }
+  z-index: 10;
+  right: 0;
+  top: 0;
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.425rem;
+  color: var(--primary-light);
+  background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 `;
 
-export const HeadingBanner = styled.div`
-  position: relative;
-  min-height: 50vh;
+export const NextButton = styled.button`
+  all: unset;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 100%;
+  font-size: 1.425rem;
+  color: var(--primary-light);
+  background: linear-gradient(to right, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  padding: 0 1rem;
 `;
