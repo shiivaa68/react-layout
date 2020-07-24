@@ -1,14 +1,20 @@
 import React from 'react';
+import { SearchContext } from './context';
 import { Search, Filter, Result } from './components';
 import { SearchWrapper } from './styles';
+import SearchManager from './SearchManager';
 
-const SearchPage = () => {
+const SearchPage = props => {
+  const { data, action } = SearchManager(props);
+
   return (
-    <SearchWrapper>
-      <Search />
-      <Filter />
-      <Result />
-    </SearchWrapper>
+    <SearchContext.Provider value={{ data, action }}>
+      <SearchWrapper>
+        <Search />
+        <Filter />
+        <Result />
+      </SearchWrapper>
+    </SearchContext.Provider>
   );
 };
 

@@ -58,5 +58,13 @@
   "boilerplate.containers.LocaleToggle.en": "en",
   "boilerplate.containers.MovieSuggestions.title": "",
   "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.Search.clearSearch": "",
+  "boilerplate.containers.Search.filter": "",
+  "boilerplate.containers.Search.filterBuiltYear": "",
+  "boilerplate.containers.Search.filterCountry": "",
+  "boilerplate.containers.Search.filterGenres": "",
+  "boilerplate.containers.Search.filterSort": "",
+  "boilerplate.containers.Search.filterSubtitle": "",
+  "boilerplate.containers.Search.searchPlaceHolder": "",
   "boilerplate.containers.SerieSuggestions.title": ""
 }

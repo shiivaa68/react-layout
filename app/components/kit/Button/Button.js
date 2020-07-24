@@ -27,6 +27,7 @@ const Button = ({ type, label, onClick, keepActive }) => {
         options.outfill = true;
         break;
 
+      default:
         break;
     }
     return options;

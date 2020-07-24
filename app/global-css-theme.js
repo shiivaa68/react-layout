@@ -5,9 +5,14 @@ const GlobalTheme = createGlobalStyle`
         /** Colors */
         --primary-dark: #121212;
         --secondary-dark: #222327;
+
         --primary-gray: #838383;
+        --secondary-gray: #37383d;
+        --dim-gray: #222428;
+
         --primary-light: #ffffff;
         --dim-blue: #6eb8ff;
+        
         --primary-white:#FFFFFF;
         --dark-blue:#2990EB;
 
