@@ -5,7 +5,7 @@ import { CountryWrapper } from './styles';
 
 const CountryContent = () => {
   const {
-    data: { country },
+    data: { country, selectedCountries },
     action: { handleSetSelectedContries },
   } = useSearchContext();
 
@@ -21,6 +21,7 @@ const CountryContent = () => {
           {...item}
           id={item.id}
           label={item.country_fa}
+          checked={selectedCountries.map(el => el.id).includes(item.id)}
           onChange={handleSetSelectedContries}
         />
       ))}

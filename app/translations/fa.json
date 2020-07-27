@@ -60,11 +60,14 @@
   "boilerplate.containers.NotFoundPage.header": "Page not found.",
   "boilerplate.containers.Search.clearSearch": "پاک کردن",
   "boilerplate.containers.Search.filter": "فیلتر",
+  "boilerplate.containers.Search.filterAge": "رده سنی",
   "boilerplate.containers.Search.filterBuiltYear": "سال ساخت",
   "boilerplate.containers.Search.filterCountry": "کشور سازنده",
   "boilerplate.containers.Search.filterGenres": "‌‌ژانر",
+  "boilerplate.containers.Search.filterRank": "رنک",
   "boilerplate.containers.Search.filterSort": "مرتب سازی",
   "boilerplate.containers.Search.filterSubtitle": "زیر نویس",
+  "boilerplate.containers.Search.filterTypes": "نوع",
   "boilerplate.containers.Search.searchPlaceHolder": "فیلم سریال بازیگر و ژانر",
   "boilerplate.containers.SerieSuggestions.title": "همچنین تماشا کنید"
 }

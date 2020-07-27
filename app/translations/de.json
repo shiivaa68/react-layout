@@ -60,11 +60,14 @@
   "boilerplate.containers.NotFoundPage.header": "Seite nicht gefunden.",
   "boilerplate.containers.Search.clearSearch": "",
   "boilerplate.containers.Search.filter": "",
+  "boilerplate.containers.Search.filterAge": "",
   "boilerplate.containers.Search.filterBuiltYear": "",
   "boilerplate.containers.Search.filterCountry": "",
   "boilerplate.containers.Search.filterGenres": "",
+  "boilerplate.containers.Search.filterRank": "",
   "boilerplate.containers.Search.filterSort": "",
   "boilerplate.containers.Search.filterSubtitle": "",
+  "boilerplate.containers.Search.filterTypes": "",
   "boilerplate.containers.Search.searchPlaceHolder": "",
   "boilerplate.containers.SerieSuggestions.title": ""
 }
