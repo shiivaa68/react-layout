@@ -1,6 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { CheckBoxWrapper, CheckBoxItself } from './styles';
+import {
+  CheckBoxWrapper,
+  CheckboxLabel,
+  CheckboxInput,
+  CheckboxSpan,
+} from './styles';
 
 const Checkbox = ({ id, label, onChange, checked, ...rest }) => {
   const handleCheckboxChange = () => {
@@ -8,12 +13,11 @@ const Checkbox = ({ id, label, onChange, checked, ...rest }) => {
   };
 
   return (
-    <CheckBoxWrapper>
-      <CheckBoxItself
-        type="checkbox"
-        checked={checked}
-        onChange={handleCheckboxChange}
-      />
+    <CheckBoxWrapper onChange={handleCheckboxChange}>
+      <CheckboxLabel>
+        <CheckboxInput type="checkbox" checked={checked} />
+        <CheckboxSpan />
+      </CheckboxLabel>
       {label}
     </CheckBoxWrapper>
   );

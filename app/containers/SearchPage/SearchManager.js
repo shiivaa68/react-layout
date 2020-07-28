@@ -9,20 +9,27 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import SEARCH_TYPES from 'constants/SearchTypes';
+import SORT_TYPES from 'constants/SortTypes';
 
 import {
   getMovieSearchPageAction,
+  resetMovieSearchPageAction,
   getSeriesSearchPageAction,
+  resetSerieSearchPageAction,
   getCastsSearchPageAction,
+  resetCastsSearchPageAction,
 } from './redux/actions';
 import SearchPageReducer from './redux/reducer';
 import SearchPageSaga from './redux/saga';
+import InitialState from './redux/initialState';
 
 import {
   SearchTypeContent,
   GenresContent,
   ContryContent,
   AgeRangeContent,
+  SubtitleContent,
+  SortTypeContent,
 } from './components/FilterComponents';
 
 import messages from './messages';
@@ -43,22 +50,33 @@ const SearchManager = ({ history, location }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedAgeRange, setSelectedAgeRange] = useState([]);
+  const [selectedSortTypes, setSelectedSortTypes] = useState({
+    id: 1,
+    name: SORT_TYPES.CREATED_DATA_DESC,
+  });
+  const [selectedSubtitle, setSelectedSubtitle] = useState(false);
 
   // bounded redux actions
   const [
     getMovieSearchPage,
+    resetMovieSearchPage,
     getSeriesSearchPage,
+    resetSerieSearchPage,
     getCastsSearchPage,
+    resetCastsSearchPage,
   ] = useBindDispatch([
     getMovieSearchPageAction,
+    resetMovieSearchPageAction,
     getSeriesSearchPageAction,
+    resetSerieSearchPageAction,
     getCastsSearchPageAction,
+    resetCastsSearchPageAction,
   ]);
 
   /** Redux Data */
   const { genres, country, agerange } = useSelector(state => state.global);
   const { movies_data, series_data, casts_data } = useSelector(
-    state => state.SearchPage,
+    state => state.SearchPage || InitialState,
   );
 
   /** Effects */
@@ -67,6 +85,7 @@ const SearchManager = ({ history, location }) => {
     const searchTypes = selectedSearchTypes.name;
     const countryCodes = selectedCountries.map(country => country.country_code);
     const ageRangeIDs = selectedAgeRange.map(agerange => agerange.id);
+    const sortTypes = selectedSortTypes.id;
 
     // console.log({ searchQuery, gnrIDs, countryCodes, ageRangeIDs });
 
@@ -80,6 +99,8 @@ const SearchManager = ({ history, location }) => {
       gnrIDs,
       countryCodes,
       ageRangeIDs,
+      sortTypes,
+      selectedSubtitle,
     });
     handleApiSide({
       searchQuery,
@@ -87,6 +108,8 @@ const SearchManager = ({ history, location }) => {
       gnrIDs,
       countryCodes,
       ageRangeIDs,
+      sortTypes,
+      selectedSubtitle,
     });
   }, [
     searchQuery,
@@ -94,6 +117,8 @@ const SearchManager = ({ history, location }) => {
     selectedGenres,
     selectedCountries,
     selectedAgeRange,
+    selectedSortTypes,
+    selectedSubtitle,
   ]);
 
   /** DECODING PART */
@@ -138,7 +163,7 @@ const SearchManager = ({ history, location }) => {
       {
         menuId: 7,
         name: <FormattedMessage {...messages.filterSubtitle} />,
-        component: () => <>SUBTITLE</>,
+        component: SubtitleContent,
       },
       {
         menuId: 8,
@@ -153,7 +178,16 @@ const SearchManager = ({ history, location }) => {
       { id: 1, name: SEARCH_TYPES.ALL, label: 'همه' },
       { id: 2, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
       { id: 3, name: SEARCH_TYPES.SERIES, label: 'سریال ها' },
-      { id: 4, name: SEARCH_TYPES.CASTS, label: 'دست اندر کاران' },
+      { id: 4, name: SEARCH_TYPES.CASTS, label: 'عوامل' },
+    ];
+  }, []);
+
+  const sortTypes = useMemo(() => {
+    return [
+      { id: 1, name: SEARCH_TYPES.ALL, label: 'همه' },
+      { id: 2, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
+      { id: 3, name: SEARCH_TYPES.SERIES, label: 'سریال ها' },
+      { id: 4, name: SEARCH_TYPES.CASTS, label: 'عوامل' },
     ];
   }, []);
 
@@ -178,6 +212,7 @@ const SearchManager = ({ history, location }) => {
 
   const handleSetSelectedGenres = useCallback(
     ({ id, name }) => {
+      console.log({ id, name });
       const newGnrArray = handleUpdateArray(selectedGenres, { id, name });
       setSelectedGenres(newGnrArray);
     },
@@ -185,11 +220,13 @@ const SearchManager = ({ history, location }) => {
   );
 
   const handleSetSelectedContries = useCallback(
-    ({ id, name, country_code }) => {
+    ({ id, name, country_fa, country_code }) => {
+      console.log({ id, name, country_fa });
       const newCountryArray = handleUpdateArray(selectedCountries, {
         id,
         name,
         country_code,
+        country_fa,
       });
       setSelectedCountries(newCountryArray);
     },
@@ -205,6 +242,13 @@ const SearchManager = ({ history, location }) => {
       setSelectedAgeRange(newAgeRangeArray);
     },
     [selectedAgeRange, setSelectedAgeRange],
+  );
+
+  const handleSetSelectedSubtitle = useCallback(
+    e => {
+      setSelectedSubtitle(state => !state);
+    },
+    [setSelectedSubtitle],
   );
 
   /** Utils */
@@ -231,6 +275,7 @@ const SearchManager = ({ history, location }) => {
     gnrIDs,
     countryCodes,
     ageRangeIDs,
+    selectedSubtitle,
   }) => {
     const queries = new URLSearchParams();
 
@@ -251,6 +296,9 @@ const SearchManager = ({ history, location }) => {
     countryCodes.length > 0 &&
       queries.append('countries', countryCodes.join(','));
 
+    /** Subtitle */
+    queries.append('voice', Number(selectedSubtitle));
+
     history.push(`/search?${queries.toString()}`);
   };
 
@@ -260,6 +308,7 @@ const SearchManager = ({ history, location }) => {
     gnrIDs,
     countryCodes,
     ageRangeIDs,
+    selectedSubtitle,
   }) => {
     // TODO:
     //  - call related api
@@ -271,6 +320,7 @@ const SearchManager = ({ history, location }) => {
       genres: gnrIDs.join(','),
       age_range: ageRangeIDs.join(','),
       country: countryCodes.map(el => el.toLowerCase()).join(','),
+      voice: Number(selectedSubtitle),
     };
 
     switch (searchTypes) {
@@ -284,16 +334,23 @@ const SearchManager = ({ history, location }) => {
       case SEARCH_TYPES.MOVIES: {
         console.log('should call ALL MOVIES');
         getMovieSearchPage({ searchConfig });
+        resetSerieSearchPage();
+        resetCastsSearchPage();
         break;
       }
       case SEARCH_TYPES.SERIES: {
         console.log('should call ALL SERIES');
         getSeriesSearchPage({ searchConfig });
+        resetMovieSearchPage();
+        resetCastsSearchPage();
         break;
       }
       case SEARCH_TYPES.CASTS: {
         console.log('should call ALL CASTS');
         getCastsSearchPage({ searchConfig });
+        resetMovieSearchPage();
+        resetSerieSearchPage();
+        // reset > movie , serie
         break;
       }
 
@@ -312,11 +369,12 @@ const SearchManager = ({ history, location }) => {
       country,
       agerange,
 
-      // configured data
+      // search Data
       selectedSearchTypes,
       selectedGenres,
       selectedCountries,
       selectedAgeRange,
+      selectedSubtitle,
 
       // result data
       movies_data,
@@ -329,6 +387,7 @@ const SearchManager = ({ history, location }) => {
       handleSetSelectedGenres,
       handleSetSelectedContries,
       handleSetSelectedAgeRange,
+      handleSetSelectedSubtitle,
     },
   };
 };

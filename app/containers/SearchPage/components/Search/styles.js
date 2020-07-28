@@ -26,7 +26,6 @@ height:15px;
 position:absolute;
 left:1rem;
 font-size: 0.75rem;
-
 `;
 export const ClearText = styled.span`
   font-size: 0.85rem;
