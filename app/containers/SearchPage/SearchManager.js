@@ -349,8 +349,6 @@ const SearchManager = ({ history }) => {
   }) => {
     const queries = new URLSearchParams();
 
-    console.log({ selectedBuiltYear });
-
     /** search Query */
     queries.append('query', searchQuery);
 

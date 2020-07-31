@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const ResultWrapper = styled.section`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const SearchMovieLayout = styled.article`
@@ -14,7 +15,6 @@ export const SearchMovieLayout = styled.article`
   align-items: flex-start;
   flex-direction: column;
   color: var(--primary-light);
-  
 `;
 
 export const SearchMovieWrapper = styled.section`
@@ -25,7 +25,6 @@ export const SearchMovieWrapper = styled.section`
   padding: 0 2rem;
 `;
 
-
 export const SearchSeriesLayout = styled.article`
   min-height: 100vh;
   display: flex;
@@ -33,7 +32,6 @@ export const SearchSeriesLayout = styled.article`
   align-items: flex-start;
   flex-direction: column;
   color: var(--primary-light);
-  
 `;
 
 export const SearchSeriesWrapper = styled.section`
@@ -44,7 +42,6 @@ export const SearchSeriesWrapper = styled.section`
   padding: 0 2rem;
 `;
 
-
 export const SearchCastLayout = styled.article`
   min-height: 100vh;
   display: flex;
@@ -52,10 +49,7 @@ export const SearchCastLayout = styled.article`
   align-items: flex-start;
   flex-direction: column;
   color: var(--primary-light);
-  
 `;
-
-
 
 export const CastWrapper = styled.section`
   position: relative;
@@ -63,8 +57,6 @@ export const CastWrapper = styled.section`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 2rem;
-
-
 `;
 
 export const Container = styled.div`

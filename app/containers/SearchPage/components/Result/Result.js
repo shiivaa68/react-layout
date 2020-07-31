@@ -1,22 +1,31 @@
-import React,{useMemo} from 'react';
-import useSearchContext from 'containers/SearchPage/context';
-import { useSelector } from 'react-redux';
+import React, { useState, useCallback, useMemo } from 'react';
 import { MovieItem } from 'components/kit';
-import Casts from 'components/Casts';
-import ResultControl from './ResultControl';
+import ResultTab from './ResultTab';
+
 import SEARCH_TYPES from 'constants/SearchTypes';
+import useSearchContext from 'containers/SearchPage/context';
 
-
-import { ResultWrapper, SearchMovieLayout,SearchMovieWrapper,SearchSeriesLayout,SearchSeriesWrapper,CastWrapper,Container,Image,DescriptionCast,Title} from './styles';
+import {
+  ResultWrapper,
+  SearchMovieLayout,
+  SearchMovieWrapper,
+  SearchSeriesLayout,
+  SearchSeriesWrapper,
+  CastWrapper,
+  Container,
+  Image,
+  DescriptionCast,
+  Title,
+} from './styles';
 
 const Result = () => {
-
- const { rols = [] } = useSelector(state => state.global);
   const {
     data: { movies_data, series_data, casts_data },
   } = useSearchContext();
 
-  const searchTypes = useMemo(() => {
+  const [selectedTabID, setSelectedTabID] = useState(1);
+
+  const TabTypes = useMemo(() => {
     return [
       { id: 1, name: SEARCH_TYPES.ALL, label: 'همه' },
       { id: 2, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
@@ -25,68 +34,71 @@ const Result = () => {
     ];
   }, []);
 
-  /** handlers */
-  // const activeSeasonEpisodes = useMemo(() => {
-  //   const result =
-  //     data &&
-  //     data.seasons &&
-  //     data.seasons.length > 0 &&
-  //     data.seasons.filter(season => season.id === activeSeasonId)[0];
-
-  //   return result && result.episodes.length > 0 ? result.episodes : [];
-  // }, [data, activeSeasonId]);
-
-
-  // const handleSetActiveSeason = useCallback(
-  //   selectedId => {
-  //     setActiveSeasonId(selectedId);
-  //   },
-  //   [activeSeasonId, setActiveSeasonId],
-  // );
-
+  const handleActiveButton = useCallback(
+    tabId => {
+      setSelectedTabID(tabId);
+    },
+    [selectedTabID, setSelectedTabID],
+  );
 
   return (
     <ResultWrapper>
-{/* < ResultControl
-        activeSeasonId={activeSeasonId}
-        searchTypes={data.movies_data}
-        handleSetActiveSeason={handleSetActiveSeason}
+      <ResultTab
+        TabTypes={TabTypes}
+        selectedTabID={selectedTabID}
+        handleActiveButton={handleActiveButton}
+      />
 
-/> */}
+      {selectedTabID === 1 && (
+        <SearchMovieLayout>
+          <SearchMovieWrapper>
+            {movies_data &&
+              series_data &&
+              movies_data.length > 0 &&
+              series_data.length > 0 &&
+              [...movies_data, ...series_data].map(item => (
+                <MovieItem key={item.id} {...item} />
+              ))}
+          </SearchMovieWrapper>
+        </SearchMovieLayout>
+      )}
 
+      {selectedTabID === 2 && (
         <SearchMovieLayout>
           <SearchMovieWrapper>
             {movies_data &&
               movies_data.length > 0 &&
               movies_data.map(item => <MovieItem key={item.id} {...item} />)}
           </SearchMovieWrapper>
-          </SearchMovieLayout>
+        </SearchMovieLayout>
+      )}
 
-
-          <SearchSeriesLayout>
+      {selectedTabID === 3 && (
+        <SearchSeriesLayout>
           <SearchSeriesWrapper>
-          {series_data &&
-          series_data.length > 0 &&
-          series_data.map(item => <MovieItem key={item.id} {...item} />)}
+            {series_data &&
+              series_data.length > 0 &&
+              series_data.map(item => <MovieItem key={item.id} {...item} />)}
           </SearchSeriesWrapper>
-          </SearchSeriesLayout>
+        </SearchSeriesLayout>
+      )}
 
-              <CastWrapper>
-              {casts_data &&
-              casts_data.length > 0 &&
-              casts_data.map((cast, i) => (
-                <Container key={i}>
-                  <Image>
-                    <img src={cast.profile_picture} />
-                  </Image>
-                  <DescriptionCast>
-                    <Title>{cast.fullname_fa}</Title>
-                  </DescriptionCast>
-                </Container>
-              ))}
-              </CastWrapper>
-
-        
+      {selectedTabID === 4 && (
+        <CastWrapper>
+          {casts_data &&
+            casts_data.length > 0 &&
+            casts_data.map((cast, i) => (
+              <Container key={i}>
+                <Image>
+                  <img src={cast.profile_picture} />
+                </Image>
+                <DescriptionCast>
+                  <Title>{cast.fullname_fa}</Title>
+                </DescriptionCast>
+              </Container>
+            ))}
+        </CastWrapper>
+      )}
     </ResultWrapper>
   );
 };
