@@ -13,13 +13,13 @@ import {
   RESET_MOVIES_SEARCHPAGE,
   RESET_SERIES_SEARCHPAGE,
   RESET_CASTS_SEARCHPAGE,
+
 } from './constants';
 
 //REDUCER MOVIE
 const SearchPageReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      /** MOVIES */
       case ERROR_MOVIES:
         draft.movies_error = action.payload.error.message;
         return draft;
@@ -32,11 +32,10 @@ const SearchPageReducer = (state = initialState, action) =>
         draft.movies_data = action.payload;
         return draft;
 
-      case RESET_MOVIES_SEARCHPAGE:
-        draft.movies_data = [];
-        return;
+        case RESET_MOVIES_SEARCHPAGE:
+          draft.movies_data = [];
+          return;
 
-      /** SERIES */
       case ERROR_SERIES:
         draft.series_error = action.payload.error.message;
         return draft;
@@ -49,11 +48,11 @@ const SearchPageReducer = (state = initialState, action) =>
         draft.series_data = action.payload;
         return draft;
 
-      case RESET_SERIES_SEARCHPAGE:
-        draft.series_data = [];
-        return draft;
+        case RESET_SERIES_SEARCHPAGE:
+          draft.series_data = [];
+          return draft;
 
-      /** CASTS */
+
       case ERROR_CASTS:
         draft.casts_error = action.payload.error.message;
         return draft;
@@ -65,10 +64,9 @@ const SearchPageReducer = (state = initialState, action) =>
       case UPADTE_CASTS_SEARCHPAGE:
         draft.casts_data = action.payload;
         return draft;
-
-      case RESET_CASTS_SEARCHPAGE:
-        draft.casts_data = [];
-        return draft;
+        
+        case RESET_CASTS_SEARCHPAGE:
+          draft.casts_data = [];
     }
   });
 

@@ -24,6 +24,7 @@ export function loadingMoviesAction(loadingStatus) {
   };
 }
 
+
 export function errorMoviesAction(error) {
   return {
     type: ERROR_MOVIES,
@@ -49,11 +50,12 @@ export function resetMovieSearchPageAction() {
   return { type: RESET_MOVIES_SEARCHPAGE };
 }
 
+
 //series actions
 export function loadingSeriesAction(loadingStatus) {
   return {
     type: LOADING_SERIES,
-    payload: { loadingStatus },
+    payload: {loadingStatus},
   };
 }
 
@@ -81,6 +83,7 @@ export function updateSeriesSearchPageAction(data) {
 export function resetSerieSearchPageAction() {
   return { type: RESET_SERIES_SEARCHPAGE };
 }
+
 
 // casts actions
 export function loadingCastsAction(loadingStatus) {

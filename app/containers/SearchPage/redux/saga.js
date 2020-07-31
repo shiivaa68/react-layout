@@ -21,7 +21,7 @@ import {
 
 // saga movies
 function* getMovieSearchPageWorker({ payload: { searchConfig } }) {
-  // console.log(searchConfig);
+  console.log(searchConfig);
   const url = apiEndpoints.getMoviesSearch(searchConfig);
   const method = 'GET';
   const actions = {
@@ -36,7 +36,7 @@ function* getMovieSearchPageWorker({ payload: { searchConfig } }) {
 //saga series
 
 function* getSeriesSearchPageWorker({ payload: { searchConfig } }) {
-  // console.log(searchConfig);
+  console.log(searchConfig);
   const url = apiEndpoints.getSeriesSearch(searchConfig);
   const method = 'GET';
   const actions = {
@@ -51,7 +51,7 @@ function* getSeriesSearchPageWorker({ payload: { searchConfig } }) {
 // saga casts
 
 function* getCastsSearchPageWorker({ payload: { searchConfig } }) {
-  // console.log(searchConfig);
+  console.log(searchConfig);
   const url = apiEndpoints.getCastsSearch(searchConfig);
   const method = 'GET';
   const actions = {

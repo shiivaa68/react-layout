@@ -11,6 +11,9 @@ import {
   UPADTE_CASTS_SEARCHPAGE,
   UPDATE_MOVIES_SEARCHPAGE,
   UPDATE_SERIES_SEARCHPAGE,
+  RESET_MOVIES_SEARCHPAGE,
+  RESET_CASTS_SEARCHPAGE,
+  RESET_SERIES_SEARCHPAGE,
 } from './constants';
 
 //movies actions
@@ -20,6 +23,7 @@ export function loadingMoviesAction(loadingStatus) {
     payload: { loadingStatus },
   };
 }
+
 
 export function errorMoviesAction(error) {
   return {
@@ -42,11 +46,16 @@ export function updateMovieSearchPageAction(data) {
   };
 }
 
+export function resetMovieSearchPageAction() {
+  return { type: RESET_MOVIES_SEARCHPAGE };
+}
+
+
 //series actions
 export function loadingSeriesAction(loadingStatus) {
   return {
     type: LOADING_SERIES,
-    payload: loadingStatus,
+    payload: {loadingStatus},
   };
 }
 
@@ -70,6 +79,11 @@ export function updateSeriesSearchPageAction(data) {
     payload: data,
   };
 }
+
+export function resetSerieSearchPageAction() {
+  return { type: RESET_SERIES_SEARCHPAGE };
+}
+
 
 // casts actions
 export function loadingCastsAction(loadingStatus) {
@@ -98,4 +112,8 @@ export function updateCastsSearchPageAction(data) {
     type: UPADTE_CASTS_SEARCHPAGE,
     payload: data,
   };
+}
+
+export function resetCastsSearchPageAction() {
+  return { type: RESET_CASTS_SEARCHPAGE };
 }

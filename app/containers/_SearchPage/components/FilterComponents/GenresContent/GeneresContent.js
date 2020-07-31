@@ -15,6 +15,7 @@ const GenerseContent = () => {
         <Checkbox
           key={gnr.id}
           id={gnr.id}
+          {...gnr}
           label={gnr.name}
           checked={selectedGenres.map(el => el.id).includes(gnr.id)}
           onChange={handleSetSelectedGenres}

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { axiosConfig } from 'constants/axiosConfig';
+import axiosConfig from 'constants/axiosConfig';
 
 const axiosInstance = Axios.create({ timeout: axiosConfig.timeout });
 
