@@ -30,6 +30,7 @@
   "boilerplate.components.Menus.home": "خانه",
   "boilerplate.components.Menus.messageAboutTamashakhaneh": "درباره تماشاخونه",
   "boilerplate.components.Menus.series": "سریال ها",
+  "boilerplate.components.ResultControl.title": "فصل",
   "boilerplate.components.ScreenShots.title": "تریلر، تصاویر و جزییات",
   "boilerplate.components.category.moreDetail": "اطلاعات بیشتر..",
   "boilerplate.containers.FeaturePage.css.header": "Features",
@@ -58,6 +59,8 @@
   "boilerplate.containers.LocaleToggle.en": "en",
   "boilerplate.containers.MovieSuggestions.title": "همچنین تماشا کنید",
   "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.Search.StartRank": "از {year}",
+  "boilerplate.containers.Search.StopRank": "تا {year}",
   "boilerplate.containers.Search.clearSearch": "پاک کردن",
   "boilerplate.containers.Search.filter": "فیلتر",
   "boilerplate.containers.Search.filterAge": "رده سنی",
@@ -69,5 +72,6 @@
   "boilerplate.containers.Search.filterSubtitle": "زیر نویس",
   "boilerplate.containers.Search.filterTypes": "نوع",
   "boilerplate.containers.Search.searchPlaceHolder": "فیلم سریال بازیگر و ژانر",
+  "boilerplate.containers.Search.subtitleTpeContent": "زیرنویس",
   "boilerplate.containers.SerieSuggestions.title": "همچنین تماشا کنید"
 }

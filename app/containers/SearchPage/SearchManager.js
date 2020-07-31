@@ -10,6 +10,7 @@ import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import SEARCH_TYPES from 'constants/SearchTypes';
 import SORT_TYPES from 'constants/SortTypes';
+import BUILT_YEAR_FILTER from 'constants/BuiltYearFilter';
 
 import {
   getMovieSearchPageAction,
@@ -31,15 +32,19 @@ import {
   AgeRangeContent,
   SubtitleContent,
   SortTypeContent,
-  RankContent,
+  BuiltYearContet,
 } from './components/FilterComponents';
 
 import messages from './messages';
 
 const SearchPageKeyOnRedux = 'SearchPage';
 
-const SearchManager = ({ history, location }) => {
-  // injectors
+const SearchManager = ({ history }) => {
+  /** Constsnts */
+  const { START_DATE, STOP_DATE } = BUILT_YEAR_FILTER;
+
+  /** Injectors */
+
   useInjectReducer({ key: SearchPageKeyOnRedux, reducer: SearchPageReducer });
   useInjectSaga({ key: SearchPageKeyOnRedux, saga: SearchPageSaga });
 
@@ -51,6 +56,10 @@ const SearchManager = ({ history, location }) => {
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
+  const [selectedBuiltYear, setSelectedBuiltYear] = useState([
+    START_DATE,
+    STOP_DATE,
+  ]);
   const [selectedAgeRange, setSelectedAgeRange] = useState([]);
   const [selectedSubtitle, setSelectedSubtitle] = useState(false);
   const [selectedSortTypes, setSelectedSortTypes] = useState({
@@ -91,8 +100,6 @@ const SearchManager = ({ history, location }) => {
     const countryCodes = selectedCountries.map(country => country.country_code);
     const ageRangeIDs = selectedAgeRange.map(agerange => agerange.id);
 
-    // console.log({ searchQuery, gnrIDs, countryCodes, ageRangeIDs });
-
     /** TWO ACTIONS HERE
      *  - keep update url
      *  - call api endpoints
@@ -102,6 +109,7 @@ const SearchManager = ({ history, location }) => {
       searchTypes,
       gnrIDs,
       countryCodes,
+      selectedBuiltYear,
       ageRangeIDs,
       selectedSubtitle,
       selectedSortTypes,
@@ -111,6 +119,7 @@ const SearchManager = ({ history, location }) => {
       searchTypes,
       gnrIDs,
       countryCodes,
+      selectedBuiltYear,
       ageRangeIDs,
       selectedSubtitle,
       selectedSortTypes,
@@ -120,6 +129,7 @@ const SearchManager = ({ history, location }) => {
     selectedSearchTypes,
     selectedGenres,
     selectedCountries,
+    selectedBuiltYear,
     selectedAgeRange,
     selectedSortTypes,
     selectedSubtitle,
@@ -157,12 +167,12 @@ const SearchManager = ({ history, location }) => {
       {
         menuId: 5,
         name: <FormattedMessage {...messages.filterBuiltYear} />,
-        component: () => <>BUILT_YEAR</>,
+        component: BuiltYearContet,
       },
       {
         menuId: 6,
         name: <FormattedMessage {...messages.filterRank} />,
-        component: RankContent,
+        component: () => <>RANK_YEAR</>,
       },
       {
         menuId: 7,
@@ -301,6 +311,14 @@ const SearchManager = ({ history, location }) => {
     },
     [selectedSubtitle, setSelectedSubtitle],
   );
+
+  const handleSelectedBuiltYear = useCallback(
+    builtRange => {
+      setSelectedBuiltYear(builtRange);
+    },
+    [selectedBuiltYear, setSelectedBuiltYear],
+  );
+
   /** Utils */
   const handleUpdateArray = (array, target) => {
     let result = [];
@@ -324,11 +342,14 @@ const SearchManager = ({ history, location }) => {
     searchTypes,
     gnrIDs,
     countryCodes,
+    selectedBuiltYear,
     ageRangeIDs,
     selectedSortTypes,
     selectedSubtitle,
   }) => {
     const queries = new URLSearchParams();
+
+    console.log({ selectedBuiltYear });
 
     /** search Query */
     queries.append('query', searchQuery);
@@ -347,7 +368,12 @@ const SearchManager = ({ history, location }) => {
     countryCodes.length > 0 &&
       queries.append('countries', countryCodes.join(','));
 
-    console.log({ selectedSortTypes });
+    /** builtYear */
+    const [startDate, stopDate] = selectedBuiltYear;
+    queries.append('min_year', startDate);
+    queries.append('max_year', stopDate);
+
+    /** itemsorts */
     queries.append('item_sort', selectedSortTypes.sortType);
     queries.append('sort_type', selectedSortTypes.sortOrder);
 
@@ -362,12 +388,14 @@ const SearchManager = ({ history, location }) => {
     searchTypes,
     gnrIDs,
     countryCodes,
+    selectedBuiltYear,
     ageRangeIDs,
     selectedSubtitle,
     selectedSortTypes,
   }) => {
     // TODO:
     //  - call related api
+    const [startDate, stopDate] = selectedBuiltYear;
 
     const searchConfig = {
       page: 1,
@@ -379,6 +407,8 @@ const SearchManager = ({ history, location }) => {
       item_sort: selectedSortTypes.sortType,
       sort_type: selectedSortTypes.sortOrder,
       voice: Number(selectedSubtitle),
+      min_year: startDate,
+      max_year: stopDate,
     };
 
     switch (searchTypes) {
@@ -446,6 +476,7 @@ const SearchManager = ({ history, location }) => {
       handleSetSelectedSearchTypes,
       handleSetSelectedGenres,
       handleSetSelectedContries,
+      handleSelectedBuiltYear,
       handleSetSelectedAgeRange,
       handleSetSelectedSubtitle,
       handleSetSelectedSortTypes,

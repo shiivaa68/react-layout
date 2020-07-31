@@ -1,0 +1,6 @@
+const BUILT_YEAR_FILTER = {
+  START_DATE: 1900,
+  STOP_DATE: 2020,
+};
+
+export default BUILT_YEAR_FILTER;
