@@ -5,6 +5,6 @@ export const CountryWrapper = styled.section`
   height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  max-height: 340px;
+  max-height: 375px;
   overflow-y: scroll;
 `;

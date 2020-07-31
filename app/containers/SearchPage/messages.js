@@ -58,4 +58,10 @@ export default defineMessages({
     id: `${scope}.StopRank`,
     defaultMessage: 'تا {year}',
   },
+
+  /** RESET FILTER */
+  reset_filter: {
+    id: `${scope}.reset_filter`,
+    defaultMessage: 'پاک کردن فیلتر ها',
+  },
 });

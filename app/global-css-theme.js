@@ -15,6 +15,9 @@ const GlobalTheme = createGlobalStyle`
         
         --primary-white:#FFFFFF;
         --dark-blue:#2990EB;
+        --filter-blue:#37383e;
+
+        --primary-danger: #d65b5a;
 
         --blue: blue;
 

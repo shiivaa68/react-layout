@@ -53,6 +53,7 @@ const SearchManager = ({ history }) => {
   const [selectedSearchTypes, setSelectedSearchTypes] = useState({
     id: 1,
     name: SEARCH_TYPES.ALL,
+    label: 'همه',
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -196,8 +197,8 @@ const SearchManager = ({ history }) => {
     ];
   }, []);
 
-  const sortTypes = useMemo(() => {
-    return [
+  const sortTypes = useMemo(
+    () => [
       {
         id: 1,
         sortType: 'imdb_rank',
@@ -240,8 +241,9 @@ const SearchManager = ({ history }) => {
         name: SORT_TYPES.VISITED_COUNT_DESC,
         label: 'بازدید (نزولی)',
       },
-    ];
-  }, []);
+    ],
+    [],
+  );
 
   /** Logic handlers */
   const handleSetSearchQuery = useCallback(
@@ -253,10 +255,11 @@ const SearchManager = ({ history }) => {
   );
 
   const handleSetSelectedSearchTypes = useCallback(
-    ({ id, name }) => {
+    ({ id, name, label }) => {
       setSelectedSearchTypes({
         id,
         name,
+        label,
       });
     },
     [selectedSearchTypes, setSelectedSearchTypes],
@@ -271,10 +274,10 @@ const SearchManager = ({ history }) => {
   );
 
   const handleSetSelectedContries = useCallback(
-    ({ id, name, country_code }) => {
+    ({ id, label, country_code }) => {
       const newCountryArray = handleUpdateArray(selectedCountries, {
         id,
-        name,
+        label,
         country_code,
       });
       setSelectedCountries(newCountryArray);
@@ -294,12 +297,13 @@ const SearchManager = ({ history }) => {
   );
 
   const handleSetSelectedSortTypes = useCallback(
-    ({ id, sortType, sortOrder, name }) => {
+    ({ id, sortType, sortOrder, name, label }) => {
       setSelectedSortTypes({
         id,
         sortType,
         sortOrder,
         name,
+        label,
       });
     },
     [selectedSortTypes, setSelectedSortTypes],
@@ -318,6 +322,95 @@ const SearchManager = ({ history }) => {
     },
     [selectedBuiltYear, setSelectedBuiltYear],
   );
+
+  const handleGeneralResetFilter = useCallback(
+    ({ category, id, ...rest }) => {
+      switch (true) {
+        case category === 'selectedSearchTypes': {
+          setSelectedSearchTypes({
+            id: 1,
+            name: SEARCH_TYPES.ALL,
+            label: 'همه',
+          });
+          break;
+        }
+
+        case category === 'selectedGenres': {
+          const newGenresArray = handleUpdateArray(selectedGenres, {
+            id,
+            name,
+          });
+          setSelectedGenres(newGenresArray);
+          break;
+        }
+
+        case category === 'selectedAgeRange': {
+          const newAgeRange = handleUpdateArray(selectedAgeRange, {
+            id,
+            name,
+          });
+          setSelectedAgeRange(newAgeRange);
+          break;
+        }
+
+        case category === 'selectedCountries': {
+          const newSelecrtedContries = handleUpdateArray(selectedCountries, {
+            id,
+            name,
+          });
+          setSelectedCountries(newSelecrtedContries);
+          break;
+        }
+
+        case category === 'selectedBuiltYear': {
+          setSelectedBuiltYear([START_DATE, STOP_DATE]);
+          break;
+        }
+
+        case category === 'selectedSubtitle': {
+          setSelectedSubtitle(false);
+          break;
+        }
+
+        case category === 'selectedSortTypes': {
+          setSelectedSortTypes({
+            id: 1,
+            sortOrder: 'ASC',
+            sortType: 'imdb_rank',
+            label: 'امتیاز IMDB (صعودی)',
+            name: SORT_TYPES.IMDB_RANK_ASC,
+          });
+          break;
+        }
+
+        default:
+          break;
+      }
+    },
+    [selectedGenres, selectedAgeRange, selectedCountries],
+  );
+
+  const handleResetFilters = useCallback(() => {
+    console.log('RESET_ALL_FILTERS');
+    /** RESET FILTERS PART */
+    setSelectedSearchTypes({
+      id: 1,
+      name: SEARCH_TYPES.ALL,
+      label: 'همه',
+    });
+    setSelectedGenres([]);
+    setSelectedCountries([]);
+    setSelectedBuiltYear([START_DATE, STOP_DATE]);
+    setSelectedAgeRange([]);
+    setSelectedSubtitle(false);
+    setSelectedSortTypes({
+      id: 1,
+      sortOrder: 'ASC',
+      sortType: 'imdb_rank',
+      label: 'امتیاز IMDB (صعودی)',
+      name: SORT_TYPES.IMDB_RANK_ASC,
+    });
+  }, []);
 
   /** Utils */
   const handleUpdateArray = (array, target) => {
@@ -456,11 +549,12 @@ const SearchManager = ({ history }) => {
       agerange,
       sortTypes,
 
-      // configured data
+      // selected filter data
       selectedSearchTypes,
       selectedGenres,
-      selectedCountries,
       selectedAgeRange,
+      selectedCountries,
+      selectedBuiltYear,
       selectedSubtitle,
       selectedSortTypes,
 
@@ -478,6 +572,8 @@ const SearchManager = ({ history }) => {
       handleSetSelectedAgeRange,
       handleSetSelectedSubtitle,
       handleSetSelectedSortTypes,
+      handleGeneralResetFilter,
+      handleResetFilters,
     },
   };
 };

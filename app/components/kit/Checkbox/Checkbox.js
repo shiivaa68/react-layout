@@ -13,7 +13,7 @@ const Checkbox = ({ id, label, onChange, checked, ...rest }) => {
   };
 
   return (
-    <CheckBoxWrapper onChange={handleCheckboxChange}>
+    <CheckBoxWrapper>
       <CheckboxLabel>
         <CheckboxInput
           type="checkbox"

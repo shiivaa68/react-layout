@@ -16,6 +16,7 @@ const AgeRangeContent = () => {
       {agerange.map(age => {
         return (
           <Checkbox
+            {...age}
             key={age.id}
             id={age.id}
             label={age.name}
