@@ -20,7 +20,7 @@ const AgeRangeContent = () => {
             key={age.id}
             id={age.id}
             label={age.name}
-            checked={selectedAgeRange.map(el => el.id).includes(age.id)}
+            checked={age.id === selectedAgeRange.id}
             onChange={handleSetSelectedAgeRange}
           />
         );

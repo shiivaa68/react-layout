@@ -9,7 +9,6 @@ export const TabWrapper = styled.section`
   align-items: center;
   flex-direction: row;
   margin-bottom: 2rem;
-
   & > button {
     font-size: 1.3rem;
   }

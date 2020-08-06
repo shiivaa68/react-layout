@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import SEARCH_ICON from 'images/search.svg';
 import CLOSE_ICON from 'images/close.svg';
@@ -19,7 +19,7 @@ import {
 const Search = () => {
   const {
     data: { searchQuery },
-    action: { handleSetSearchQuery },
+    action: { handleSetSearchQuery, handelResetFilterSearchQuery },
   } = useSearchContext();
 
   return (
@@ -39,7 +39,11 @@ const Search = () => {
         </FormattedMessage>
         {/** ------- */}
 
-        <CloseSearch src={CLOSE_ICON} alt="close-search" />
+        <CloseSearch
+          src={CLOSE_ICON}
+          alt="close-search"
+          onClick={handelResetFilterSearchQuery}
+        />
       </SearchBox>
     </SearchContainer>
   );

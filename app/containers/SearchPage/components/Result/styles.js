@@ -71,7 +71,6 @@ export const Image = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
   & > img {
     width: 100px;
     border-radius: 50%;
@@ -91,3 +90,14 @@ export const DescriptionCast = styled.div`
 export const Title = styled.h4`
   padding: 0 1rem;
 `;
+
+export const WayPointArea = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:red;
+`;
+

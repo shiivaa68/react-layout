@@ -16,7 +16,6 @@ export const ResetFilterBtn = styled.button`
   justify-content: space-between;
   align-items: space-between;
   cursor: pointer;
-
   & * {
     user-select: none;
   }

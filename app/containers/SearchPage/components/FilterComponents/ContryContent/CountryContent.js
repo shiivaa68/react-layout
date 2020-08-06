@@ -9,9 +9,6 @@ const CountryContent = () => {
     action: { handleSetSelectedContries },
   } = useSearchContext();
 
-  // useEffect(() => {
-  //   console.log({ country });
-  // }, [country]);
 
   return (
     <CountryWrapper>

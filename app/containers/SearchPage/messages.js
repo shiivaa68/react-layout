@@ -33,35 +33,43 @@ export default defineMessages({
   },
   filterBuiltYear: {
     id: `${scope}.filterBuiltYear`,
-    defaultMessage: 'سال انتشار ',
+    defaultMessage:'سال انتشار ',
   },
   filterRank: {
     id: `${scope}.filterRank`,
-    defaultMessage: 'رنک ',
+    defaultMessage:'رنک ',
   },
   filterSubtitle: {
     id: `${scope}.filterSubtitle`,
     defaultMessage: 'زیر نویس',
   },
-
+ 
   filterSort: {
     id: `${scope}.filterSort`,
     defaultMessage: 'مرتب سازی',
   },
 
-  /** RANK */
   StartRank: {
     id: `${scope}.StartRank`,
-    defaultMessage: 'از {year}',
+    defaultMessage: 'از سال {year}',
   },
   StopRank: {
     id: `${scope}.StopRank`,
     defaultMessage: 'تا {year}',
   },
 
-  /** RESET FILTER */
+  MinRank: {
+    id: `${scope}.MinRank`,
+    defaultMessage: 'از رنک {rankNumber}',
+  },
+  MaxRank: {
+    id: `${scope}.MaxRank`,
+    defaultMessage: 'تا رنک {rankNumber}',
+  },
   reset_filter: {
     id: `${scope}.reset_filter`,
     defaultMessage: 'پاک کردن فیلتر ها',
   },
+
+
 });

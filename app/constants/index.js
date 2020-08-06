@@ -4,3 +4,4 @@ export { default as SEARCH_TYPES } from './SearchTypes';
 export { default as SORT_TYPES } from './SortTypes';
 
 export { default as BUILT_YEAR_FILTER } from './BuiltYearFilter';
+export { default as RANK_NUMBER } from './RankNumber';

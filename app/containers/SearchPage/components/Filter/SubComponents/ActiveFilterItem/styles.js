@@ -14,12 +14,10 @@ export const ActiveFilterItemBox = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: space-between;
-
   &:hover img {
     cursor: pointer;
     opacity: 1;
   }
-
   & > img {
     -webkit-filter: invert(100%);
     filter: invert(100%);

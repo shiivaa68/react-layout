@@ -11,6 +11,7 @@ import { useBindDispatch } from 'utils/redux/useBindDispatch';
 import SEARCH_TYPES from 'constants/SearchTypes';
 import SORT_TYPES from 'constants/SortTypes';
 import BUILT_YEAR_FILTER from 'constants/BuiltYearFilter';
+import RANK_NUMBER from 'constants/RankNumber';
 
 import {
   getMovieSearchPageAction,
@@ -33,18 +34,18 @@ import {
   SubtitleContent,
   SortTypeContent,
   BuiltYearContet,
+  RankContent,
 } from './components/FilterComponents';
 
 import messages from './messages';
 
 const SearchPageKeyOnRedux = 'SearchPage';
 
-const SearchManager = ({ history }) => {
+const SearchManager = ({ history, location }) => {
   /** Constsnts */
   const { START_DATE, STOP_DATE } = BUILT_YEAR_FILTER;
-
-  /** Injectors */
-
+  const { MIN_RANK, MAX_RANK } = RANK_NUMBER;
+  // injectors
   useInjectReducer({ key: SearchPageKeyOnRedux, reducer: SearchPageReducer });
   useInjectSaga({ key: SearchPageKeyOnRedux, saga: SearchPageSaga });
 
@@ -52,8 +53,8 @@ const SearchManager = ({ history }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSearchTypes, setSelectedSearchTypes] = useState({
     id: 1,
-    name: SEARCH_TYPES.ALL,
-    label: 'همه',
+    name: SEARCH_TYPES.MOVIES,
+    label: 'فیلم ها',
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -61,6 +62,11 @@ const SearchManager = ({ history }) => {
     START_DATE,
     STOP_DATE,
   ]);
+  const [selectedRankNumber, setSelectedRankNumber] = useState([
+    MIN_RANK,
+    MAX_RANK,
+  ]);
+
   const [selectedAgeRange, setSelectedAgeRange] = useState([]);
   const [selectedSubtitle, setSelectedSubtitle] = useState(false);
   const [selectedSortTypes, setSelectedSortTypes] = useState({
@@ -70,6 +76,7 @@ const SearchManager = ({ history }) => {
     label: 'امتیاز IMDB (صعودی)',
     name: SORT_TYPES.IMDB_RANK_ASC,
   });
+  const [page, setPage] = useState(0);
 
   // bounded redux actions
   const [
@@ -95,52 +102,109 @@ const SearchManager = ({ history }) => {
   );
 
   /** Effects */
+  /** DECODING PART */
+  // useEffect(() => {
+  //   console.log({ location });
+  //   console.log('___QUERY___', qs.parse(decodeURI(location.search.slice(1))));
+  // }, [location]);
+
+  // did mount
+  useEffect(() => {
+    // getNextPage(page);
+    window.scrollTo({ top: 0, left: 0 });
+    window.addEventListener('CHANGE_TAB_EVENT', e => {
+      setSelectedSearchTypes(e.detail.targetTab);
+    });
+  }, []);
+
   useEffect(() => {
     const gnrIDs = selectedGenres.map(gnr => gnr.id);
     const searchTypes = selectedSearchTypes.name;
     const countryCodes = selectedCountries.map(country => country.country_code);
-    const ageRangeIDs = selectedAgeRange.map(agerange => agerange.id);
+    const ageRangeIDs = selectedAgeRange.id;
+
+    // console.log({ searchQuery, gnrIDs, countryCodes, ageRangeIDs });
 
     /** TWO ACTIONS HERE
      *  - keep update url
      *  - call api endpoints
      */
     handleUrlParams({
+      page,
       searchQuery,
       searchTypes,
       gnrIDs,
       countryCodes,
       selectedBuiltYear,
+      selectedRankNumber,
       ageRangeIDs,
       selectedSubtitle,
       selectedSortTypes,
     });
     handleApiSide({
+      page,
       searchQuery,
       searchTypes,
       gnrIDs,
       countryCodes,
       selectedBuiltYear,
+      selectedRankNumber,
       ageRangeIDs,
       selectedSubtitle,
       selectedSortTypes,
     });
+  }, [
+    page,
+    searchQuery,
+    selectedSearchTypes,
+    selectedGenres,
+    selectedCountries,
+    selectedBuiltYear,
+    selectedRankNumber,
+    selectedAgeRange,
+    selectedSortTypes,
+    selectedSubtitle,
+  ]);
+
+  useEffect(() => {
+    setPage(0);
+    resetMovieSearchPage();
+    resetSerieSearchPage();
+    resetCastsSearchPage();
   }, [
     searchQuery,
     selectedSearchTypes,
     selectedGenres,
     selectedCountries,
     selectedBuiltYear,
+    selectedRankNumber,
     selectedAgeRange,
     selectedSortTypes,
     selectedSubtitle,
   ]);
 
-  /** DECODING PART */
-  // useEffect(() => {
-  //   console.log({ location });
-  //   console.log('___QUERY___', qs.parse(decodeURI(location.search.slice(1))));
-  // }, [location]);
+  // /** requestPage api Call */
+  // const getNextPage = useCallback(() => {
+  //   /** INCREMENT PAGE */
+  //   const newPageIndex = page + 1;
+  //   setPage(newPageIndex);
+
+  //   const { search } = location;
+  //   const parsedQueryString = qs.parse(decodeURI(search.slice(1)));
+  //   console.log({ parsedQueryString });
+  //   const searchConfig = {
+  //     page: newPageIndex,
+  //     limit: globalConfigs.pageLimit,
+  //     parsedQueryString,
+  //   };
+
+  //   getMovieSearchPage({ searchConfig });
+  // }, [page]);
+
+  const handleNextPage = useCallback(() => {
+    const _page = page + 1;
+    setPage(_page);
+  }, [page]);
 
   /** Data handlers */
   const sidebarMenuData = useMemo(() => {
@@ -173,7 +237,7 @@ const SearchManager = ({ history }) => {
       {
         menuId: 6,
         name: <FormattedMessage {...messages.filterRank} />,
-        component: () => <>RANK_YEAR</>,
+        component: RankContent,
       },
       {
         menuId: 7,
@@ -190,15 +254,14 @@ const SearchManager = ({ history }) => {
 
   const searchTypes = useMemo(() => {
     return [
-      { id: 1, name: SEARCH_TYPES.ALL, label: 'همه' },
-      { id: 2, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
-      { id: 3, name: SEARCH_TYPES.SERIES, label: 'سریال ها' },
-      { id: 4, name: SEARCH_TYPES.CASTS, label: 'عوامل' },
+      { id: 1, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
+      { id: 2, name: SEARCH_TYPES.SERIES, label: 'سریال ها' },
+      { id: 3, name: SEARCH_TYPES.CASTS, label: 'عوامل' },
     ];
   }, []);
 
-  const sortTypes = useMemo(
-    () => [
+  const sortTypes = useMemo(() => {
+    return [
       {
         id: 1,
         sortType: 'imdb_rank',
@@ -241,9 +304,8 @@ const SearchManager = ({ history }) => {
         name: SORT_TYPES.VISITED_COUNT_DESC,
         label: 'بازدید (نزولی)',
       },
-    ],
-    [],
-  );
+    ];
+  }, []);
 
   /** Logic handlers */
   const handleSetSearchQuery = useCallback(
@@ -287,11 +349,10 @@ const SearchManager = ({ history }) => {
 
   const handleSetSelectedAgeRange = useCallback(
     ({ id, name }) => {
-      const newAgeRangeArray = handleUpdateArray(selectedAgeRange, {
+      setSelectedAgeRange({
         id,
         name,
       });
-      setSelectedAgeRange(newAgeRangeArray);
     },
     [selectedAgeRange, setSelectedAgeRange],
   );
@@ -323,14 +384,22 @@ const SearchManager = ({ history }) => {
     [selectedBuiltYear, setSelectedBuiltYear],
   );
 
+  const handleSelectedRankNumber = useCallback(
+    rankNumber => {
+      setSelectedRankNumber(rankNumber);
+    },
+    [selectedRankNumber, setSelectedRankNumber],
+  );
+
+  // handle resetFilter
   const handleGeneralResetFilter = useCallback(
     ({ category, id, ...rest }) => {
       switch (true) {
         case category === 'selectedSearchTypes': {
           setSelectedSearchTypes({
             id: 1,
-            name: SEARCH_TYPES.ALL,
-            label: 'همه',
+            name: SEARCH_TYPES.MOVIES,
+            label: 'فیلم ها',
           });
           break;
         }
@@ -345,11 +414,7 @@ const SearchManager = ({ history }) => {
         }
 
         case category === 'selectedAgeRange': {
-          const newAgeRange = handleUpdateArray(selectedAgeRange, {
-            id,
-            name,
-          });
-          setSelectedAgeRange(newAgeRange);
+          setSelectedAgeRange([]);
           break;
         }
 
@@ -364,6 +429,11 @@ const SearchManager = ({ history }) => {
 
         case category === 'selectedBuiltYear': {
           setSelectedBuiltYear([START_DATE, STOP_DATE]);
+          break;
+        }
+
+        case category === 'selectedRankNumber': {
+          setSelectedRankNumber([MIN_RANK, MAX_RANK]);
           break;
         }
 
@@ -391,16 +461,17 @@ const SearchManager = ({ history }) => {
   );
 
   const handleResetFilters = useCallback(() => {
-    console.log('RESET_ALL_FILTERS');
+    // console.log('RESET_ALL_FILTERS');
     /** RESET FILTERS PART */
     setSelectedSearchTypes({
       id: 1,
-      name: SEARCH_TYPES.ALL,
-      label: 'همه',
+      name: SEARCH_TYPES.MOVIES,
+      label: 'فیلم ها',
     });
     setSelectedGenres([]);
     setSelectedCountries([]);
     setSelectedBuiltYear([START_DATE, STOP_DATE]);
+    setSelectedRankNumber([MIN_RANK, MAX_RANK]);
     setSelectedAgeRange([]);
     setSelectedSubtitle(false);
     setSelectedSortTypes({
@@ -408,9 +479,14 @@ const SearchManager = ({ history }) => {
       sortOrder: 'ASC',
       sortType: 'imdb_rank',
       label: 'امتیاز IMDB (صعودی)',
-      name: SORT_TYPES.IMDB_RANK_ASC,
+      name: SORT_TYPES.IMDB_RANK_ASC || null,
     });
   }, []);
+
+  //handle close input search
+  const handelResetFilterSearchQuery = useCallback(() => {
+    setSearchQuery('');
+  }, [searchQuery, setSearchQuery]);
 
   /** Utils */
   const handleUpdateArray = (array, target) => {
@@ -431,11 +507,13 @@ const SearchManager = ({ history }) => {
   };
 
   const handleUrlParams = ({
+    page,
     searchQuery,
     searchTypes,
     gnrIDs,
     countryCodes,
     selectedBuiltYear,
+    selectedRankNumber,
     ageRangeIDs,
     selectedSortTypes,
     selectedSubtitle,
@@ -445,6 +523,9 @@ const SearchManager = ({ history }) => {
     /** search Query */
     queries.append('query', searchQuery);
 
+    /** Page */
+    queries.append('page', Number(page));
+
     /** search Types */
     queries.append('search_types', searchTypes);
 
@@ -452,19 +533,22 @@ const SearchManager = ({ history }) => {
     gnrIDs.length > 0 && queries.append('genres', gnrIDs.join(','));
 
     /** ageRange */
-    ageRangeIDs.length > 0 &&
-      queries.append('age_range', ageRangeIDs.join(','));
+    queries.append('age_range', ageRangeIDs);
 
     /** contrycodes */
     countryCodes.length > 0 &&
       queries.append('countries', countryCodes.join(','));
 
-    /** builtYear */
     const [startDate, stopDate] = selectedBuiltYear;
     queries.append('min_year', startDate);
     queries.append('max_year', stopDate);
 
-    /** itemsorts */
+    const [minrank, maxrank] = selectedRankNumber;
+    // console.log(selectedRankNumber);
+    queries.append('min_imdb', minrank);
+    queries.append('max_imdb', maxrank);
+
+    //sort types
     queries.append('item_sort', selectedSortTypes.sortType);
     queries.append('sort_type', selectedSortTypes.sortOrder);
 
@@ -475,57 +559,54 @@ const SearchManager = ({ history }) => {
   };
 
   const handleApiSide = ({
+    page,
     searchQuery,
     searchTypes,
     gnrIDs,
     countryCodes,
     selectedBuiltYear,
+    selectedRankNumber,
     ageRangeIDs,
-    selectedSubtitle,
     selectedSortTypes,
+    selectedSubtitle,
   }) => {
     // TODO:
     //  - call related api
     const [startDate, stopDate] = selectedBuiltYear;
-
+    const [minrank, maxrank] = selectedRankNumber;
     const searchConfig = {
-      page: 1,
+      page: page === 0 ? 1 : page,
       limit: globalConfigs.pageLimit,
       text: searchQuery,
       genres: gnrIDs.join(','),
-      age_range: ageRangeIDs.join(','),
+      age_range: ageRangeIDs,
       country: countryCodes.map(el => el.toLowerCase()).join(','),
       item_sort: selectedSortTypes.sortType,
       sort_type: selectedSortTypes.sortOrder,
       voice: Number(selectedSubtitle),
       min_year: startDate,
       max_year: stopDate,
+      min_imdb: minrank,
+      max_imdb: maxrank,
     };
 
     switch (searchTypes) {
-      case SEARCH_TYPES.ALL: {
-        console.log('should call ALL APIS');
-        getMovieSearchPage({ searchConfig });
-        getSeriesSearchPage({ searchConfig });
-        getCastsSearchPage({ searchConfig });
-        break;
-      }
       case SEARCH_TYPES.MOVIES: {
-        console.log('should call ALL MOVIES');
+        // console.log('should call ALL MOVIES');
         getMovieSearchPage({ searchConfig });
         resetSerieSearchPage();
         resetCastsSearchPage();
         break;
       }
       case SEARCH_TYPES.SERIES: {
-        console.log('should call ALL SERIES');
+        // console.log('should call ALL SERIES');
         getSeriesSearchPage({ searchConfig });
         resetMovieSearchPage();
         resetCastsSearchPage();
         break;
       }
       case SEARCH_TYPES.CASTS: {
-        console.log('should call ALL CASTS');
+        // console.log('should call ALL CASTS');
         getCastsSearchPage({ searchConfig });
         resetMovieSearchPage();
         resetSerieSearchPage();
@@ -534,7 +615,7 @@ const SearchManager = ({ history }) => {
       }
 
       default:
-        console.log('do nothing...');
+        // console.log('do nothing...');
         break;
     }
   };
@@ -542,6 +623,7 @@ const SearchManager = ({ history }) => {
   return {
     data: {
       // base data
+      searchQuery,
       sidebarMenuData,
       searchTypes,
       genres,
@@ -549,16 +631,18 @@ const SearchManager = ({ history }) => {
       agerange,
       sortTypes,
 
-      // selected filter data
+      // configured data
       selectedSearchTypes,
       selectedGenres,
-      selectedAgeRange,
       selectedCountries,
-      selectedBuiltYear,
+      selectedRankNumber,
+      selectedAgeRange,
       selectedSubtitle,
       selectedSortTypes,
+      selectedBuiltYear,
 
       // result data
+
       movies_data,
       series_data,
       casts_data,
@@ -569,11 +653,14 @@ const SearchManager = ({ history }) => {
       handleSetSelectedGenres,
       handleSetSelectedContries,
       handleSelectedBuiltYear,
+      handleSelectedRankNumber,
       handleSetSelectedAgeRange,
       handleSetSelectedSubtitle,
       handleSetSelectedSortTypes,
       handleGeneralResetFilter,
       handleResetFilters,
+      handelResetFilterSearchQuery,
+      handleNextPage,
     },
   };
 };

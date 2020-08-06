@@ -59,6 +59,8 @@
   "boilerplate.containers.LocaleToggle.en": "",
   "boilerplate.containers.MovieSuggestions.title": "",
   "boilerplate.containers.NotFoundPage.header": "Seite nicht gefunden.",
+  "boilerplate.containers.Search.MaxRank": "",
+  "boilerplate.containers.Search.MinRank": "",
   "boilerplate.containers.Search.StartRank": "",
   "boilerplate.containers.Search.StopRank": "",
   "boilerplate.containers.Search.clearSearch": "",

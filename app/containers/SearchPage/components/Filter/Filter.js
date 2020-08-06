@@ -5,10 +5,11 @@ import FilterBox from './SubComponents/FilterBox';
 import ActiveFilterItem from './SubComponents/ActiveFilterItem';
 import ResetFilters from './SubComponents/ResetFilters';
 import useSearchContext from 'containers/SearchPage/context';
+// import DOWNARROW from 'images/downArrow';
 
 import { FormattedMessage } from 'react-intl';
 import messages from '../../messages';
-import { FilterContainer, FilterNavBar } from './styles';
+import { FilterContainer, FilterNavBar, Down_Arrow } from './styles';
 
 const Filter = () => {
   const [shouldShowFilter, setShoulsShowFilter] = useState(false);
@@ -20,6 +21,7 @@ const Filter = () => {
       selectedAgeRange,
       selectedCountries,
       selectedBuiltYear,
+      selectedRankNumber,
       selectedSubtitle,
       selectedSortTypes,
     },
@@ -34,6 +36,7 @@ const Filter = () => {
       selectedAgeRange: [],
       selectedCountries: [],
       selectedBuiltYear: [],
+      selectedRankNumber: [],
       selectedSubtitle: [],
       selectedSortTypes: [],
     };
@@ -50,12 +53,11 @@ const Filter = () => {
     );
 
     /** selected age range */
-    selectedAgeRange.map(ageRange =>
+    Object.entries(selectedAgeRange).length > 0 &&
       result.selectedAgeRange.push({
-        id: ageRange.id,
-        name: ageRange.name,
-      }),
-    );
+        id: selectedAgeRange.id,
+        name: selectedAgeRange.name,
+      });
 
     /** selected countries */
     selectedCountries.map(country =>
@@ -72,7 +74,12 @@ const Filter = () => {
       name: `از ${startDate} تا ${stopDate}`,
     });
 
-    /** Rank HERE */
+    /**selected rank number */
+    const [minrank, maxrank] = selectedRankNumber;
+    result.selectedRankNumber.push({
+      id: 1,
+      name: `از ${minrank} تا ${maxrank}`,
+    });
 
     /** Subtitle */
     if (selectedSubtitle)
@@ -96,6 +103,7 @@ const Filter = () => {
     selectedAgeRange,
     selectedCountries,
     selectedBuiltYear,
+    selectedRankNumber,
     selectedSubtitle,
     selectedSortTypes,
   ]);
@@ -104,7 +112,8 @@ const Filter = () => {
     if (
       key === 'selectedSearchTypes' ||
       key === 'selectedBuiltYear' ||
-      key === 'selectedSortTypes'
+      key === 'selectedSortTypes' ||
+      key === 'selectedRankNumber'
     )
       return true;
     else false;
@@ -135,16 +144,20 @@ const Filter = () => {
           keepActive={shouldShowFilter}
           label={<FormattedMessage {...messages.filter} />}
         />
+        {/* <Down_Arrow /> */}
 
         {Object.entries(activeFilters).map(([key, items]) => {
-          return items.map((filterItem, i) => (
-            <ActiveFilterItem
-              key={i}
-              category={key}
-              isSingleChoise={isSingleChoise(key)}
-              {...filterItem}
-            />
-          ));
+          return (
+            items.length > 0 &&
+            items.map((filterItem, i) => (
+              <ActiveFilterItem
+                key={i}
+                category={key}
+                isSingleChoise={isSingleChoise(key)}
+                {...filterItem}
+              />
+            ))
+          );
         })}
 
         {shouldShowResetButton && <ResetFilters handler={handleResetFilters} />}

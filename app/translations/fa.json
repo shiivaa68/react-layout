@@ -59,6 +59,8 @@
   "boilerplate.containers.LocaleToggle.en": "en",
   "boilerplate.containers.MovieSuggestions.title": "همچنین تماشا کنید",
   "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.Search.MaxRank": "تا رنک {rankNumber}",
+  "boilerplate.containers.Search.MinRank": "از رنک {rankNumber}",
   "boilerplate.containers.Search.StartRank": "از {year}",
   "boilerplate.containers.Search.StopRank": "تا {year}",
   "boilerplate.containers.Search.clearSearch": "پاک کردن",

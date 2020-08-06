@@ -5,10 +5,11 @@ import { SearchWrapper } from './styles';
 import SearchManager from './SearchManager';
 
 const SearchPage = props => {
-  const { data, action } = SearchManager(props);
+  const { data, action ,location } = SearchManager(props);
+
 
   return (
-    <SearchContext.Provider value={{ data, action }}>
+    <SearchContext.Provider value={{ data, action,location}}>
       <SearchWrapper>
         <Search />
         <Filter />
