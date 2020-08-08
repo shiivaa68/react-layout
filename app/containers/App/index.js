@@ -10,6 +10,9 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
+import Login from 'containers/Login/Loadable';
+import Register from 'containers/Register/Loadable';
+
 import JunkPage from 'containers/JunkPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import SeriesPage from 'containers/SeriesPage/Loadable';
@@ -28,7 +31,13 @@ import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import GlobalReducer from './reducer';
 import GlobalSaga from './saga';
-import { getRolesAction, getLanguagesAction, getAgeRangeAction, getGenresAction, getCountryAction } from './actions';
+import {
+  getRolesAction,
+  getLanguagesAction,
+  getAgeRangeAction,
+  getGenresAction,
+  getCountryAction,
+} from './actions';
 
 import { AppWrapper, MainWrapper } from './stylecomponent';
 import { Header, Footer } from './component';
@@ -64,19 +73,34 @@ export default function App() {
   return (
     <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
       <AppWrapper>
-        <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
-          <meta name="description" content="A React.js Boilerplate application" />
+        <Helmet
+          titleTemplate="%s - React.js Boilerplate"
+          defaultTitle="React.js Boilerplate"
+        >
+          <meta
+            name="description"
+            content="A React.js Boilerplate application"
+          />
         </Helmet>
         <Header />
 
         <MainWrapper>
           <Switch>
+            <Route path={RouterRoutes.login} component={Login} />
+            <Route path={RouterRoutes.register} component={Register} />
+
             <Route exact path={RouterRoutes.home} component={JunkPage} />
             <Route path={RouterRoutes.junk} component={HomePage} />
             <Route path={RouterRoutes.search} component={SearchPage} />
             <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
-            <Route path={RouterRoutes.movieDetailRoute} component={MoviesPage} />
-            <Route path={RouterRoutes.seriesDetailRoute} component={SeriesPage} />
+            <Route
+              path={RouterRoutes.movieDetailRoute}
+              component={MoviesPage}
+            />
+            <Route
+              path={RouterRoutes.seriesDetailRoute}
+              component={SeriesPage}
+            />
             <Route path={RouterRoutes.pageSingle} component={SinglePage} />
             <Route component={NotFoundPage} />
           </Switch>
