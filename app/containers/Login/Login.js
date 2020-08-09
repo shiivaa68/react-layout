@@ -1,55 +1,31 @@
 import React from 'react';
-import Form from 'components/Form';
-import { Button, InputField } from 'components/kit';
-import { ButtonTypes } from 'components/kit/Button/constants';
-import { LoginWrapper, LoginBox, LoginButtonsGroup } from './styles';
-
+import { RegisterStepOne, LoginForm, RegisterForm } from './components';
+import { LoginContext } from './context';
+import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
+import SIGNIN from 'images/sign-in.svg';
 
 const Login = () => {
+  const { data, errors, actions } = LoginManager();
+
   const {
-    data: {},
-    actions: {
-      handleLoginWithUserPass,
-      handleLoginWithOTP,
-      handleLoginWithAsiaTak,
-    },
-    formProps,
-  } = LoginManager();
+    shouldShowStepOneForm,
+    shouldShowLoginForm,
+    shouldShowRegisterForm,
+  } = data;
 
   return (
-    <LoginWrapper>
-      <LoginBox>
-        <Form {...formProps}>
-          <InputField
-            type="number"
-            name="phoneNumber"
-            label="شماره تلفن همراه"
-            placeholder="9** *** ****"
-          />
+    <LoginContext.Provider value={{ data, errors, actions }}>
+      <LoginWrapper>
+        <ImgLogin>
+          <img src={SIGNIN} alt="image login" />
+        </ImgLogin>
 
-          <LoginButtonsGroup>
-            <Button
-              type={ButtonTypes.FULLFILL}
-              label="user/pass"
-              typeAttr="submit"
-              // onClick={handleLoginWithUserPass}
-            />
-            <Button
-              type={ButtonTypes.FULLFILL}
-              label="OTP"
-              typeAttr="submit"
-              // onClick={handleLoginWithOTP}
-            />
-            <Button
-              type={ButtonTypes.FULLFILL}
-              label="LOGIN WITH ASIATEK"
-              onClick={handleLoginWithAsiaTak}
-            />
-          </LoginButtonsGroup>
-        </Form>
-      </LoginBox>
-    </LoginWrapper>
+        {shouldShowStepOneForm && <RegisterStepOne />}
+        {shouldShowLoginForm && <LoginForm />}
+        {shouldShowRegisterForm && <RegisterForm />}
+      </LoginWrapper>
+    </LoginContext.Provider>
   );
 };
 

@@ -17,21 +17,30 @@ function apiRequest({ url, method, data, headers = {} }) {
     .then(res => {
       const {
         status,
-        data: { success, message, data },
+        message,
+        data: { data },
       } = res;
 
-      if (status != 200) {
-        return Promise.reject({ status, success, message });
+      if (status !== 200) {
+        console.log('BEFORE REJECT >>>', { res });
+        return Promise.reject({ message });
       }
 
       return data;
     })
     .catch(error => {
       const { message } = error;
-      console.log('ERROR FROM API CALL FAILURE', {
-        name: message,
-        error,
-      });
+      /** login failed */
+      if (
+        error.response &&
+        (error.response.status === 409 || error.response.status === 405)
+      ) {
+        console.log('BEFORE 409 || 405');
+        return Promise.reject({
+          status: error.response.status,
+          message: error.response.data.message,
+        });
+      }
 
       if (message === 'Network Error') {
         return Promise.reject({

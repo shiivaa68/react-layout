@@ -21,8 +21,6 @@ const useForm = ({
 const Form = props => {
   const { formikProps, formProps } = useForm(props);
 
-  console.log({ formikProps });
-
   return (
     <Formik {...formikProps}>
       <FormikForm {...formProps} />

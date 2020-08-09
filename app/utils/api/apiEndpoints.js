@@ -4,6 +4,9 @@ import { toUrlParams } from './toUrlParams';
 const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
 
 const apiEndpoints = {
+  //auth route
+  registerStepOne: () => `${baseURL}/auth/register`,
+
   // global utilities
   getRoles: () => `${baseURL}/utility/roles`,
   getLanguages: () => `${baseURL}/utility/languages`,
@@ -25,6 +28,7 @@ const apiEndpoints = {
   getSuggestedSeries: (serieId, queryOptions) =>
     `${baseURL}/series/similars/${serieId}?${toUrlParams(queryOptions)}`,
 
+  //api calls search
   // search api calls
   getMoviesSearch: searchConfig =>
     `${baseURL}/movies/search?${toUrlParams(searchConfig)}`,

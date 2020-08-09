@@ -32,7 +32,7 @@ const GlobalTheme = createGlobalStyle`
         --primary-spacing: 1rem;
 
         /**font*/
-        --primary-White-Color:"Vazir FD";
+        --primary-font:"Vazir FD";
     }
 `;
 
