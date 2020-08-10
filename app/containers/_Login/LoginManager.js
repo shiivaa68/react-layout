@@ -5,11 +5,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
-import {
-  getRegisterStepOneAction,
-  getLoginAction,
-  postConfirmationCodeAction,
-} from './redux/actions';
+import { getRegisterStepOneAction } from './redux/actions';
 import LoginPageReducer from './redux/reducer';
 import LoginPageSaga from './redux/saga';
 import InitialState from './redux/initialState';
@@ -24,7 +20,6 @@ const LoginManager = () => {
   /** local States */
   const [mobile, setMobile] = useState(null);
   const [shouldShowStepOneForm, setShouldShowStepOneForm] = useState(true);
-
   const [shouldShowLoginForm, setShouldShowLoginForm] = useState(false);
   const [shouldShowRegisterForm, setShouldShowRegisterForm] = useState(false);
 
@@ -33,8 +28,6 @@ const LoginManager = () => {
   const {
     loading_register_one,
     error_register_one,
-    loading_login,
-    error_login,
     shouldShowLogin,
     shouldShowRegister,
   } = useSelector(state => state.LoginFlow || InitialState);
@@ -46,49 +39,31 @@ const LoginManager = () => {
   }, [shouldShowLogin, shouldShowRegister]);
 
   /** bounded redux actions */
-  const [getRegisterStepOne, getLogin, postConfirmationCode] = useBindDispatch([
-    getRegisterStepOneAction,
-    getLoginAction,
-    postConfirmationCodeAction,
-  ]);
+  const [getRegisterStepOne] = useBindDispatch([getRegisterStepOneAction]);
 
   /** handlers */
   const handleRegisterStepOneSubmittion = useCallback(({ phoneNumber }) => {
     getRegisterStepOne({ phoneNumber });
     setMobile(phoneNumber);
   }, []);
-  // login handler
-  const handleLoginSubmittion = useCallback(({ phoneNumber, password }) => {
-    getLogin({ phoneNumber, password });
-  }, []);
-
-  const handleConfiramtionCode = useCallback(
-    ({ code }) => {
-      postConfirmationCode({ mobile, code });
-    },
-    [mobile],
-  );
 
   return {
     data: {
       /** loadings */
       loading_register_one,
-      loading_login,
 
       /** conditional data */
       shouldShowStepOneForm,
       shouldShowLoginForm,
       shouldShowRegisterForm,
-      mobile,
+
+      // phoneNumber,
     },
     errors: {
       error_register_one,
-      error_login,
     },
     actions: {
       handleRegisterStepOneSubmittion,
-      handleLoginSubmittion,
-      handleConfiramtionCode,
     },
   };
 };

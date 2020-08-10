@@ -9,10 +9,27 @@ export default defineMessages({
   },
   mobile: {
     id: `${scope}.mobile`,
-    defaultMessage: 'شماره تلفن همراه',
+    defaultMessage: 'ورود از طریق شماره تلفن همراه',
+  },
+  otpMessage: {
+    id: `${scope}.otpMessage`,
+    defaultMessage: 'ورود با رمز یک بار مصرف',
   },
   forgetPassword: {
     id: `${scope}.forgetPassword`,
     defaultMessage: 'رمز عبورم را فراموش کردم',
+  },
+  password: {
+    id: `${scope}.password`,
+    defaultMessage: 'رمز عبور',
+  },
+
+  submitLogin: {
+    id: `${scope}.submitLogin`,
+    defaultMessage: ' ورود',
+  },
+  checkCode: {
+    id: `${scope}.checkCode`,
+    defaultMessage: 'بررسی کد تایید',
   },
 });

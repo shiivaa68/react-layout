@@ -3,7 +3,7 @@ import { RegisterStepOne, LoginForm, RegisterForm } from './components';
 import { LoginContext } from './context';
 import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
-import AUTH from 'images/auth.svg';
+import SIGNIN from 'images/sign-in.svg';
 
 const Login = () => {
   const { data, errors, actions } = LoginManager();
@@ -18,7 +18,7 @@ const Login = () => {
     <LoginContext.Provider value={{ data, errors, actions }}>
       <LoginWrapper>
         <ImgLogin>
-          <img src={AUTH} alt="image login" />
+          <img src={SIGNIN} alt="image login" />
         </ImgLogin>
 
         {shouldShowStepOneForm && <RegisterStepOne />}

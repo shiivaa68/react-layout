@@ -6,6 +6,8 @@ const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
 const apiEndpoints = {
   //auth route
   registerStepOne: () => `${baseURL}/auth/register`,
+  login: () => `${baseURL}/auth/login`,
+  confirmCode: () => `${baseURL}/auth/register/code`,
 
   // global utilities
   getRoles: () => `${baseURL}/utility/roles`,

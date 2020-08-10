@@ -6,8 +6,12 @@ import { FormattedMessage } from 'react-intl';
 import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
-
-import { RegisterStepOneWrapper, LoginBox, LoginButtonsGroup } from './styles';
+import {
+  RegisterStepOneWrapper,
+  LoginBox,
+  LoginButtonsGroup,
+  ForgetPass,
+} from './styles';
 
 const RegisterStepOne = () => {
   const {
@@ -35,21 +39,18 @@ const RegisterStepOne = () => {
             label={<FormattedMessage {...messages.mobile} />}
           />
           <LoginButtonsGroup>
-            <div>
-              <Button
-                type={ButtonTypes.TEXT_ONLY}
-                label={<FormattedMessage {...messages.otpMessage} />}
-                typeAttr="submit"
-              />
-              <Button
-                type={ButtonTypes.FILLED}
-                label={<FormattedMessage {...messages.login_register} />}
-                typeAttr="submit"
-              />
-            </div>
+            <Button
+              type={ButtonTypes.FILLED}
+              label={<FormattedMessage {...messages.login_register} />}
+              typeAttr="submit"
+            />
 
             {error_register_one && <span>{error_register_one}</span>}
             {loading_register_one && <span>در حال پردازش</span>}
+
+            <ForgetPass to="/">
+              <FormattedMessage {...messages.forgetPassword} />
+            </ForgetPass>
           </LoginButtonsGroup>
         </LoginBox>
       </Form>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const RegisterStepOneWrapper = styled.article`
+export const LoginWrapper = styled.article`
   width: 100%;
   max-width: 500px;
   * {

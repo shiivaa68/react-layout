@@ -54,4 +54,17 @@ export const ButtonComponent = styled.button`
             border: 1px solid var(--dark-blue);
           }
         `}
+
+
+        ${props =>
+          props.filled &&
+          css`
+            font-size: 1rem;
+            background-color: var(--dark-blue);
+            color: var(--primary-light);
+            &:hover {
+              background-color: var(--dark-blue);
+              color: var(--primary-dark);
+            }
+          `}
 `;

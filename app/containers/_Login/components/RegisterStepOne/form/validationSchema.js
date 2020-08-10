@@ -3,8 +3,8 @@ import { phoneNumberRegex } from 'utils/regexUtils';
 
 const validationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
-    .matches(phoneNumberRegex, 'شماره نامعتبر است')
-    .required('فیلد ورودی خالی می باشد'),
+    .matches(phoneNumberRegex, 'مجاز نیست ')
+    .required('اجباری'),
 });
 
 export default validationSchema;
