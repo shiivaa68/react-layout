@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  RegisterStepOne,
-  LoginForm,
-  RegisterStepTwo,
-  RegisterStepThree,
-} from './components';
+import { RegisterStepOne, LoginForm, RegisterForm } from './components';
 import { LoginContext } from './context';
 import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
@@ -15,9 +10,8 @@ const Login = () => {
 
   const {
     shouldShowStepOneForm,
-    shouldShowStepTwoForm,
     shouldShowLoginForm,
-    updateShouldShowPassword,
+    shouldShowRegisterForm,
   } = data;
 
   return (
@@ -29,8 +23,7 @@ const Login = () => {
 
         {shouldShowStepOneForm && <RegisterStepOne />}
         {shouldShowLoginForm && <LoginForm />}
-        {shouldShowStepTwoForm && <RegisterStepTwo />}
-        {updateShouldShowPassword && <RegisterStepThree />}
+        {shouldShowRegisterForm && <RegisterForm />}
       </LoginWrapper>
     </LoginContext.Provider>
   );

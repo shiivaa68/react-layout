@@ -1,10 +1,9 @@
-
 import * as Yup from 'yup';
-import { phoneNumberRegex } from 'utils/regexUtils';
 
 const validationSchema = Yup.object().shape({
-  phoneNumber: Yup.string()
-    .matches(phoneNumberRegex, 'شماره نامعتبر است')
+  code: Yup.number()
+    .max(999999, 'کد تایید باید شش رقمی باشد')
+    .min(100000, 'کد تایید باید شش رقمی باشد')
     .required('فیلد ورودی خالی می باشد'),
 });
 

@@ -32,5 +32,6 @@ export const LoginButtonsGroup = styled.div`
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
+
   }
 `;

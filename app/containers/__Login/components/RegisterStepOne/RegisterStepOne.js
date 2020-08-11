@@ -35,22 +35,22 @@ const RegisterStepOne = () => {
             label={<FormattedMessage {...messages.mobile} />}
           />
           <LoginButtonsGroup>
-            <Button
-              type={ButtonTypes.TEXT_ONLY}
-              label={<FormattedMessage {...messages.otpMessage} />}
-              typeAttr="submit"
-            />
+            <div>
               <Button
-              type={ButtonTypes.FILLED}
-              label={<FormattedMessage {...messages.login_register} />}
-              typeAttr="submit"
-            />
+                type={ButtonTypes.TEXT_ONLY}
+                label={<FormattedMessage {...messages.otpMessage} />}
+                typeAttr="submit"
+              />
+              <Button
+                type={ButtonTypes.FILLED}
+                label={<FormattedMessage {...messages.login_register} />}
+                typeAttr="submit"
+              />
+            </div>
 
-          
+            {error_register_one && <span>{error_register_one}</span>}
             {loading_register_one && <span>در حال پردازش</span>}
-
           </LoginButtonsGroup>
-          {error_register_one && <span>{error_register_one}</span>}
         </LoginBox>
       </Form>
     </RegisterStepOneWrapper>

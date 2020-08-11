@@ -6,17 +6,12 @@ import {
   GET_REGISTER_STEP_ONE,
   GET_LOGIN,
   POST_CONFIRMATION_CODE,
-  GET_REGISTER_STEP_THREE,
 } from './constants';
 import {
   loadingRegisterStepOneAction,
   errorRegisterStepOneAction,
-  loadingRegisterStepThreeAction,
-  errorRegisterStepThreeAction,
   updateShouldShowLogin,
   updateShouldShowRegister,
-  updateShouldShowPassword,
-
   //LOGIN
   loadingLoginAction,
   errorLoginAction,
@@ -43,7 +38,6 @@ function* registerStepOneWorker({ payload: { phoneNumber } }) {
 }
 
 //login
-
 function* getLoginWorker({ payload: { phoneNumber, password } }) {
   const url = apiEndpoints.login();
   const method = 'POST';
@@ -59,19 +53,18 @@ function* getLoginWorker({ payload: { phoneNumber, password } }) {
     extra: { browser: window.navigator.appName || window.navigator.userAgent },
   };
 
-  console.log({ data });
+  console.log('>>>>', { data });
   yield requestCall({ url, method, actions, data });
 }
 
-// register two
+// register
 function* postConfirmationCodeWorker({ payload: { mobile, code } }) {
   console.log({ mobile, code });
   const url = apiEndpoints.confirmCode();
   const method = 'POST';
   const actions = {
     loading: loadingStatus => console.log({ loadingStatus }),
-    // success: result => console.log({ result }),
-    success: () => updateShouldShowPassword(true),
+    success: result => console.log({ result }),
     failure: error => console.log({ error }),
   };
 
@@ -83,28 +76,8 @@ function* postConfirmationCodeWorker({ payload: { mobile, code } }) {
   yield requestCall({ url, method, actions, data });
 }
 
-function* registerStepThreeWorker({ payload: { mobile, code, password } }) {
-  console.log('SAGA >>>', { mobile, code, password });
-  const url = apiEndpoints.registerStepThree();
-  const method = 'POST';
-  const actions = {
-    loading: loadingStatus => loadingRegisterStepThreeAction(loadingStatus),
-    success: result => console.log({ result }),
-    failure: error => errorRegisterStepThreeAction(error),
-  };
-  const data = {
-    mobile,
-    code,
-    password: btoa(password),
-    extra: { browser: window.navigator.appName || window.navigator.userAgent },
-  };
-
-  yield requestCall({ url, method, actions, data });
-}
-
 export default function* SignPageSaga() {
   yield all([takeLatest(GET_REGISTER_STEP_ONE, registerStepOneWorker)]);
-  yield all([takeLatest(GET_REGISTER_STEP_THREE, registerStepThreeWorker)]);
   yield all([takeLatest(GET_LOGIN, getLoginWorker)]);
   yield all([takeLatest(POST_CONFIRMATION_CODE, postConfirmationCodeWorker)]);
 }

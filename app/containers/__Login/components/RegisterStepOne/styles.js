@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const LoginWrapper = styled.article`
+export const RegisterStepOneWrapper = styled.article`
   width: 100%;
   max-width: 500px;
   * {
@@ -32,5 +32,6 @@ export const LoginButtonsGroup = styled.div`
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
+
   }
 `;
