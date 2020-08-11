@@ -37,6 +37,11 @@ const LoginManager = () => {
     error_login,
     shouldShowLogin,
     shouldShowRegister,
+
+    // confirm code
+    confirmCodeLoading,
+    confirmCodeError,
+    confirmCodeSuccess,
   } = useSelector(state => state.LoginFlow || InitialState);
 
   useEffect(() => {

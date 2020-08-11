@@ -4,10 +4,12 @@ const initialState = {
   rols: [],
   languages: [],
   agerange: [],
-  genres:[],
-  country:[],
+  genres: [],
+  country: [],
   // subtitles: {},
   // qualities: {},
+
+  user: {},
 };
 
 export default initialState;
