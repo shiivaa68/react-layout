@@ -27,10 +27,27 @@ export const LoginButtonsGroup = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  margin-bottom:2rem;
   & > button {
     width: 100%;
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
   }
+`;
+
+export const RulesSite= styled(Link)`
+width: 80%;
+height: 20px;
+display:inline-flex;
+text-decoration:none;
+user-select:  none;
+cursor: pointer;
+margin_buttom: 2rem;
+padding-right:2rem;
+list-style-type: none;
+color:white;
+ :hover {
+    color:var(--dim-blue);
+} ;
 `;

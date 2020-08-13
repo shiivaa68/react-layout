@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const RegisterStepOneWrapper = styled.article`
+export const PasswordFormWrapper = styled.article`
   width: 100%;
   max-width: 500px;
   * {
@@ -21,10 +21,10 @@ export const LoginBox = styled.section`
 `;
 
 export const LoginButtonsGroup = styled.div`
-  width: 80%;
+  width: 30%;
   height: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: row;
   & > button {

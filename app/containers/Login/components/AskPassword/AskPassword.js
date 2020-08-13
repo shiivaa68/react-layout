@@ -7,54 +7,60 @@ import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 
-import { RegisterStepOneWrapper, LoginBox, LoginButtonsGroup } from './styles';
+import { LoginWrapper, LoginBox, LoginButtonsGroup } from './styles';
 
-const RegisterStepOne = () => {
+const AskPassword = () => {
   const {
-    data: { loading_register_one },
-    errors: { error_register_one },
-    actions: { handleRegisterStepOneSubmittion },
+    data: { loading, error, authFlowStep, mobile },
+    actions,
   } = useLoginContext();
 
   const formProps = {
     initialValues,
     validationSchema,
-    onSubmit: handleRegisterStepOneSubmittion,
+    onSubmit: actions[authFlowStep],
   };
 
   return (
-    <RegisterStepOneWrapper>
+    <LoginWrapper>
       <Form {...formProps}>
         <LoginBox>
           <InputField
+            readOnly
             type="text"
             name="phoneNumber"
+            value={mobile}
             icon={'fas fa-phone'}
             placeholder="09*********"
             autoComplete="off"
             label={<FormattedMessage {...messages.mobile} />}
           />
+          <InputField
+            type="password"
+            name="password"
+            icon={'fa fa-lock'}
+            autoComplete="off"
+            label={<FormattedMessage {...messages.password} />}
+          />
           <LoginButtonsGroup>
             <Button
               type={ButtonTypes.TEXT_ONLY}
-              label={<FormattedMessage {...messages.otpMessage} />}
+              label={<FormattedMessage {...messages.forgetPassword} />}
               typeAttr="submit"
             />
-              <Button
+            <Button
               type={ButtonTypes.FILLED}
-              label={<FormattedMessage {...messages.login_register} />}
+              label={<FormattedMessage {...messages.submitLogin} />}
               typeAttr="submit"
             />
 
-          
-            {loading_register_one && <span>در حال پردازش</span>}
-
+            {loading && <span>در حال پردازش</span>}
+            {error && <span>{error}</span>}
           </LoginButtonsGroup>
-          {error_register_one && <span>{error_register_one}</span>}
         </LoginBox>
       </Form>
-    </RegisterStepOneWrapper>
+    </LoginWrapper>
   );
 };
 
-export default RegisterStepOne;
+export default AskPassword;

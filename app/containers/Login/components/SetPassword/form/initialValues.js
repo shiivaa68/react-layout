@@ -1,5 +1,6 @@
 const initialValues = {
-    phoneNumber: '',
+    password: '',
+    repassword:'',
   };
   
   export default initialValues;

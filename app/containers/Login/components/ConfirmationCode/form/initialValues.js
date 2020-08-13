@@ -1,5 +1,5 @@
 const initialValues = {
-    phoneNumber: '',
+    code: '',
   };
   
   export default initialValues;

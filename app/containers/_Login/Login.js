@@ -1,29 +1,36 @@
 import React from 'react';
-import { RegisterStepOne, LoginForm, RegisterForm } from './components';
+import {
+  RegisterStepOne,
+  LoginForm,
+  RegisterStepTwo,
+  RegisterStepThree,
+} from './components';
 import { LoginContext } from './context';
 import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
-import SIGNIN from 'images/sign-in.svg';
+import AUTH from 'images/auth.svg';
 
 const Login = () => {
   const { data, errors, actions } = LoginManager();
 
   const {
     shouldShowStepOneForm,
+    shouldShowStepTwoForm,
     shouldShowLoginForm,
-    shouldShowRegisterForm,
+    updateShouldShowPassword,
   } = data;
 
   return (
     <LoginContext.Provider value={{ data, errors, actions }}>
       <LoginWrapper>
         <ImgLogin>
-          <img src={SIGNIN} alt="image login" />
+          <img src={AUTH} alt="image login" />
         </ImgLogin>
 
         {shouldShowStepOneForm && <RegisterStepOne />}
         {shouldShowLoginForm && <LoginForm />}
-        {shouldShowRegisterForm && <RegisterForm />}
+        {shouldShowStepTwoForm && <RegisterStepTwo />}
+        {updateShouldShowPassword && <RegisterStepThree />}
       </LoginWrapper>
     </LoginContext.Provider>
   );

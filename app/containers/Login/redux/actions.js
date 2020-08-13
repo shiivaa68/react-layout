@@ -1,160 +1,59 @@
 import {
-  //REGISTER
-  ERROR_REGISTER_STEP_ONE,
-  UPDATE_REGISTER_STEP_ONE,
-  LOADING_REGISTER_STEP_ONE,
-  GET_REGISTER_STEP_ONE,
-  ERROR_CONFIRMATION_CODE,
-  LODING_CONFIRMATION_CODE,
-  POST_CONFIRMATION_CODE,
-  RESET_CONFIRMATION_CODE,
-  ERROR_REGISTER_STEP_THREE,
-  UPDATE_REGISTER_STEP_THREE,
-  LOADING_REGISTER_STEP_THREE,
-  GET_REGISTER_STEP_THREE,
-  UPDATE_SHOULD_SHOW_LOGIN,
-  UPDATE_SHOULD_SHOW_REGISTER,
-  UPDATE_SHOULD_SHOW_PASSWORD,
-
-  //login
-  ERROR_LOGIN,
-  LOADING_LOGIN,
-  UPDATE_LOGIN,
-  GET_LOGIN,
+  ERROR,
+  LOADING,
+  UPDATE_STEP,
+  ENTER_PHONE_NUMBER,
+  REGISTER_CONFORMATION_CODE,
+  REGISTER_SET_NEW_PASSWORD,
+  LOGIN_ASK_PASSWORD,
 } from './constants';
-//REGISTER STEP ONE
-export function loadingRegisterStepOneAction(loadingStatus) {
-  return {
-    type: LOADING_REGISTER_STEP_ONE,
-    payload: { loadingStatus },
-  };
-}
 
-export function errorRegisterStepOneAction(error) {
+export function errorAction(error) {
   return {
-    type: ERROR_REGISTER_STEP_ONE,
+    type: ERROR,
     payload: { error },
   };
 }
 
-export function getRegisterStepOneAction({ ...options }) {
+export function loadingAction(loadingStatus) {
   return {
-    type: GET_REGISTER_STEP_ONE,
-    payload: { ...options },
-  };
-}
-
-export function updateRegisterStepOneAction(data) {
-  return {
-    type: UPDATE_REGISTER_STEP_ONE,
-    payload: data,
-  };
-}
-
-//REGISTER STEP THREE
-export function loadingRegisterStepThreeAction(loadingStatus) {
-  return {
-    type: LOADING_REGISTER_STEP_THREE,
+    type: LOADING,
     payload: { loadingStatus },
   };
 }
 
-export function errorRegisterStepThreeAction(error) {
+export function updateStepAction(step) {
   return {
-    type: ERROR_REGISTER_STEP_THREE,
-    payload: { error },
+    type: UPDATE_STEP,
+    payload: { step },
   };
 }
 
-export function getRegisterStepThreeAction({ ...options }) {
+/** Steps */
+export function enterPhoneNumberAction({ ...options }) {
   return {
-    type: GET_REGISTER_STEP_THREE,
+    type: ENTER_PHONE_NUMBER,
     payload: { ...options },
   };
 }
 
-export function updateRegisterStepThreeAction(data) {
+export function registerConfirmCodeAction({ ...options }) {
   return {
-    type: UPDATE_REGISTER_STEP_THREE,
-    payload: data,
-  };
-}
-
-/*************************** */
-export function updateShouldShowLogin(status) {
-  return {
-    type: UPDATE_SHOULD_SHOW_LOGIN,
-    payload: status,
-  };
-}
-export function updateShouldShowRegister(status) {
-  return {
-    type: UPDATE_SHOULD_SHOW_REGISTER,
-    payload: status,
-  };
-}
-export function updateShouldShowPassword(status) {
-  return {
-    type: UPDATE_SHOULD_SHOW_PASSWORD,
-    payload: status,
-  };
-}
-/*************************** LOGIN*/
-
-export function loadingLoginAction(loadingStatus) {
-  return {
-    type: LOADING_LOGIN,
-    payload: { loadingStatus },
-  };
-}
-
-export function errorLoginAction(error) {
-  return {
-    type: ERROR_LOGIN,
-    payload: { error },
-  };
-}
-
-export function getLoginAction({ ...options }) {
-  return {
-    type: GET_LOGIN,
+    type: REGISTER_CONFORMATION_CODE,
     payload: { ...options },
   };
 }
 
-export function updateLoginAction(data) {
+export function registerSetNewPasswordAction({ ...options }) {
   return {
-    type: UPDATE_LOGIN,
-    payload: data,
-  };
-}
-
-//confirm code
-
-export function loadingConfirmationCodeAction(loadingStatus) {
-  return {
-    type: LODING_CONFIRMATION_CODE,
-    payload: { loadingStatus },
-  };
-}
-
-export function errorConfirmationCodeAction(error) {
-  return {
-    type: ERROR_CONFIRMATION_CODE,
-    payload: { error },
-  };
-}
-
-export function postConfirmationCodeAction({ ...options }) {
-  return {
-    type: POST_CONFIRMATION_CODE,
+    type: REGISTER_SET_NEW_PASSWORD,
     payload: { ...options },
   };
 }
 
-export function updateConfirmationCodeAction(data) {
+export function loginAskPasswordAction({ ...options }) {
   return {
-    type: UPDATE_CONFIRMATION_CODE,
-    payload: data,
+    type: LOGIN_ASK_PASSWORD,
+    payload: { ...options },
   };
 }

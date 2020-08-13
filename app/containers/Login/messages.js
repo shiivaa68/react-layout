@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import { rules } from 'eslint-config-prettier';
 
 export const scope = 'boilerplate.containers.Login';
 
@@ -46,5 +47,10 @@ export default defineMessages({
   passwordRepeat:{
     id: `${scope}.passwordRepeat`,
     defaultMessage: ' تکرار رمز عبور',
+  },
+  
+  rules:{
+    id: `${scope}.rules`,
+    defaultMessage: ' با ورود یا ثبت نام قوانین استفاده از سایت را می پذیرم . ',
   }
 }); 

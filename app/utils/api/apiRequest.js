@@ -31,10 +31,7 @@ function apiRequest({ url, method, data, headers = {} }) {
     .catch(error => {
       const { message } = error;
       /** login failed */
-      if (
-        error.response &&
-        (error.response.status === 409 || error.response.status === 405)
-      ) {
+      if (error.response && error.response.status >= 400) {
         console.log('BEFORE 409 || 405');
         return Promise.reject({
           status: error.response.status,

@@ -7,19 +7,23 @@ import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 
-import { RegisterStepOneWrapper, LoginBox, LoginButtonsGroup } from './styles';
+import {
+  RegisterStepOneWrapper,
+  LoginBox,
+  LoginButtonsGroup,
+  RulesSite,
+} from './styles';
 
-const RegisterStepOne = () => {
+const EnterPhoneNumber = () => {
   const {
-    data: { loading_register_one },
-    errors: { error_register_one },
-    actions: { handleRegisterStepOneSubmittion },
+    data: { loading, error, authFlowStep },
+    actions,
   } = useLoginContext();
 
   const formProps = {
     initialValues,
     validationSchema,
-    onSubmit: handleRegisterStepOneSubmittion,
+    onSubmit: actions[authFlowStep],
   };
 
   return (
@@ -36,25 +40,30 @@ const RegisterStepOne = () => {
           />
           <LoginButtonsGroup>
             <Button
+              id="first_button"
               type={ButtonTypes.TEXT_ONLY}
               label={<FormattedMessage {...messages.otpMessage} />}
               typeAttr="submit"
             />
-              <Button
+            <Button
+              id="second_button"
               type={ButtonTypes.FILLED}
               label={<FormattedMessage {...messages.login_register} />}
               typeAttr="submit"
+              onSubmit={() => {}}
             />
-
-          
-            {loading_register_one && <span>در حال پردازش</span>}
-
           </LoginButtonsGroup>
-          {error_register_one && <span>{error_register_one}</span>}
+
+          {loading && <span>در حال پردازش</span>}
+          {error && <span>{error}</span>}
+
+          <RulesSite to={'/page/rules'}>
+            {<FormattedMessage {...messages.rules} />}
+          </RulesSite>
         </LoginBox>
       </Form>
     </RegisterStepOneWrapper>
   );
 };
 
-export default RegisterStepOne;
+export default EnterPhoneNumber;

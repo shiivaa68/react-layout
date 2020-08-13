@@ -1,40 +1,34 @@
 import { all, takeLatest } from 'redux-saga/effects';
 import requestCall from 'utils/redux/requestCall';
 import { apiEndpoints } from 'utils/api';
+import { push } from 'connected-react-router';
+import { RouterRoutes } from 'utils/routes';
+
+import { AUTH_FLOW_STEPS } from '../../../constants';
 
 import {
-  GET_REGISTER_STEP_ONE,
-  GET_LOGIN,
-  POST_CONFIRMATION_CODE,
-  GET_REGISTER_STEP_THREE,
+  ENTER_PHONE_NUMBER,
+  REGISTER_CONFORMATION_CODE,
+  REGISTER_SET_NEW_PASSWORD,
+  LOGIN_ASK_PASSWORD,
 } from './constants';
-import {
-  loadingRegisterStepOneAction,
-  errorRegisterStepOneAction,
-  loadingRegisterStepThreeAction,
-  errorRegisterStepThreeAction,
-  updateShouldShowLogin,
-  updateShouldShowRegister,
-  updateShouldShowPassword,
+import { loadingAction, errorAction, updateStepAction } from './actions';
 
-  //LOGIN
-  loadingLoginAction,
-  errorLoginAction,
-  updateLoginAction,
-} from './actions';
-
-function* registerStepOneWorker({ payload: { phoneNumber } }) {
-  const url = apiEndpoints.registerStepOne();
+function* enterPhoneNumberWorker({ payload: { phoneNumber } }) {
   const method = 'POST';
+  const url = apiEndpoints.registerStepOne();
   const actions = {
-    loading: loadingStatus => loadingRegisterStepOneAction(loadingStatus),
-    success: () => updateShouldShowRegister(true),
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => updateStepAction(AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE),
     failure: error => {
-      const { status } = error;
-      if (status === 405) return errorRegisterStepOneAction(error.message);
-      else return updateShouldShowLogin(true);
+      console.log('>>>', error);
+      const { status, message } = error;
+      if (status === 405) return errorAction(message);
+      if (status === 409)
+        return updateStepAction(AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD);
     },
   };
+
   const data = {
     mobile: phoneNumber,
   };
@@ -42,37 +36,18 @@ function* registerStepOneWorker({ payload: { phoneNumber } }) {
   yield requestCall({ url, method, actions, data });
 }
 
-//login
-
-function* getLoginWorker({ payload: { phoneNumber, password } }) {
-  const url = apiEndpoints.login();
+function* registerConfirmationCodeWorker({ payload: { code, mobile } }) {
+  console.log('SAGA >>>', code, mobile);
   const method = 'POST';
+  const url = apiEndpoints.registerStepTwo();
   const actions = {
-    loading: loadingStatus => loadingLoginAction(loadingStatus),
-    success: result => updateLoginAction(result),
-    failure: error => errorLoginAction(error),
-  };
-
-  const data = {
-    mobile: phoneNumber,
-    password: btoa(password),
-    extra: { browser: window.navigator.appName || window.navigator.userAgent },
-  };
-
-  console.log({ data });
-  yield requestCall({ url, method, actions, data });
-}
-
-// register two
-function* postConfirmationCodeWorker({ payload: { mobile, code } }) {
-  console.log({ mobile, code });
-  const url = apiEndpoints.confirmCode();
-  const method = 'POST';
-  const actions = {
-    loading: loadingStatus => console.log({ loadingStatus }),
-    // success: result => console.log({ result }),
-    success: () => updateShouldShowPassword(true),
-    failure: error => console.log({ error }),
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => updateStepAction(AUTH_FLOW_STEPS.REGISTER_NEW_PASSWORD),
+    failure: error => {
+      console.log('ERROR', error);
+      const { status, message } = error;
+      return errorAction(message);
+    },
   };
 
   const data = {
@@ -80,31 +55,62 @@ function* postConfirmationCodeWorker({ payload: { mobile, code } }) {
     code,
   };
 
-  yield requestCall({ url, method, actions, data });
+  yield requestCall({ method, url, actions, data });
 }
 
-function* registerStepThreeWorker({ payload: { mobile, code, password } }) {
-  console.log('SAGA >>>', { mobile, code, password });
+function* registerNewPasswordWorker({
+  payload: { mobile, confirmationCode, password, extra },
+}) {
+  const method = 'POST';
   const url = apiEndpoints.registerStepThree();
-  const method = 'POST';
   const actions = {
-    loading: loadingStatus => loadingRegisterStepThreeAction(loadingStatus),
-    success: result => console.log({ result }),
-    failure: error => errorRegisterStepThreeAction(error),
-  };
-  const data = {
-    mobile,
-    code,
-    password: btoa(password),
-    extra: { browser: window.navigator.appName || window.navigator.userAgent },
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => push(RouterRoutes.home),
+    failure: error => {
+      console.log('ERROR', error);
+      const { status, message } = error;
+      return errorAction(message);
+    },
   };
 
-  yield requestCall({ url, method, actions, data });
+  const data = {
+    mobile,
+    code: confirmationCode,
+    password,
+    extra,
+  };
+
+  yield requestCall({ method, url, actions, data });
+}
+
+function* loginAskPasswordWorker({ payload: { mobile, password, extra } }) {
+  console.log('SAGAAAA >>> ', mobile, password, extra);
+  const method = 'POST';
+  const url = apiEndpoints.login();
+  const actions = {
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => push(RouterRoutes.home),
+    failure: error => {
+      console.log('ERROR', error);
+      const { status, message } = error;
+      return errorAction(message);
+    },
+  };
+
+  const data = {
+    mobile,
+    password,
+    extra,
+  };
+
+  yield requestCall({ method, url, actions, data });
 }
 
 export default function* SignPageSaga() {
-  yield all([takeLatest(GET_REGISTER_STEP_ONE, registerStepOneWorker)]);
-  yield all([takeLatest(GET_REGISTER_STEP_THREE, registerStepThreeWorker)]);
-  yield all([takeLatest(GET_LOGIN, getLoginWorker)]);
-  yield all([takeLatest(POST_CONFIRMATION_CODE, postConfirmationCodeWorker)]);
+  yield all([
+    takeLatest(ENTER_PHONE_NUMBER, enterPhoneNumberWorker),
+    takeLatest(REGISTER_CONFORMATION_CODE, registerConfirmationCodeWorker),
+    takeLatest(REGISTER_SET_NEW_PASSWORD, registerNewPasswordWorker),
+    takeLatest(LOGIN_ASK_PASSWORD, loginAskPasswordWorker),
+  ]);
 }

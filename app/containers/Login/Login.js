@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  RegisterStepOne,
-  LoginForm,
-  RegisterStepTwo,
-  RegisterStepThree,
+  EnterPhoneNumber,
+  AskPassword,
+  ConfirmationCode,
+  SetPassword,
 } from './components';
 import { LoginContext } from './context';
 import { LoginWrapper, ImgLogin } from './styles';
@@ -14,10 +14,10 @@ const Login = () => {
   const { data, errors, actions } = LoginManager();
 
   const {
-    shouldShowStepOneForm,
-    shouldShowStepTwoForm,
-    shouldShowLoginForm,
-    updateShouldShowPassword,
+    shouldShowEnterPhoneNumberForm,
+    shouldShowConfirmationCodeForm,
+    shouldShowAskPasswordForm,
+    shouldShowSetPasswordForm,
   } = data;
 
   return (
@@ -27,10 +27,10 @@ const Login = () => {
           <img src={AUTH} alt="image login" />
         </ImgLogin>
 
-        {shouldShowStepOneForm && <RegisterStepOne />}
-        {shouldShowLoginForm && <LoginForm />}
-        {shouldShowStepTwoForm && <RegisterStepTwo />}
-        {updateShouldShowPassword && <RegisterStepThree />}
+        {shouldShowEnterPhoneNumberForm && <EnterPhoneNumber />}
+        {shouldShowConfirmationCodeForm && <ConfirmationCode />}
+        {shouldShowAskPasswordForm && <AskPassword />}
+        {shouldShowSetPasswordForm && <SetPassword />}
       </LoginWrapper>
     </LoginContext.Provider>
   );

@@ -1,15 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { AUTH_FLOW_STEPS } from '../../constants';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import {
-  getRegisterStepOneAction,
-  postConfirmationCodeAction,
-  getRegisterStepThreeAction,
-  getLoginAction,
+  enterPhoneNumberAction,
+  registerConfirmCodeAction,
+  registerSetNewPasswordAction,
+  loginAskPasswordAction,
 } from './redux/actions';
 import LoginPageReducer from './redux/reducer';
 import LoginPageSaga from './redux/saga';
@@ -24,109 +25,119 @@ const LoginManager = () => {
 
   /** local States */
   const [mobile, setMobile] = useState(null);
-  const [code, setCode] = useState(null);
-  const [shouldShowStepOneForm, setShouldShowStepOneForm] = useState(true);
-  const [shouldShowStepTwoForm, setshouldShowStepTwoForm] = useState(false);
-  const [shouldShowStepThreeForm, setshouldShowStepThreeForm] = useState(false);
-
-  const [shouldShowLoginForm, setShouldShowLoginForm] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState(null);
 
   /** Redux Data */
   const { userData } = useSelector(state => state.global);
-  const {
-    loading_register_one,
-    error_register_one,
-
-    loading_register_three,
-    error_register_three,
-
-    loading_login,
-    error_login,
-
-    shouldShowLogin,
-    shouldShowRegister,
-    shouldShowRegisterthree,
-
-    updateShouldShowPassword,
-
-    //  // confirm code
-    //  confirmCodeLoading,
-    //  confirmCodeError,
-    //  confirmCodeSuccess,
-  } = useSelector(state => state.LoginFlow || InitialState);
-
-  useEffect(() => {
-    if (shouldShowLogin) setShouldShowLoginForm(true);
-    if (shouldShowRegister) setshouldShowStepTwoForm(true);
-    if (shouldShowLogin || shouldShowRegister) setShouldShowStepOneForm(false);
-    if (updateShouldShowPassword) {
-      setshouldShowStepTwoForm(false);
-      setshouldShowStepThreeForm(true);
-    }
-  }, [shouldShowLogin, shouldShowRegister, updateShouldShowPassword]);
+  const { loading, error, authFlowStep } = useSelector(
+    state => state.LoginFlow || InitialState,
+  );
 
   /** bounded redux actions */
   const [
-    getRegisterStepOne,
-    postConfirmationCode,
-    getRegisterStepThree,
-    getLogin,
+    enterPhoneNumber,
+    registerConfirmCode,
+    registerSetNewPassword,
+    loginAskPassword,
   ] = useBindDispatch([
-    getRegisterStepOneAction,
-    postConfirmationCodeAction,
-    getRegisterStepThreeAction,
-    getLoginAction,
+    enterPhoneNumberAction,
+    registerConfirmCodeAction,
+    registerSetNewPasswordAction,
+    loginAskPasswordAction,
   ]);
-  /** handlers */
-  const handleRegisterStepOneSubmittion = useCallback(({ phoneNumber }) => {
-    getRegisterStepOne({ phoneNumber });
+
+  /** Handlers */
+  const handleEnterPhoneNumber = useCallback(({ phoneNumber }) => {
+    enterPhoneNumber({ phoneNumber });
     setMobile(phoneNumber);
   }, []);
 
-  const handleConfiramtionCode = useCallback(
+  const handleRegisterConfirmationCode = useCallback(
     ({ code }) => {
-      postConfirmationCode({ mobile, code });
-      setCode(code);
+      registerConfirmCode({ mobile, code });
+      setConfirmationCode(code);
     },
     [mobile],
   );
-  const handleRegisterStepThreeSubmittion = useCallback(
+
+  const handleRegisterSetPassword = useCallback(
     ({ password }) => {
-      getRegisterStepThree({ mobile, code, password });
+      const extra = {
+        browser:
+          window.navigator.appName == '' || window.navigator.userAgent == '',
+      };
+      registerSetNewPassword({
+        mobile,
+        confirmationCode,
+        password: btoa(password),
+        extra,
+      });
     },
-    [mobile, code],
+    [mobile, confirmationCode],
   );
 
-  const handleLoginSubmittion = useCallback(({ phoneNumber, password }) => {
-    getLogin({ phoneNumber, password });
-  }, []);
+  const handleLoginAskPassword = useCallback(
+    ({ password }) => {
+      const extra = {
+        browser:
+          window.navigator.appName == '' || window.navigator.userAgent == '',
+      };
+      loginAskPassword({ mobile, password: btoa(password), extra });
+    },
+    [mobile],
+  );
+
+  /** form status handlers */
+  const shouldShowEnterPhoneNumberForm = useMemo(() => {
+    if (authFlowStep === AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER) return true;
+    else false;
+  }, [authFlowStep]);
+
+  const shouldShowConfirmationCodeForm = useMemo(() => {
+    if (
+      authFlowStep === AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE ||
+      authFlowStep === AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE ||
+      authFlowStep === AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE
+    )
+      return true;
+    else false;
+  }, [authFlowStep]);
+
+  const shouldShowAskPasswordForm = useMemo(() => {
+    if (authFlowStep === AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD) return true;
+    else false;
+  }, [authFlowStep]);
+
+  const shouldShowSetPasswordForm = useMemo(() => {
+    if (
+      authFlowStep === AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD ||
+      authFlowStep === AUTH_FLOW_STEPS.REGISTER_NEW_PASSWORD
+    )
+      return true;
+    else false;
+  }, [authFlowStep]);
 
   return {
     data: {
-      /** loadings */
-      loading_register_one,
-      loading_register_three,
-      loading_login,
+      error,
+      loading,
+      authFlowStep,
 
-      /** conditional data */
-      shouldShowStepOneForm,
-      shouldShowStepTwoForm,
-      shouldShowStepThreeForm,
-      shouldShowLoginForm,
-      updateShouldShowPassword,
-      code,
       mobile,
-    },
-    errors: {
-      error_register_one,
-      error_register_three,
-      error_login,
+      confirmationCode,
+
+      shouldShowEnterPhoneNumberForm,
+      shouldShowConfirmationCodeForm,
+      shouldShowAskPasswordForm,
+      shouldShowSetPasswordForm,
     },
     actions: {
-      handleRegisterStepOneSubmittion,
-      handleRegisterStepThreeSubmittion,
-      handleConfiramtionCode,
-      handleLoginSubmittion,
+      [AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER]: handleEnterPhoneNumber,
+
+      [AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE]: handleRegisterConfirmationCode,
+      [AUTH_FLOW_STEPS.REGISTER_NEW_PASSWORD]: handleRegisterSetPassword,
+
+      [AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD]: handleLoginAskPassword,
     },
   };
 };

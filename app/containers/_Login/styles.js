@@ -11,9 +11,11 @@ export const LoginWrapper = styled.article`
 `;
 
 export const ImgLogin = styled.div`
+width: 400px;
+height: fit-content;
   & > img {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     height: 100%;
   }
   margin-bottom: 2rem;
