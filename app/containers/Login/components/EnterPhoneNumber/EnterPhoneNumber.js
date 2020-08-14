@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
+import { OTPLoginBtn } from './components';
 
 import {
   RegisterStepOneWrapper,
@@ -26,6 +27,10 @@ const EnterPhoneNumber = () => {
     onSubmit: actions[authFlowStep],
   };
 
+  const handleOTPBtnClick = values => {
+    actions.handleOTPLogin(values);
+  };
+
   return (
     <RegisterStepOneWrapper>
       <Form {...formProps}>
@@ -39,18 +44,12 @@ const EnterPhoneNumber = () => {
             label={<FormattedMessage {...messages.mobile} />}
           />
           <LoginButtonsGroup>
-            <Button
-              id="first_button"
-              type={ButtonTypes.TEXT_ONLY}
-              label={<FormattedMessage {...messages.otpMessage} />}
-              typeAttr="submit"
-            />
+            <OTPLoginBtn handleOTPBtnClick={handleOTPBtnClick} />
             <Button
               id="second_button"
               type={ButtonTypes.FILLED}
               label={<FormattedMessage {...messages.login_register} />}
               typeAttr="submit"
-              onSubmit={() => {}}
             />
           </LoginButtonsGroup>
 

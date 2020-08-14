@@ -8,6 +8,7 @@ import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import {
   enterPhoneNumberAction,
+  enterOTPLoginPhoneNumberAction,
   registerConfirmCodeAction,
   registerSetNewPasswordAction,
   loginAskPasswordAction,
@@ -36,11 +37,13 @@ const LoginManager = () => {
   /** bounded redux actions */
   const [
     enterPhoneNumber,
+    enterOTPLoginPhoneNumber,
     registerConfirmCode,
     registerSetNewPassword,
     loginAskPassword,
   ] = useBindDispatch([
     enterPhoneNumberAction,
+    enterOTPLoginPhoneNumberAction,
     registerConfirmCodeAction,
     registerSetNewPasswordAction,
     loginAskPasswordAction,
@@ -52,9 +55,23 @@ const LoginManager = () => {
     setMobile(phoneNumber);
   }, []);
 
+  const handleOTPLogin = useCallback(({ phoneNumber }) => {
+    enterOTPLoginPhoneNumber({ phoneNumber });
+    setMobile(phoneNumber);
+  }, []);
+
   const handleRegisterConfirmationCode = useCallback(
     ({ code }) => {
       registerConfirmCode({ mobile, code });
+      setConfirmationCode(code);
+    },
+    [mobile],
+  );
+
+  const handleOTPConfirmationCode = useCallback(
+    ({ code }) => {
+      // TODO
+      //  - OTP STEP 2 Action
       setConfirmationCode(code);
     },
     [mobile],
@@ -138,6 +155,9 @@ const LoginManager = () => {
       [AUTH_FLOW_STEPS.REGISTER_NEW_PASSWORD]: handleRegisterSetPassword,
 
       [AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD]: handleLoginAskPassword,
+
+      handleOTPLogin,
+      [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: handleOTPConfirmationCode,
     },
   };
 };

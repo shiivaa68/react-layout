@@ -3,6 +3,7 @@ import {
   LOADING,
   UPDATE_STEP,
   ENTER_PHONE_NUMBER,
+  OTP_LOGIN_ENTER_PHONE_NUMBER,
   REGISTER_CONFORMATION_CODE,
   REGISTER_SET_NEW_PASSWORD,
   LOGIN_ASK_PASSWORD,
@@ -33,6 +34,13 @@ export function updateStepAction(step) {
 export function enterPhoneNumberAction({ ...options }) {
   return {
     type: ENTER_PHONE_NUMBER,
+    payload: { ...options },
+  };
+}
+
+export function enterOTPLoginPhoneNumberAction({ ...options }) {
+  return {
+    type: OTP_LOGIN_ENTER_PHONE_NUMBER,
     payload: { ...options },
   };
 }

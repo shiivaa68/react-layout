@@ -8,6 +8,7 @@ import { AUTH_FLOW_STEPS } from '../../../constants';
 
 import {
   ENTER_PHONE_NUMBER,
+  OTP_LOGIN_ENTER_PHONE_NUMBER,
   REGISTER_CONFORMATION_CODE,
   REGISTER_SET_NEW_PASSWORD,
   LOGIN_ASK_PASSWORD,
@@ -20,6 +21,28 @@ function* enterPhoneNumberWorker({ payload: { phoneNumber } }) {
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
     success: () => updateStepAction(AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE),
+    failure: error => {
+      console.log('>>>', error);
+      const { status, message } = error;
+      if (status === 405) return errorAction(message);
+      if (status === 409)
+        return updateStepAction(AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD);
+    },
+  };
+
+  const data = {
+    mobile: phoneNumber,
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
+function* OTPLoginEnterPhoneNumberWorker({ payload: { phoneNumber } }) {
+  const method = 'POST';
+  const url = apiEndpoints.otpLoginStepOne();
+  const actions = {
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => updateStepAction(AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE),
     failure: error => {
       console.log('>>>', error);
       const { status, message } = error;
@@ -109,6 +132,7 @@ function* loginAskPasswordWorker({ payload: { mobile, password, extra } }) {
 export default function* SignPageSaga() {
   yield all([
     takeLatest(ENTER_PHONE_NUMBER, enterPhoneNumberWorker),
+    takeLatest(OTP_LOGIN_ENTER_PHONE_NUMBER, OTPLoginEnterPhoneNumberWorker),
     takeLatest(REGISTER_CONFORMATION_CODE, registerConfirmationCodeWorker),
     takeLatest(REGISTER_SET_NEW_PASSWORD, registerNewPasswordWorker),
     takeLatest(LOGIN_ASK_PASSWORD, loginAskPasswordWorker),
