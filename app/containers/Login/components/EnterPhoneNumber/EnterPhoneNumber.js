@@ -7,6 +7,7 @@ import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 import { OTPLoginBtn } from './components';
+import { phoneNumberRegex } from 'utils/regexUtils';
 
 import {
   RegisterStepOneWrapper,
@@ -28,7 +29,8 @@ const EnterPhoneNumber = () => {
   };
 
   const handleOTPBtnClick = values => {
-    actions.handleOTPLogin(values);
+    if (phoneNumberRegex.test(values.phoneNumber))
+      actions.handleOTPLogin(values);
   };
 
   return (

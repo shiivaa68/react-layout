@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { ButtonTypes } from 'components/kit/Button/constants';
 
 const OTPLoginBtn = ({ handleOTPBtnClick }) => {
-  const { values } = useFormikContext();
+  const { values, errors } = useFormikContext();
 
   const onClickHandler = useCallback(
     e => {

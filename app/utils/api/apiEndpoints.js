@@ -12,8 +12,8 @@ const apiEndpoints = {
   otpLoginStepTwo: () => `${baseURL}/auth/otp/code`,
   login: () => `${baseURL}/auth/login`,
   forgetPassStepOne: () => `${baseURL}/auth/forget`,
-  forgetPassStepTwo: () => `${baseURL}/forget/code`,
-  forgetPassStepThree: () => `${baseURL}/forget/password`,
+  forgetPassStepTwo: () => `${baseURL}/auth/forget/code`,
+  forgetPassStepThree: () => `${baseURL}/auth/forget/password`,
   logoutStep: () => `${baseURL}/auth/logout`,
 
   // user routes

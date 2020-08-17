@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
+import { FORGETPassBtn } from './components';
 
 import { LoginWrapper, LoginBox, LoginButtonsGroup } from './styles';
 
@@ -21,6 +22,10 @@ const AskPassword = () => {
     onSubmit: actions[authFlowStep],
   };
 
+  const handleFORGETBtnClick = useCallback(() => {
+    actions.handleForgetPasswordLogin(mobile);
+  }, [mobile]);
+
   return (
     <LoginWrapper>
       <Form {...formProps}>
@@ -29,9 +34,8 @@ const AskPassword = () => {
             readOnly
             type="text"
             name="phoneNumber"
-            value={mobile}
             icon={'fas fa-phone'}
-            placeholder="09*********"
+            placeholder={mobile}
             autoComplete="off"
             label={<FormattedMessage {...messages.mobile} />}
           />
@@ -43,11 +47,7 @@ const AskPassword = () => {
             label={<FormattedMessage {...messages.password} />}
           />
           <LoginButtonsGroup>
-            <Button
-              type={ButtonTypes.TEXT_ONLY}
-              label={<FormattedMessage {...messages.forgetPassword} />}
-              typeAttr="submit"
-            />
+            <FORGETPassBtn handleFORGETBtnClick={handleFORGETBtnClick} />
             <Button
               type={ButtonTypes.FILLED}
               label={<FormattedMessage {...messages.submitLogin} />}

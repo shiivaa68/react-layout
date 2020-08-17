@@ -11,15 +11,15 @@ import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from 'containers/Login/Loadable';
-import Register from 'containers/Register/Loadable';
-
 import JunkPage from 'containers/JunkPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
-import SeriesPage from 'containers/SeriesPage/Loadable';
-import MoviesPage from 'containers/MoviesPage/Loadable';
 import ListViewPage from 'containers/ListViewPage/Loadable';
+import MoviesPage from 'containers/MoviesPage/Loadable';
+import SeriesPage from 'containers/SeriesPage/Loadable';
 import SinglePage from 'containers/SinglePage/Loadable';
 import SearchPage from 'containers/SearchPage/Loadable';
+import PackagesPage from 'containers/PackagesPage/Loadable';
+import PackageDetails from 'containers/PackageDetails/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { HeaderMenus, FooterMenus } from 'routes';
@@ -86,12 +86,8 @@ export default function App() {
 
         <MainWrapper>
           <Switch>
-            <Route path={RouterRoutes.login} component={Login} />
-            <Route path={RouterRoutes.register} component={Register} />
-
             <Route exact path={RouterRoutes.home} component={JunkPage} />
             <Route path={RouterRoutes.junk} component={HomePage} />
-            <Route path={RouterRoutes.search} component={SearchPage} />
             <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
             <Route
               path={RouterRoutes.movieDetailRoute}
@@ -102,6 +98,15 @@ export default function App() {
               component={SeriesPage}
             />
             <Route path={RouterRoutes.pageSingle} component={SinglePage} />
+            <Route path={RouterRoutes.search} component={SearchPage} />
+            <Route path={RouterRoutes.package} component={PackagesPage} />
+            <Route
+              path={RouterRoutes.packageDetailsRoute}
+              component={PackageDetails}
+            />
+
+            <Route path={RouterRoutes.auth} component={Login} />
+
             <Route component={NotFoundPage} />
           </Switch>
         </MainWrapper>

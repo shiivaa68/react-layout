@@ -10,13 +10,15 @@ function apiRequest({ url, method, data, headers = {} }) {
       method,
       data,
       headers: {
-        // 'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
         'x-platform': 0,
         ...headers,
       },
     })
     .then(res => {
-      // console.log('TOKEN >>>>>', res.headers['x-auth-token']);
+      if (res.headers['x-auth-token']) {
+        localStorage.setItem('x-auth-token', res.headers['x-auth-token']);
+      }
 
       const {
         status,

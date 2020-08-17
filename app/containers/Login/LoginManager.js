@@ -10,8 +10,11 @@ import {
   enterPhoneNumberAction,
   enterOTPLoginPhoneNumberAction,
   registerConfirmCodeAction,
+  loginOtpConfirmCodeAction,
   registerSetNewPasswordAction,
   loginAskPasswordAction,
+  enterForgetPasswordPhoneNumberAction,
+  forgetPasswordConfirmationCodeAction,
 } from './redux/actions';
 import LoginPageReducer from './redux/reducer';
 import LoginPageSaga from './redux/saga';
@@ -39,14 +42,20 @@ const LoginManager = () => {
     enterPhoneNumber,
     enterOTPLoginPhoneNumber,
     registerConfirmCode,
+    loginOtpConfirmCode,
     registerSetNewPassword,
     loginAskPassword,
+    enterForgetPasswordPhoneNumber,
+    forgetPasswordConfirmationCode,
   ] = useBindDispatch([
     enterPhoneNumberAction,
     enterOTPLoginPhoneNumberAction,
     registerConfirmCodeAction,
+    loginOtpConfirmCodeAction,
     registerSetNewPasswordAction,
     loginAskPasswordAction,
+    enterForgetPasswordPhoneNumberAction,
+    forgetPasswordConfirmationCodeAction,
   ]);
 
   /** Handlers */
@@ -60,6 +69,11 @@ const LoginManager = () => {
     setMobile(phoneNumber);
   }, []);
 
+  const handleForgetPasswordLogin = useCallback(mobile => {
+    enterForgetPasswordPhoneNumber({ mobile });
+    setMobile(mobile);
+  }, []);
+
   const handleRegisterConfirmationCode = useCallback(
     ({ code }) => {
       registerConfirmCode({ mobile, code });
@@ -70,8 +84,21 @@ const LoginManager = () => {
 
   const handleOTPConfirmationCode = useCallback(
     ({ code }) => {
+      const extra = {
+        browser:
+          window.navigator.appName == '' || window.navigator.userAgent == '',
+      };
       // TODO
       //  - OTP STEP 2 Action
+      loginOtpConfirmCode({ mobile, code, extra });
+      setConfirmationCode(code);
+    },
+    [mobile],
+  );
+
+  const handleFORGETConfirmationCode = useCallback(
+    ({ code }) => {
+      forgetPasswordConfirmationCode({ code, mobile });
       setConfirmationCode(code);
     },
     [mobile],
@@ -158,6 +185,9 @@ const LoginManager = () => {
 
       handleOTPLogin,
       [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: handleOTPConfirmationCode,
+
+      handleForgetPasswordLogin,
+      [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleFORGETConfirmationCode,
     },
   };
 };
