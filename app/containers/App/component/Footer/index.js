@@ -1,12 +1,18 @@
 import React, { useMemo } from 'react';
-import useMenuContext from 'containers/App/context';
+import { useMenuContext } from 'containers/App/context';
 
 import INSTA from 'images/instagram.svg';
 import TWITTER from 'images/twiter.svg';
 import TELEGRAM from 'images/telegram.svg';
 
 import { MenuItem } from 'components/kit';
-import { Wrapper, FooterLayoutContainer, FooterMenu, FooterSocial, FooterCopyRight } from './style';
+import {
+  Wrapper,
+  FooterLayoutContainer,
+  FooterMenu,
+  FooterSocial,
+  FooterCopyRight,
+} from './style';
 
 function Footer() {
   const { FooterMenus } = useMenuContext();
@@ -22,7 +28,10 @@ function Footer() {
   return (
     <Wrapper>
       <FooterLayoutContainer>
-        <FooterMenu>{!!FooterMenus && FooterMenus.map(menu => <MenuItem key={menu.id} {...menu} />)}</FooterMenu>
+        <FooterMenu>
+          {!!FooterMenus &&
+            FooterMenus.map(menu => <MenuItem key={menu.id} {...menu} />)}
+        </FooterMenu>
         <FooterSocial>
           <ul>
             {socialData.map(social => (
@@ -37,8 +46,9 @@ function Footer() {
         </FooterSocial>
         <FooterCopyRight>
           <p>
-            خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می باشد و هر گونه بهره برداری و سوء
-            استفاده از محتوای تماشاخونه، پیگرد قانونی دارد.
+            خدمات ارایه شده در تماشاخونه، دارای مجوز های لازم از مراجع مربوطه می
+            باشد و هر گونه بهره برداری و سوء استفاده از محتوای تماشاخونه، پیگرد
+            قانونی دارد.
           </p>
         </FooterCopyRight>
       </FooterLayoutContainer>

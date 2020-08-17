@@ -41,6 +41,7 @@ import {
 
 import { AppWrapper, MainWrapper } from './stylecomponent';
 import { Header, Footer } from './component';
+import { PublicRoute } from './component/Router';
 
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
@@ -48,13 +49,16 @@ import '../../font_icon.css';
 import '../../font_vazir.css';
 import '../../react-id-swiper.css';
 
-import { MenuContext } from './context';
+import { MenuContext, AuthContext } from './context';
+import AuthManager from './AuthManager';
 
 const globalKeyOnRedux = 'global';
 
 export default function App() {
   useInjectReducer({ key: globalKeyOnRedux, reducer: GlobalReducer });
   useInjectSaga({ key: globalKeyOnRedux, saga: GlobalSaga });
+
+  const AuthData = AuthManager();
 
   const [getRoles] = useBindDispatch([getRolesAction]);
   const [getLanguages] = useBindDispatch([getLanguagesAction]);
@@ -71,50 +75,66 @@ export default function App() {
   }, []);
 
   return (
-    <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
-      <AppWrapper>
-        <Helmet
-          titleTemplate="%s - React.js Boilerplate"
-          defaultTitle="React.js Boilerplate"
-        >
-          <meta
-            name="description"
-            content="A React.js Boilerplate application"
-          />
-        </Helmet>
-        <Header />
-
-        <MainWrapper>
-          <Switch>
-            <Route exact path={RouterRoutes.home} component={JunkPage} />
-            <Route path={RouterRoutes.junk} component={HomePage} />
-            <Route path={RouterRoutes.listViewRoute} component={ListViewPage} />
-            <Route
-              path={RouterRoutes.movieDetailRoute}
-              component={MoviesPage}
+    <AuthContext.Provider value={{ ...AuthData }}>
+      <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
+        <AppWrapper>
+          <Helmet
+            titleTemplate="%s - React.js Boilerplate"
+            defaultTitle="React.js Boilerplate"
+          >
+            <meta
+              name="description"
+              content="A React.js Boilerplate application"
             />
-            <Route
-              path={RouterRoutes.seriesDetailRoute}
-              component={SeriesPage}
-            />
-            <Route path={RouterRoutes.pageSingle} component={SinglePage} />
-            <Route path={RouterRoutes.search} component={SearchPage} />
-            <Route path={RouterRoutes.package} component={PackagesPage} />
-            <Route
-              path={RouterRoutes.packageDetailsRoute}
-              component={PackageDetails}
-            />
+          </Helmet>
 
-            <Route path={RouterRoutes.auth} component={Login} />
+          <Header />
 
-            <Route component={NotFoundPage} />
-          </Switch>
-        </MainWrapper>
+          <MainWrapper>
+            <Switch>
+              <PublicRoute
+                exact
+                path={RouterRoutes.home}
+                component={JunkPage}
+              />
+              <PublicRoute path={RouterRoutes.junk} component={HomePage} />
+              <PublicRoute
+                path={RouterRoutes.listViewRoute}
+                component={ListViewPage}
+              />
+              <PublicRoute
+                path={RouterRoutes.movieDetailRoute}
+                component={MoviesPage}
+              />
+              <PublicRoute
+                path={RouterRoutes.seriesDetailRoute}
+                component={SeriesPage}
+              />
+              <PublicRoute
+                path={RouterRoutes.pageSingle}
+                component={SinglePage}
+              />
+              <PublicRoute path={RouterRoutes.search} component={SearchPage} />
+              <PublicRoute
+                path={RouterRoutes.package}
+                component={PackagesPage}
+              />
+              <PublicRoute
+                path={RouterRoutes.packageDetailsRoute}
+                component={PackageDetails}
+              />
 
-        <Footer />
-        <GlobalTheme />
-        <GlobalStyle />
-      </AppWrapper>
-    </MenuContext.Provider>
+              <PublicRoute path={RouterRoutes.auth} component={Login} />
+
+              <PublicRoute component={NotFoundPage} />
+            </Switch>
+          </MainWrapper>
+
+          <Footer />
+          <GlobalTheme />
+          <GlobalStyle />
+        </AppWrapper>
+      </MenuContext.Provider>
+    </AuthContext.Provider>
   );
 }

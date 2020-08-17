@@ -89,7 +89,7 @@ function* loginOtpConfirmationCodeWorker({ payload: { code, mobile, extra } }) {
   const url = apiEndpoints.otpLoginStepTwo();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -113,7 +113,7 @@ function* registerNewPasswordWorker({
   const url = apiEndpoints.registerStepThree();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -136,7 +136,7 @@ function* loginAskPasswordWorker({ payload: { mobile, password, extra } }) {
   const url = apiEndpoints.login();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;

@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
-import useMenuContext from 'containers/App/context';
+import { useMenuContext } from 'containers/App/context';
 import { FormattedMessage } from 'react-intl';
+
+import { useAuthContext } from '../../context';
 
 import SEARCH from 'images/search.svg';
 
@@ -12,7 +14,6 @@ import {
   HeaderLogo,
   HeaderDetail,
   SearchIcon,
-  HeaderLink,
 } from './styles';
 
 import messages from './messages';
@@ -21,16 +22,23 @@ function Header({ history }) {
   const { push } = history;
 
   const { HeaderMenus } = useMenuContext();
+  const { isLoggedIn, handleLogout } = useAuthContext();
 
   const handleBuyPkgRoute = useCallback(e => push('/package'), []);
   const handleSigninRoute = useCallback(e => push('/auth/login'), []);
   const handleNavigateToSearch = useCallback(e => push('/search'), []);
+  const handleLogoutBtn = useCallback(
+    e => {
+      handleLogout();
+      push('/');
+    },
+    [isLoggedIn],
+  );
 
   return (
     <>
       <NavBar>
         <HeaderMenu>
-          {/* <HeaderLogo><img src='logo3.png'/></HeaderLogo> */}
           <HeaderLogo>
             <img
               src="https://tamashakhoneh.ir/content/images/logo3.png"
@@ -53,11 +61,16 @@ function Header({ history }) {
             label={<FormattedMessage {...messages.buyPkg} />}
             onClick={handleBuyPkgRoute}
           />
-          <Button
-            type="outlined"
-            label={<FormattedMessage {...messages.login_signup} />}
-            onClick={handleSigninRoute}
-          />
+
+          {isLoggedIn ? (
+            <Button type="outlined" label="Logout" onClick={handleLogoutBtn} />
+          ) : (
+            <Button
+              type="outlined"
+              label={<FormattedMessage {...messages.login_signup} />}
+              onClick={handleSigninRoute}
+            />
+          )}
         </HeaderDetail>
       </NavBar>
     </>

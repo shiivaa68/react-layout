@@ -56,4 +56,14 @@ function apiRequest({ url, method, data, headers = {} }) {
     });
 }
 
+axiosInstance.interceptors.request.use(function(config) {
+  const token = localStorage.getItem('x-auth-token');
+
+  if (token) {
+    config.headers['x-auth-token'] = token;
+  }
+
+  return config;
+});
+
 export default apiRequest;
