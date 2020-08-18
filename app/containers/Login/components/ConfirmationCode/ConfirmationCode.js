@@ -3,7 +3,7 @@ import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
 import { FormattedMessage } from 'react-intl';
-import { RegisterFormWrapper, RegisterBox } from './styles';
+import { RegisterFormWrapper, RegisterBox,ErrorContainer} from './styles';
 import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
@@ -32,15 +32,15 @@ const ConfirmationCode = () => {
             autoComplete="off"
             placeholder="کد تایید یکبار مصرف را وارد نمایید"
           />
-
+          {error && <ErrorContainer>{error}</ErrorContainer>}
           <Button
             type={ButtonTypes.FILLED}
             label={<FormattedMessage {...messages.checkCode} />}
             typeAttr="submit"
           />
 
-          {loading && <span>در حال پردازش</span>}
-          {error && <span>{error}</span>}
+          {/* {loading && <span>در حال پردازش</span>} */}
+         
         </RegisterBox>
       </Form>
     </RegisterFormWrapper>

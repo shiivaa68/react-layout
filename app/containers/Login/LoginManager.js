@@ -15,6 +15,8 @@ import {
   loginAskPasswordAction,
   enterForgetPasswordPhoneNumberAction,
   forgetPasswordConfirmationCodeAction,
+  forgetPasswordSetNewPasswordAction,
+  updateStepAction,
 } from './redux/actions';
 import LoginPageReducer from './redux/reducer';
 import LoginPageSaga from './redux/saga';
@@ -47,6 +49,8 @@ const LoginManager = () => {
     loginAskPassword,
     enterForgetPasswordPhoneNumber,
     forgetPasswordConfirmationCode,
+    forgetPasswordSetNewPassword,
+    updateStep,
   ] = useBindDispatch([
     enterPhoneNumberAction,
     enterOTPLoginPhoneNumberAction,
@@ -56,7 +60,15 @@ const LoginManager = () => {
     loginAskPasswordAction,
     enterForgetPasswordPhoneNumberAction,
     forgetPasswordConfirmationCodeAction,
+    forgetPasswordSetNewPasswordAction,
+    updateStepAction,
   ]);
+
+  useEffect(() => {
+    return () => {
+      updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);
+    };
+  }, []);
 
   /** Handlers */
   const handleEnterPhoneNumber = useCallback(({ phoneNumber }) => {
@@ -131,6 +143,22 @@ const LoginManager = () => {
     [mobile],
   );
 
+  const handleForgetPasswordSetPassword = useCallback(
+    ({ password }) => {
+      const extra = {
+        browser:
+          window.navigator.appName == '' || window.navigator.userAgent == '',
+      };
+      forgetPasswordSetNewPassword({
+        mobile,
+        confirmationCode,
+        password: btoa(password),
+        extra,
+      });
+    },
+    [mobile, confirmationCode],
+  );
+
   /** form status handlers */
   const shouldShowEnterPhoneNumberForm = useMemo(() => {
     if (authFlowStep === AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER) return true;
@@ -188,6 +216,7 @@ const LoginManager = () => {
 
       handleForgetPasswordLogin,
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleFORGETConfirmationCode,
+      [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: handleForgetPasswordSetPassword,
     },
   };
 };

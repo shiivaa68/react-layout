@@ -51,3 +51,14 @@ color:white;
     color:var(--dim-blue);
 } ;
 `;
+
+export const ErrorContainer = styled.div`
+width: 80%;
+height: 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color:var(--primary-danger);
+padding:1rem;
+border-radius:5px;
+`;

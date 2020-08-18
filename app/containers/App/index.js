@@ -20,7 +20,9 @@ import SinglePage from 'containers/SinglePage/Loadable';
 import SearchPage from 'containers/SearchPage/Loadable';
 import PackagesPage from 'containers/PackagesPage/Loadable';
 import PackageDetails from 'containers/PackageDetails/Loadable';
+// import CrewPage from 'containers/CrewPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+// import TermsPage from 'containers/TermsPage/Loadable';
 
 import { HeaderMenus, FooterMenus } from 'routes';
 import { RouterRoutes } from 'utils/routes';
@@ -38,6 +40,7 @@ import {
   getGenresAction,
   getCountryAction,
 } from './actions';
+import { updateStepAction } from '../Login/redux/actions';
 
 import { AppWrapper, MainWrapper } from './stylecomponent';
 import { Header, Footer } from './component';
@@ -60,11 +63,21 @@ export default function App() {
 
   const AuthData = AuthManager();
 
-  const [getRoles] = useBindDispatch([getRolesAction]);
-  const [getLanguages] = useBindDispatch([getLanguagesAction]);
-  const [getAgeRange] = useBindDispatch([getAgeRangeAction]);
-  const [getGenres] = useBindDispatch([getGenresAction]);
-  const [getCountry] = useBindDispatch([getCountryAction]);
+  const [
+    getRoles,
+    getLanguages,
+    getAgeRange,
+    getGenres,
+    getCountry,
+    updateStep,
+  ] = useBindDispatch([
+    getRolesAction,
+    getLanguagesAction,
+    getAgeRangeAction,
+    getGenresAction,
+    getCountryAction,
+    updateStepAction,
+  ]);
 
   useEffect(() => {
     getRoles();
@@ -76,7 +89,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ ...AuthData }}>
-      <MenuContext.Provider value={{ HeaderMenus, FooterMenus }}>
+      <MenuContext.Provider
+        value={{ HeaderMenus, FooterMenus, actions: { updateStep } }}
+      >
         <AppWrapper>
           <Helmet
             titleTemplate="%s - React.js Boilerplate"
@@ -97,6 +112,10 @@ export default function App() {
                 path={RouterRoutes.home}
                 component={JunkPage}
               />
+              {/* <PublicRoute
+                path={RouterRoutes.terms}
+                component={TermsPage}
+              /> */}
               <PublicRoute path={RouterRoutes.junk} component={HomePage} />
               <PublicRoute
                 path={RouterRoutes.listViewRoute}
@@ -123,6 +142,10 @@ export default function App() {
                 path={RouterRoutes.packageDetailsRoute}
                 component={PackageDetails}
               />
+              {/* <PublicRoute
+                path={RouterRoutes.castDetailsRoute}
+                component={CrewPage}
+              /> */}
 
               <PublicRoute path={RouterRoutes.auth} component={Login} />
 

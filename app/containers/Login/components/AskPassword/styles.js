@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const LoginWrapper = styled.article`
   width: 100%;
@@ -21,16 +20,27 @@ export const LoginBox = styled.section`
 `;
 
 export const LoginButtonsGroup = styled.div`
-  width: 80%;
+  width: 500px;
   height: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   & > button {
-    width: 100%;
+    width: 35%;
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
   }
+`;
+export const ErrorContainer = styled.div`
+  width: 80%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:var(--primary-danger);
+  padding:1rem;
+  border-radius:5px;
+
 `;

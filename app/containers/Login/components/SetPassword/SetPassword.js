@@ -7,7 +7,7 @@ import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 
-import { PasswordFormWrapper, LoginBox, LoginButtonsGroup } from './styles';
+import { PasswordFormWrapper, LoginBox, LoginButtonsGroup,ErrorContainer } from './styles';
 
 const SetPassword = () => {
   const {
@@ -34,20 +34,22 @@ const SetPassword = () => {
           />
           <InputField
             type="password"
-            name="repassword"
+            name="confirmPassword"
             icon={'fa fa-lock'}
             autoComplete="off"
             label={<FormattedMessage {...messages.passwordRepeat} />}
           />
+             {error && <ErrorContainer>{error}</ErrorContainer>}
           <LoginButtonsGroup>
+
             <Button
               type={ButtonTypes.FILLED}
               label={<FormattedMessage {...messages.submitLogin} />}
               typeAttr="submit"
             />
 
-            {loading && <span>در حال پردازش</span>}
-            {error && <span>{error}</span>}
+            {/* {loading && <span>در حال پردازش</span>} */}
+         
           </LoginButtonsGroup>
         </LoginBox>
       </Form>

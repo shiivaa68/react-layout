@@ -20,7 +20,7 @@ import { PackageViewLayout, Title, PackageWrapper,Line} from './styles';
 
 const PACKAGEListKeyOnRedux = 'PACKAGEList';
 
-const PackagesPage = ({match}) => {
+const PackagesPage = () => {
   // injectors
   useInjectReducer({ key: PACKAGEListKeyOnRedux, reducer: PackageListReducer });
   useInjectSaga({ key: PACKAGEListKeyOnRedux, saga: listPackagePageSaga });
@@ -37,15 +37,15 @@ const PackagesPage = ({match}) => {
   );
 
   useEffect(() => {
-    const id =match.params.packageId;
-    getPackage({id});
+ 
+    getPackage();
   }, []);
 
   useEffect(() => {
 
   }, [data]);
 
-  console.log({data},'data package hastam');
+  // console.log({data},'data package hastam');
 
 
   return (
@@ -58,7 +58,7 @@ const PackagesPage = ({match}) => {
         </Title>
         {data &&
           data.length > 0 &&
-          data.map(item => <PackageItem key={item.id} {...item} packageId={match.params.packageId} />)}
+          data.map(item => <PackageItem key={item.id} {...item} />)}
       </PackageWrapper>
 
     </PackageViewLayout>

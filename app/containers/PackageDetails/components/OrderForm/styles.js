@@ -16,12 +16,13 @@ export const PackageContainer = styled.section`
    border:1px;
 
 `;
-export const TitlePackage = styled.div`
+export const TitlePackagewrapper = styled.div`
 width: 100%;
 height: 10vh;
 display: flex;
-justify-content:center;
+justify-content:space-beetween;
 align-items: center;
+flex-direction:column;
 font-size:1.5rem;
 border-bottom: 1px solid #E0E0E0;
 `;
@@ -31,7 +32,7 @@ width: 100%;
 height: 20vh;
 display: flex;
  justify-content:space-between;
- padding:2rem;
+ padding:2rem ;
 align-items: center;
 
 border-bottom: 2px solid  #E0E0E0;
@@ -45,7 +46,6 @@ export const DescriptionTitle=styled.div`
  padding:0.5rem;
  align-items: flex-start;
  flex-direction:column;
- color: var(--primary-danger);
 `;
 export const DescriptionPrice = styled.div`
 color: var(--dark-blue);
@@ -82,14 +82,12 @@ justify-content:flex-start;
 padding:0.5rem;
 align-items: flex-start;
 flex-direction:column;
-
-
 `;
 export const Title=styled.div`
-color: var(--primary-danger);
 padding-bottom:1rem;
 `;
 export const TitlePage=styled.div`
+font-size:1.5rem;
 padding-bottom:2rem;
 margin:0;
 `;

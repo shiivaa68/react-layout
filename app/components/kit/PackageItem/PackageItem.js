@@ -14,6 +14,8 @@ const PackageItem = ({id,name,description,day,price,price_discount,history,...re
 const handleNavigatePackageDetails = useCallback(() => {
     push(PublicRoutes.packageDetailsRoute(id));
   }, []);
+
+
     return (
         <PackageContainer>
 
@@ -26,10 +28,15 @@ const handleNavigatePackageDetails = useCallback(() => {
         </DescriptionPackage>
     </DescriptionArea>
 
-        <PriceAreaOff>
-        {price}
-        </PriceAreaOff>
-        
+             {price > price_discount ? (
+                    <PriceAreaOff>
+                    {price}
+                    </PriceAreaOff>
+                    ) : (
+                        <PriceAreaOff>
+                    -
+                       </PriceAreaOff>
+                    )}
         <PriceArea>
         {price_discount}
         <FormattedMessage {...messages.toman} />
@@ -47,6 +54,4 @@ const handleNavigatePackageDetails = useCallback(() => {
     </PackageContainer>
     );
     };
-
-
 export default withRouter(PackageItem);

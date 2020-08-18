@@ -8,9 +8,11 @@ const RouterRoutes = {
   movieDetailRoute: '/movies/:movieId',
   seriesDetailRoute: '/series/:serieId',
   listViewRoute: '/videos',
+  terms: '/terms',
   pageSingle: '/page/:pageId',
-  package: '/package',
+  package: '/packages',
   packageDetailsRoute: '/order/:id',
+  castDetailsRoute: '/crew/:id',
 };
 
 export default RouterRoutes;

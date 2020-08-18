@@ -3,9 +3,9 @@ import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
 import { FormattedMessage } from 'react-intl';
+import useLoginContext from 'containers/Login/context';
 import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
-import useLoginContext from 'containers/Login/context';
 import { OTPLoginBtn } from './components';
 import { phoneNumberRegex } from 'utils/regexUtils';
 
@@ -14,6 +14,7 @@ import {
   LoginBox,
   LoginButtonsGroup,
   RulesSite,
+  ErrorContainer,
 } from './styles';
 
 const EnterPhoneNumber = () => {
@@ -40,7 +41,7 @@ const EnterPhoneNumber = () => {
           <InputField
             type="text"
             name="phoneNumber"
-            icon={'fas fa-phone'}
+            icon="fas fa-phone"
             placeholder="09*********"
             autoComplete="off"
             label={<FormattedMessage {...messages.mobile} />}
@@ -55,11 +56,11 @@ const EnterPhoneNumber = () => {
             />
           </LoginButtonsGroup>
 
-          {loading && <span>در حال پردازش</span>}
-          {error && <span>{error}</span>}
+          {/* {loading && <span>در حال پردازش</span>} */}
+          {error && <ErrorContainer>{error}</ErrorContainer>}
 
-          <RulesSite to={'/page/rules'}>
-            {<FormattedMessage {...messages.rules} />}
+          <RulesSite to="/terms">
+            <FormattedMessage {...messages.rules} />
           </RulesSite>
         </LoginBox>
       </Form>

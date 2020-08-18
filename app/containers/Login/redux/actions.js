@@ -10,6 +10,7 @@ import {
   LOGIN_ASK_PASSWORD,
   FORGET_PASSWORD_ENTER_PHONE_NUMBER,
   FORGET_PASSWORD_CONFIRMATION_CODE,
+  FORGET_SET_NEW_PASSWORD,
 } from './constants';
 
 export function errorAction(error) {
@@ -30,7 +31,9 @@ export function updateStepAction(step) {
   return {
     type: UPDATE_STEP,
     payload: { step },
+   
   };
+  console.log({payload},"donbal updatam")
 }
 
 /** Steps */
@@ -89,3 +92,11 @@ export function forgetPasswordConfirmationCodeAction({ ...options }) {
     payload: { ...options },
   };
 }
+
+export function forgetPasswordSetNewPasswordAction({ ...options }) {
+  return {
+    type: FORGET_SET_NEW_PASSWORD,
+    payload: { ...options },
+  };
+}
+

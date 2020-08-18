@@ -22,7 +22,7 @@ import initialState from './redux/initialState';
 import {OrderForm} from './components/OrderForm';
 const PackageDetailsageKeyOnRedux = 'PackageDetails';
 
-const PackageDetails = ({ location }) => {
+const PackageDetails = ({ match }) => {
   /** Injectors */
   useInjectReducer({ key: PackageDetailsageKeyOnRedux, reducer: PackageDetailsPageReducer });
   useInjectSaga({ key: PackageDetailsageKeyOnRedux, saga: PackageDetailsPageSaga });
@@ -32,11 +32,9 @@ const PackageDetails = ({ location }) => {
   const { data, loading, error } = useSelector(state => state[PackageDetailsageKeyOnRedux] || initialState);
 
   useEffect(() => {
-    const { search } = location;
-    const id = qs.parse(search.slice(1));
-    getPackageDetails(id);
-  console.log({id} ,'id item package')
-    console.log({data},"man data hastam baray pavckage details")
+    const id = match.params.id;
+    getPackageDetails({id});
+    console.log({data})
   }, []);
 
   useEffect(() => {
@@ -45,12 +43,7 @@ const PackageDetails = ({ location }) => {
 
   return(
     <PackageDetailLayout>
-   
      < OrderForm data={data}/>
-      {/* {data &&
-        data.length > 0 &&
-        data.map(item => <MovieItem key={item.id} {...item} />)} */}
-  
   </PackageDetailLayout>
  
   ); 

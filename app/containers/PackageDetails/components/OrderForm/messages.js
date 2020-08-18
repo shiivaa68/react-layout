@@ -3,6 +3,19 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.PackageItem';
 
 export default defineMessages({
+  selectPackage: {
+    id: `${scope}.selectPackage`,
+    defaultMessage:'پکیچ انتخاب شده:',
+  },
+  toman: {
+    id: `${scope}.toman`,
+    defaultMessage:'تومان:',
+  },
+  descriptionPackage: {
+    id: `${scope}.descriptionPackage`,
+    defaultMessage:' توضیحات:',
+  },
+
     submitOrder: {
     id: `${scope}.submitOrder`,
     defaultMessage: ' پرداخت آنلاین',
@@ -21,9 +34,9 @@ export default defineMessages({
     id: `${scope}.pricePackage`,
     defaultMessage: 'قیمت:',
   },
-  totalPrice: {
-    id: `${scope}.totalPrice`,
-    defaultMessage: 'جمع تخفیف:',
+  offPrice: {
+    id: `${scope}.offPrice`,
+    defaultMessage: 'قیمت با تخفیف:',
   },
   tax: {
     id: `${scope}.tax`,
@@ -31,7 +44,7 @@ export default defineMessages({
   },
   totalPriceSubmit: {
     id: `${scope}.totalPriceSubmit`,
-    defaultMessage: ' مبلغ قابل پرداخت:',
+    defaultMessage: ' مبلغ قابل پرداخت با احتساب 9% مالیات ',
   },
   continueBye: {
     id: `${scope}.continueBye`,

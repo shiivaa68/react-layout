@@ -7,4 +7,8 @@ export default defineMessages({
     id: `${scope}.title`,
     defaultMessage: 'همچنین تماشا کنید',
   },
+  continueBye: {
+    id: `${scope}.continueBye`,
+    defaultMessage: ' تکمیل خرید',
+  },
 });

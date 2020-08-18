@@ -24,3 +24,15 @@ export const RegisterBox = styled.div`
     position: relative;
   }
 `;
+
+export const ErrorContainer = styled.div`
+margin-bottom:2rem;
+width: 80%;
+height: 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color:var(--primary-danger);
+padding:1rem;
+border-radius:5px;
+`;

@@ -1,6 +1,6 @@
 const initialValues = {
     password: '',
-    repassword:'',
+    confirmPassword:'',
   };
   
   export default initialValues;

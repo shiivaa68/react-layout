@@ -40,7 +40,6 @@ const apiEndpoints = {
   getSuggestedSeries: (serieId, queryOptions) =>
     `${baseURL}/series/similars/${serieId}?${toUrlParams(queryOptions)}`,
 
-  //api calls search
   // search api calls
   getMoviesSearch: searchConfig =>
     `${baseURL}/movies/search?${toUrlParams(searchConfig)}`,
@@ -48,6 +47,11 @@ const apiEndpoints = {
     `${baseURL}/series/search?${toUrlParams(searchConfig)}`,
   getCastsSearch: searchConfig =>
     `${baseURL}/casts/search?${toUrlParams(searchConfig)}`,
+  //package api calls
+  getListPackages: () => `${baseURL}/buy/packages`,
+  getCategoryDetails:(id)=>`${baseURL}/buy/packages/${id}`,
+  //cast details routes
+  getCrew:id=>`${baseURL}/casts/${id}`,
 };
 
 export default apiEndpoints;

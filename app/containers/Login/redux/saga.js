@@ -15,6 +15,7 @@ import {
   LOGIN_ASK_PASSWORD,
   FORGET_PASSWORD_ENTER_PHONE_NUMBER,
   FORGET_PASSWORD_CONFIRMATION_CODE,
+  FORGET_SET_NEW_PASSWORD,
 } from './constants';
 import { loadingAction, errorAction, updateStepAction } from './actions';
 
@@ -89,7 +90,7 @@ function* loginOtpConfirmationCodeWorker({ payload: { code, mobile, extra } }) {
   const url = apiEndpoints.otpLoginStepTwo();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
+    success: () => push(RouterRoutes.home),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -113,7 +114,7 @@ function* registerNewPasswordWorker({
   const url = apiEndpoints.registerStepThree();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
+    success: () => push(RouterRoutes.home),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -136,7 +137,7 @@ function* loginAskPasswordWorker({ payload: { mobile, password, extra } }) {
   const url = apiEndpoints.login();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(`${RouterRoutes.home}?isLoggedIn=true`),
+    success: () => push(RouterRoutes.home),
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -202,6 +203,31 @@ function* forgerPasswordConfirmationCodeWorker({ payload: { code, mobile } }) {
   yield requestCall({ method, url, actions, data });
 }
 
+function* forgetPasswordNewPasswordWorker({
+  payload: { mobile, confirmationCode, password, extra },
+}) {
+  const method = 'POST';
+  const url = apiEndpoints.forgetPassStepThree();
+  const actions = {
+    loading: loadingStatus => loadingAction(loadingStatus),
+    success: () => push(RouterRoutes.home),
+    failure: error => {
+      console.log('ERROR', error);
+      const { status, message } = error;
+      return errorAction(message);
+    },
+  };
+
+  const data = {
+    mobile,
+    code: confirmationCode,
+    password,
+    extra,
+  };
+
+  yield requestCall({ method, url, actions, data });
+}
+
 export default function* SignPageSaga() {
   yield all([
     takeLatest(ENTER_PHONE_NUMBER, enterPhoneNumberWorker),
@@ -217,6 +243,10 @@ export default function* SignPageSaga() {
     takeLatest(
       FORGET_PASSWORD_CONFIRMATION_CODE,
       forgerPasswordConfirmationCodeWorker,
+    ),
+    takeLatest(
+      FORGET_SET_NEW_PASSWORD,
+      forgetPasswordNewPasswordWorker,
     ),
   ]);
 }

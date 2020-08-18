@@ -8,7 +8,7 @@ import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 import { FORGETPassBtn } from './components';
 
-import { LoginWrapper, LoginBox, LoginButtonsGroup } from './styles';
+import { LoginWrapper, LoginBox, LoginButtonsGroup,ErrorContainer} from './styles';
 
 const AskPassword = () => {
   const {
@@ -46,6 +46,8 @@ const AskPassword = () => {
             autoComplete="off"
             label={<FormattedMessage {...messages.password} />}
           />
+            {error && <ErrorContainer>{error}</ErrorContainer>}
+           </LoginBox>
           <LoginButtonsGroup>
             <FORGETPassBtn handleFORGETBtnClick={handleFORGETBtnClick} />
             <Button
@@ -54,10 +56,10 @@ const AskPassword = () => {
               typeAttr="submit"
             />
 
-            {loading && <span>در حال پردازش</span>}
-            {error && <span>{error}</span>}
+            {/* {loading && <span>در حال پردازش</span>} */}
+          
           </LoginButtonsGroup>
-        </LoginBox>
+        
       </Form>
     </LoginWrapper>
   );

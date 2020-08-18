@@ -7,7 +7,7 @@ const validationSchema = Yup.object().shape({
   //   .required('فیلد ورودی خالی می باشد'),
 
   password: Yup.string()
-    .matches(passwordRegex, 'رمز مجاز نسیت')
+    // .matches(passwordRegex, 'رمز مجاز نسیت')
     .required('فیلد ورودی خالی می باشد'),
 });
 

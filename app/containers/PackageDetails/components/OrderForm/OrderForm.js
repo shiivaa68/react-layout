@@ -1,13 +1,13 @@
 import React,{useCallback} from 'react';
 import { withRouter } from 'react-router-dom';
 import {PublicRoutes} from 'utils/routes';
-import {PackageContainer,TitlePage,DescriptionTitle,TitlePackage,Title,WraperInput,DescriptionArea,DescriptionPrice,ContainerCode,Textcode,ButtonWrapper,} from './styles';
+import {PackageContainer,TitlePage,DescriptionTitle,TitlePackagewrapper,Title,WraperInput,DescriptionArea,DescriptionPrice,ContainerCode,Textcode,ButtonWrapper,} from './styles';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
 import messages from './messages';
 import { FormattedMessage } from 'react-intl';
 
-const OrderForm = ({id,name,description,day,price,price_discount,history,...rest}) =>{
+const OrderForm = ({data}) =>{
     const {push} = history;
 
 // const handleNavigatePackageDetails = useCallback(() => {
@@ -18,22 +18,35 @@ const OrderForm = ({id,name,description,day,price,price_discount,history,...rest
             <TitlePage>
                 <FormattedMessage {...messages.continueBye} /> 
             </TitlePage>
-             <TitlePackage>
-                دو روزه
-                  {/* <FormattedMessage {...messages.toman} /> */}
-            </TitlePackage>      
+               <TitlePackagewrapper>
+                  {data.name}  
+             </TitlePackagewrapper>      
 
             <DescriptionArea>
                 <DescriptionTitle>
+                
+                 <FormattedMessage {...messages.descriptionPackage} />
                    <FormattedMessage {...messages.pricePackage} />
-                   <FormattedMessage {...messages.totalPrice} /> 
-                   <FormattedMessage {...messages.tax} />
+                   <FormattedMessage {...messages.offPrice} />
                 </DescriptionTitle>
 
                 <DescriptionPrice>
-                <span>'19000'</span>
-                <span>'19000'</span>
-                <span>'19000'</span>
+             
+                <span> {data.description}</span> 
+                <span>{data.price} <FormattedMessage {...messages.toman} /> </span>
+                <span>{data.price_discount} <FormattedMessage {...messages.toman} /> </span>
+
+{/* 
+                {price > price_discount ? (
+                    <PriceAreaOff>
+                    {price}
+                    </PriceAreaOff>
+                    ) : (
+                        <PriceAreaOff>
+                    
+                       </PriceAreaOff>
+                    )} */}
+
                 </DescriptionPrice>
                 </DescriptionArea>
 
@@ -62,10 +75,12 @@ const OrderForm = ({id,name,description,day,price,price_discount,history,...rest
                  </WraperInput>
                  <DescriptionArea>
                 <DescriptionTitle>
-                   <FormattedMessage {...messages.totalPriceSubmit} />
+                <FormattedMessage {...messages.totalPriceSubmit} />
                 </DescriptionTitle>
                 <DescriptionPrice>
-                <span>'19000'</span>
+                <span>{data.final_price} <FormattedMessage {...messages.toman} /> </span> 
+            
+
                 </DescriptionPrice>
                 </DescriptionArea>
                 </ContainerCode>

@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useMenuContext } from 'containers/App/context';
 import { FormattedMessage } from 'react-intl';
+import AUTH_FLOW_STEPS from 'constants/authFlow';
 
 import { useAuthContext } from '../../context';
 
@@ -18,14 +19,22 @@ import {
 
 import messages from './messages';
 
-function Header({ history }) {
+function Header({ history, location }) {
   const { push } = history;
 
-  const { HeaderMenus } = useMenuContext();
+  const {
+    HeaderMenus,
+    actions: { updateStep },
+  } = useMenuContext();
   const { isLoggedIn, handleLogout } = useAuthContext();
 
   const handleBuyPkgRoute = useCallback(e => push('/package'), []);
-  const handleSigninRoute = useCallback(e => push('/auth/login'), []);
+  const handleSigninRoute = useCallback(e => {
+    if (location.pathname === '/auth/login') {
+      updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);
+    }
+    push('/auth/login');
+  }, []);
   const handleNavigateToSearch = useCallback(e => push('/search'), []);
   const handleLogoutBtn = useCallback(
     e => {
