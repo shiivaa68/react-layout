@@ -28,7 +28,7 @@ function Header({ history, location }) {
   } = useMenuContext();
   const { isLoggedIn, handleLogout } = useAuthContext();
 
-  const handleBuyPkgRoute = useCallback(e => push('/package'), []);
+  const handleBuyPkgRoute = useCallback(e => push('/packages'), []);
   const handleSigninRoute = useCallback(e => {
     if (location.pathname === '/auth/login') {
       updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);

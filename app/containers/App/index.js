@@ -44,7 +44,7 @@ import { updateStepAction } from '../Login/redux/actions';
 
 import { AppWrapper, MainWrapper } from './stylecomponent';
 import { Header, Footer } from './component';
-import { PublicRoute } from './component/Router';
+import { PublicRoute, PrivateRoute } from './component/Router';
 
 import GlobalTheme from '../../global-css-theme';
 import GlobalStyle from '../../global-styles';
@@ -138,7 +138,7 @@ export default function App() {
                 path={RouterRoutes.package}
                 component={PackagesPage}
               />
-              <PublicRoute
+              <PrivateRoute
                 path={RouterRoutes.packageDetailsRoute}
                 component={PackageDetails}
               />
