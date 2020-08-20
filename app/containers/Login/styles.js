@@ -8,15 +8,19 @@ export const LoginWrapper = styled.article`
   align-items: center;
   flex-direction: column;
   color: var(--primary-light);
+  font-size: ${props => props.isMobile ? 'small'  : 'inherit'};
 `;
 
 export const ImgLogin = styled.div`
 width: 400px;
 height: fit-content;
   & > img {
-    width: 100%;
-    max-width: 800px;
+    width:70%;
+    max-width: 400px;
     height: 100%;
+    margin-top: 15px;
   }
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
 `;

@@ -9,13 +9,13 @@ export const RegisterFormWrapper = styled.article`
 `;
 
 export const RegisterBox = styled.div`
-  width: 500px;
+max-width: 450px;
+margin: auto;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
   font-family: var(--primary-font);
   input::placeholder {
     font-size: 1rem;

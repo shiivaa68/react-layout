@@ -9,9 +9,11 @@ import { LoginContext } from './context';
 import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
 import AUTH from 'images/auth.svg';
+import useMyMediaQuery from 'utils/useMyMediaQuery'
 
 const Login = () => {
   const { data, errors, actions } = LoginManager();
+  const { isMobile } = useMyMediaQuery();
 
   const {
     shouldShowEnterPhoneNumberForm,
@@ -22,7 +24,7 @@ const Login = () => {
 
   return (
     <LoginContext.Provider value={{ data, errors, actions }}>
-      <LoginWrapper>
+      <LoginWrapper isMobile={isMobile}>
         <ImgLogin>
           <img src={AUTH} alt="image login" />
         </ImgLogin>

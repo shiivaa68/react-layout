@@ -1,9 +1,10 @@
 import React,{useCallback} from 'react';
 import { withRouter } from 'react-router-dom';
 import {PublicRoutes} from 'utils/routes';
-import {PackageContainer,TitlePage,DescriptionTitle,TitlePackagewrapper,Title,WraperInput,DescriptionArea,DescriptionPrice,ContainerCode,Textcode,ButtonWrapper,} from './styles';
+import {PackageContainer,PriceArea,DescriptionPack,PriceAreaOff,TitlePage,DescriptionTitle,TitlePackagewrapper,Title,WraperInput,DescriptionArea,DescriptionPrice,ContainerCode,Textcode,ButtonWrapper,} from './styles';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
+import EnterCodeOff from '../EnterCodeOff/EnterCodeOff';
 import messages from './messages';
 import { FormattedMessage } from 'react-intl';
 
@@ -13,40 +14,34 @@ const OrderForm = ({data}) =>{
 // const handleNavigatePackageDetails = useCallback(() => {
 //     push(PublicRoutes.packageDetailsRoute(id));
 //   }, []);
+
+const handleOTPBtnClick = (values,actions )=> {
+    console.log({values},'man injam for')
+     
+     };
+   
+
+
     return (
         <PackageContainer>  
             <TitlePage>
                 <FormattedMessage {...messages.continueBye} /> 
-            </TitlePage>
-               <TitlePackagewrapper>
-                  {data.name}  
-             </TitlePackagewrapper>      
+                </TitlePage>
+                <TitlePackagewrapper>
+                    {data.name}  
+                </TitlePackagewrapper>      
 
-            <DescriptionArea>
+                <DescriptionArea>
                 <DescriptionTitle>
-                
-                 <FormattedMessage {...messages.descriptionPackage} />
-                   <FormattedMessage {...messages.pricePackage} />
-                   <FormattedMessage {...messages.offPrice} />
+                <div><FormattedMessage {...messages.descriptionPackage} /></div>  
+                <div><FormattedMessage {...messages.pricePackage} /></div> 
+                <div> <FormattedMessage {...messages.offPrice} /></div>  
                 </DescriptionTitle>
-
                 <DescriptionPrice>
-             
-                <span> {data.description}</span> 
-                <span>{data.price} <FormattedMessage {...messages.toman} /> </span>
-                <span>{data.price_discount} <FormattedMessage {...messages.toman} /> </span>
-
-{/* 
-                {price > price_discount ? (
-                    <PriceAreaOff>
-                    {price}
-                    </PriceAreaOff>
-                    ) : (
-                        <PriceAreaOff>
-                    
-                       </PriceAreaOff>
-                    )} */}
-
+                <DescriptionPack> {data.description}</DescriptionPack> 
+                {data.price >data.price_discount ? (  <PriceAreaOff>{data.price} <FormattedMessage {...messages.toman} /> </PriceAreaOff>):(<PriceArea>- </PriceArea>)}
+                {/* <PriceAreaOff>{data.price} <FormattedMessage {...messages.toman} /> </PriceAreaOff> */}
+                <PriceArea>{data.price_discount} <FormattedMessage {...messages.toman} /> </PriceArea>
                 </DescriptionPrice>
                 </DescriptionArea>
 
@@ -57,21 +52,7 @@ const OrderForm = ({data}) =>{
                     </Title>
                  </Textcode>
                  <WraperInput>
-                  {/* <InputField
-                    readOnly
-                    type="text"
-                    name="vat"
-                    // value={vat}
-                    // icon={'fas fa-phone'}
-                    placeholder="کد تخفیف"
-                    autoComplete="off"
-                  /> */}
-                  <input type="text"/>
-                   <Button
-                     type="filled"
-                     label={<FormattedMessage {...messages.submitOff} />}
-                     onClick={()=>console.log('man safheye order hastam')}
-                    />
+                <EnterCodeOff handleOTPBtnClick={handleOTPBtnClick}/>
                  </WraperInput>
                  <DescriptionArea>
                 <DescriptionTitle>
@@ -79,8 +60,6 @@ const OrderForm = ({data}) =>{
                 </DescriptionTitle>
                 <DescriptionPrice>
                 <span>{data.final_price} <FormattedMessage {...messages.toman} /> </span> 
-            
-
                 </DescriptionPrice>
                 </DescriptionArea>
                 </ContainerCode>

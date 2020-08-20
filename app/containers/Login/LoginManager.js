@@ -69,7 +69,7 @@ const LoginManager = () => {
       updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);
     };
   }, []);
-
+  
   /** Handlers */
   const handleEnterPhoneNumber = useCallback(({ phoneNumber }) => {
     enterPhoneNumber({ phoneNumber });
@@ -216,7 +216,7 @@ const LoginManager = () => {
 
       handleForgetPasswordLogin,
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleFORGETConfirmationCode,
-      [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: handleForgetPasswordSetPassword,
+      [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]:handleForgetPasswordSetPassword,
     },
   };
 };

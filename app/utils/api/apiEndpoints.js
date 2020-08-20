@@ -50,6 +50,8 @@ const apiEndpoints = {
   //package api calls
   getListPackages: () => `${baseURL}/buy/packages`,
   getCategoryDetails:(id)=>`${baseURL}/buy/packages/${id}`,
+  getDiscountPackage:(id,discount_code)=>`${baseURL}/buy/packages/discount/${id}/code/${discount_code}`,
+  orderPackage:(id)=>`${baseURL}//buy/order/packages/${id}`,
   //cast details routes
   getCrew:id=>`${baseURL}/casts/${id}`,
 };

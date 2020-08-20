@@ -29,21 +29,21 @@ const PackageDetails = ({ match }) => {
 
   const [getPackageDetails] = useBindDispatch([getPackageDetailsAction]);
 
-  const { data, loading, error } = useSelector(state => state[PackageDetailsageKeyOnRedux] || initialState);
+  const { data_package_datail, loading, error } = useSelector(state => state[PackageDetailsageKeyOnRedux] || initialState);
 
   useEffect(() => {
     const id = match.params.id;
     getPackageDetails({id});
-    console.log({data})
+    console.log({data_package_datail})
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-  }, [data]);
+  // }, [data]);
 
   return(
     <PackageDetailLayout>
-     < OrderForm data={data}/>
+     < OrderForm data={data_package_datail}/>
   </PackageDetailLayout>
  
   ); 

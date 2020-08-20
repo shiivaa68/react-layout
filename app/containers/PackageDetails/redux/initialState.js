@@ -1,7 +1,9 @@
 const initialState = {
     error: false,
     loading: false,
-    data: {},
+    data_package_datail: {},
+    data_package_discount:{},
+    data_package_order:{},
   };
   
   export default initialState;

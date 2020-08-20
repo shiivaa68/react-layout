@@ -1,46 +1,49 @@
 import styled from 'styled-components';
 
-export const LoginWrapper = styled.article`
+export const RegisterStepOneWrapper = styled.article`
   width: 100%;
-  max-width: 500px;
+  margin:0px;
+  padding:0px;
+  
   * {
     font-family: var(--primary-font);
   }
 `;
 
 export const LoginBox = styled.section`
-  max-width: 450px;
-  margin: auto;
+  width: 600px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   font-family: var(--primary-font);
+   color:white;
+   
 `;
 
 export const LoginButtonsGroup = styled.div`
-  max-width: 500px;
-  height: 100px;
+  width: 80%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  margin-bottom:0.5rem;
   & > button {
-    width: 35%;
+    width: 100%;
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
   }
 `;
-export const ErrorContainer = styled.div`
-  width: 80%;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color:var(--primary-danger);
-  padding:1rem;
-  border-radius:5px;
 
+export const ErrorContainer = styled.div`
+width: 80%;
+height: 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color:var(--primary-danger);
+padding:1rem;
+border-radius:5px;
 `;

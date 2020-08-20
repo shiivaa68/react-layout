@@ -10,13 +10,13 @@ export const RegisterStepOneWrapper = styled.article`
 `;
 
 export const LoginBox = styled.section`
-  width: 500px;
+max-width: 450px;
+margin: auto;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
   font-family: var(--primary-font);
 `;
 

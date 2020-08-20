@@ -1,6 +1,6 @@
 import produce from 'immer';
 import initialState from './initialState';
-import { ERROR, LOADING, UPDATE_PACKAGE_DETAILS } from './constants';
+import { ERROR, LOADING, UPDATE_PACKAGE_DETAILS,UPDATE_PACKAGE_DISCOUNT,UPDATE_PACKAGE_ORDER } from './constants';
 
 const PackageDetailsPageReducer = (state = initialState, action) =>
   produce(state, draft => {
@@ -14,8 +14,15 @@ const PackageDetailsPageReducer = (state = initialState, action) =>
         return draft;
 
       case UPDATE_PACKAGE_DETAILS:
-        draft.data = action.payload;
+        draft.data_package_datail = action.payload;
         return draft;
+
+      case UPDATE_PACKAGE_ORDER:
+          draft.data_package_order = action.payload;
+          return draft;
+      case UPDATE_PACKAGE_DISCOUNT:
+            draft.data_package_discount = action.payload;
+            return draft;
     }
   });
 

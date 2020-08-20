@@ -82,7 +82,7 @@
   "boilerplate.containers.PackageItem.tax": "مالیات بر ارزش افزوده:",
   "boilerplate.containers.PackageItem.titleOff": "کد تخفیف",
   "boilerplate.containers.PackageItem.titlePackage": "انتخاب",
-  "boilerplate.containers.PackageItem.toman": "تومان:",
+  "boilerplate.containers.PackageItem.toman": "تومان",
   "boilerplate.containers.PackageItem.totalPrice": "جمع تخفیف:",
   "boilerplate.containers.PackageItem.totalPriceSubmit": "مبلغ قابل پرداخت با احتساب 9% مالیات",
   "boilerplate.containers.Search.MaxRank": "تا رنک {rankNumber}",

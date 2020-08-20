@@ -3,14 +3,13 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.PackageItem';
 
 export default defineMessages({
-    titlePackage: {
+  titlePackage: {
     id: `${scope}.titlePackage`,
     defaultMessage: 'انتخاب',
   },
 
-      toman: {
+  toman: {
     id: `${scope}.toman`,
     defaultMessage: 'تومان',
   },
-
-}); 
+});

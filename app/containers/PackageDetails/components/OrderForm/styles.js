@@ -32,14 +32,21 @@ width: 100%;
 height: 20vh;
 display: flex;
  justify-content:space-between;
- padding:2rem ;
+ padding:1.5rem ;
 align-items: center;
-
+margin:0.5rem;
 border-bottom: 2px solid  #E0E0E0;
-
-
+background-color:#ffffff;
 `;
 
+export const PriceArea = styled.div`
+color: var(--dark-blue);
+`;
+export const PriceAreaOff = styled.div`
+text-decoration: line-through;
+`;
+export const DescriptionPack=styled.div`
+`;
 export const DescriptionTitle=styled.div`
  display: flex;
  justify-content:space-between;
@@ -54,17 +61,23 @@ justify-content:space-between;
 padding:0.5rem;
 align-items: flex-start;
 flex-direction:column;
-
 `;
 export const ButtonWrapper=styled.div`
+width: 100%;
+height: 50h;
 display: flex;
-justify-content:flex-start;
-padding:3rem;
-align-items: flex-start;
+justify-content:flex-end;
+margin:5rem;
+padding:2rem;
+align-items: flex-end;
 flex-direction:column;
+& > button {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 0.90rem;
+}
 `;
-
-
 export const ContainerCode = styled.div`
 width: 100%;
 height: 30vh;
@@ -74,6 +87,7 @@ display: flex;
  padding:2rem;
 align-items: flex-start;
 border-radius: 10px;
+
 
 `;
 export const Textcode=styled.div`
@@ -93,7 +107,5 @@ margin:0;
 `;
 
 export const WraperInput=styled.div`
-display:flex;
-justify-content:space-between;
-padding-right:1rem;
+padding:-2rem;
 `;

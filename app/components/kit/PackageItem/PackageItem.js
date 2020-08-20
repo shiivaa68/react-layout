@@ -1,57 +1,68 @@
-import React,{useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
-import {PublicRoutes} from 'utils/routes';
-import {PackageContainer,TitlePackage,DescriptionArea,DescriptionPackage,PriceArea,PriceAreaOff,ButtonWrapper} from './styles';
+import { PublicRoutes } from 'utils/routes';
+import {
+  PackageContainer,
+  TitlePackage,
+  DescriptionArea,
+  DescriptionPackage,
+  PriceArea,
+  PriceAreaOff,
+  ButtonWrapper,
+} from './styles';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
 import messages from './messages';
 import { FormattedMessage } from 'react-intl';
 
-const PackageItem = ({id,name,description,day,price,price_discount,history,...rest}) =>{
-    const {push} = history;
+const PackageItem = ({
+  id,
+  name,
+  description,
+  day,
+  price,
+  price_discount,
+  history,
+  ...rest
+}) => {
+  const { push } = history;
 
-
-const handleNavigatePackageDetails = useCallback(() => {
+  const handleNavigatePackageDetails = useCallback(() => {
     push(PublicRoutes.packageDetailsRoute(id));
   }, []);
 
+  return (
+    <PackageContainer>
+      <DescriptionArea>
+        <TitlePackage>{name}</TitlePackage>
+        <DescriptionPackage>{description}</DescriptionPackage>
+      </DescriptionArea>
 
-    return (
-        <PackageContainer>
+      {price > price_discount ? (
+        <PriceAreaOff>
+          <span>{price}</span>
+        </PriceAreaOff>
+      ) : (
+        <PriceAreaOff>
+          <span>-</span>
+        </PriceAreaOff>
+      )}
 
-    <DescriptionArea>
-        <TitlePackage>
-            {name}
-        </TitlePackage>
-        <DescriptionPackage>
-            {description}
-        </DescriptionPackage>
-    </DescriptionArea>
+      <PriceArea>
+        <span>
+          {price_discount}
+          <FormattedMessage {...messages.toman} />
+        </span>
+      </PriceArea>
 
-             {price > price_discount ? (
-                    <PriceAreaOff>
-                    {price}
-                    </PriceAreaOff>
-                    ) : (
-                        <PriceAreaOff>
-                    -
-                       </PriceAreaOff>
-                    )}
-        <PriceArea>
-        {price_discount}
-        <FormattedMessage {...messages.toman} />
-        </PriceArea>
-  
-    <ButtonWrapper>
-    <Button
-            type="fullfill"
-            label={<FormattedMessage {...messages.titlePackage} />}
-            onClick={handleNavigatePackageDetails}
-          />
-    </ButtonWrapper>
-      
-
+      <ButtonWrapper>
+        <Button
+          type="fullfill"
+          label={<FormattedMessage {...messages.titlePackage} />}
+          onClick={handleNavigatePackageDetails}
+        />
+      </ButtonWrapper>
     </PackageContainer>
-    );
-    };
+  );
+};
 export default withRouter(PackageItem);
