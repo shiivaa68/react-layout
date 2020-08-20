@@ -1,111 +1,126 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const PackageContainer = styled.section`
   position: relative;
-  width: 50%;
-  height: 80vh;
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  flex-direction:column;
-  background-color:var(--light);
+  width: 70vw;
+  background-color: var(--light);
   border-radius: 10px;
-  color:var(--primary-dark);
-  padding:2rem;
+  color: var(--primary-dark);
+  padding: 2rem;
   font-weight: bold;
-   border:1px;
-
+  border: 1px;
 `;
+
+export const TitlePage = styled.h2`
+  margin: 0;
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
 export const TitlePackagewrapper = styled.div`
-width: 100%;
-height: 10vh;
-display: flex;
-justify-content:space-beetween;
-align-items: center;
-flex-direction:column;
-font-size:1.5rem;
-border-bottom: 1px solid #E0E0E0;
+  width: 100%;
+  display: flex;
+  justify-content: space-beetween;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.25rem;
+  margin-top: 1.25em;
+  padding-bottom: 1.25em;
+  color: var(--primary-gray);
+
+  h4 {
+    margin: 0;
+  }
 `;
 
 export const DescriptionArea = styled.div`
-width: 100%;
-height: 20vh;
-display: flex;
- justify-content:space-between;
- padding:1.5rem ;
-align-items: center;
-margin:0.5rem;
-border-bottom: 2px solid  #E0E0E0;
-background-color:#ffffff;
+  width: 100%;
+  height: 20vh;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: var(--primary-white);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 export const PriceArea = styled.div`
-color: var(--dark-blue);
+  color: var(--dark-blue);
+  ${props => (props.isLineThrough ? 'text-decoration: line-through' : null)};
 `;
-export const PriceAreaOff = styled.div`
-text-decoration: line-through;
-`;
-export const DescriptionPack=styled.div`
-`;
-export const DescriptionTitle=styled.div`
- display: flex;
- justify-content:space-between;
- padding:0.5rem;
- align-items: flex-start;
- flex-direction:column;
+export const DescriptionPack = styled.div``;
+export const DescriptionTitle = styled.div`
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-rows: repeat(3, 1fr);
+
+  & span {
+    padding: 0 0.5rem;
+    align-self: center;
+    justify-self: flex-start;
+  }
 `;
 export const DescriptionPrice = styled.div`
-color: var(--dark-blue);
-display: flex;
-justify-content:space-between;
-padding:0.5rem;
-align-items: flex-start;
-flex-direction:column;
+  color: var(--dark-blue);
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+
+  & div {
+    padding: 0 0.5rem;
+    align-self: center;
+    justify-self: flex-end;
+  }
 `;
-export const ButtonWrapper=styled.div`
-width: 100%;
-height: 50h;
-display: flex;
-justify-content:flex-end;
-margin:5rem;
-padding:2rem;
-align-items: flex-end;
-flex-direction:column;
-& > button {
-  width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 0.90rem;
-}
-`;
+
 export const ContainerCode = styled.div`
-width: 100%;
-height: 30vh;
-display: flex;
- justify-content:space-between;
- flex-direction:column;
- padding:2rem;
-align-items: flex-start;
-border-radius: 10px;
-
-
-`;
-export const Textcode=styled.div`
-display: flex;
-justify-content:flex-start;
-padding:0.5rem;
-align-items: flex-start;
-flex-direction:column;
-`;
-export const Title=styled.div`
-padding-bottom:1rem;
-`;
-export const TitlePage=styled.div`
-font-size:1.5rem;
-padding-bottom:2rem;
-margin:0;
+  width: 100%;
+  border-radius: 10px;
 `;
 
-export const WraperInput=styled.div`
-padding:-2rem;
+export const Title = styled.h2`
+  /* padding-bottom: 1rem; */
+`;
+
+export const WraperInput = styled.div`
+  padding: -2rem;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  display: block;
+  background-color: var(--gray-light);
+  margin: 1rem 0;
+`;
+
+export const TotalSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+`;
+
+export const TotalPrice = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
+
+  & > button {
+    width: 100%;
+    margin: 0rem;
+    height: 48px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.3rem;
+  }
 `;

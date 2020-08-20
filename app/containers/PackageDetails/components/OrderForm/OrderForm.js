@@ -1,78 +1,109 @@
-import React,{useCallback} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
-import {PublicRoutes} from 'utils/routes';
-import {PackageContainer,PriceArea,DescriptionPack,PriceAreaOff,TitlePage,DescriptionTitle,TitlePackagewrapper,Title,WraperInput,DescriptionArea,DescriptionPrice,ContainerCode,Textcode,ButtonWrapper,} from './styles';
+
+import usePkgDetailsContext from 'containers/PackageDetails/context';
+
+import {
+  PackageContainer,
+  PriceArea,
+  DescriptionPack,
+  TitlePage,
+  DescriptionTitle,
+  TitlePackagewrapper,
+  Title,
+  DescriptionArea,
+  DescriptionPrice,
+  ContainerCode,
+  Line,
+  TotalSection,
+  TotalPrice,
+  ButtonWrapper,
+} from './styles';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
-import EnterCodeOff from '../EnterCodeOff/EnterCodeOff';
+import Discount from '../Discount';
 import messages from './messages';
 import { FormattedMessage } from 'react-intl';
 
-const OrderForm = ({data}) =>{
-    const {push} = history;
+const OrderForm = () => {
+  const { push } = history;
 
-// const handleNavigatePackageDetails = useCallback(() => {
-//     push(PublicRoutes.packageDetailsRoute(id));
-//   }, []);
+  const {
+    data: { data_package_datail: Pkg },
+  } = usePkgDetailsContext();
 
-const handleOTPBtnClick = (values,actions )=> {
-    console.log({values},'man injam for')
-     
-     };
-   
+  const handleOTPBtnClick = (values, actions) => {
+    console.log({ values }, 'man injam for');
+  };
 
+  const isLineThrough = useMemo(() => {
+    if (Pkg.price === Pkg.price_discount) return false;
+    else if (Pkg.price_discount > 0) return true;
+  }, [Pkg]);
 
-    return (
-        <PackageContainer>  
-            <TitlePage>
-                <FormattedMessage {...messages.continueBye} /> 
-                </TitlePage>
-                <TitlePackagewrapper>
-                    {data.name}  
-                </TitlePackagewrapper>      
+  return (
+    <PackageContainer>
+      <TitlePage>
+        <FormattedMessage {...messages.continueBye} />
+      </TitlePage>
 
-                <DescriptionArea>
-                <DescriptionTitle>
-                <div><FormattedMessage {...messages.descriptionPackage} /></div>  
-                <div><FormattedMessage {...messages.pricePackage} /></div> 
-                <div> <FormattedMessage {...messages.offPrice} /></div>  
-                </DescriptionTitle>
-                <DescriptionPrice>
-                <DescriptionPack> {data.description}</DescriptionPack> 
-                {data.price >data.price_discount ? (  <PriceAreaOff>{data.price} <FormattedMessage {...messages.toman} /> </PriceAreaOff>):(<PriceArea>- </PriceArea>)}
-                {/* <PriceAreaOff>{data.price} <FormattedMessage {...messages.toman} /> </PriceAreaOff> */}
-                <PriceArea>{data.price_discount} <FormattedMessage {...messages.toman} /> </PriceArea>
-                </DescriptionPrice>
-                </DescriptionArea>
+      <TitlePackagewrapper>
+        <h4>{Pkg.name}</h4>
+      </TitlePackagewrapper>
 
-                <ContainerCode>
-                 <Textcode>
-                     <Title>
-                    <FormattedMessage {...messages.titleOff} />
-                    </Title>
-                 </Textcode>
-                 <WraperInput>
-                <EnterCodeOff handleOTPBtnClick={handleOTPBtnClick}/>
-                 </WraperInput>
-                 <DescriptionArea>
-                <DescriptionTitle>
-                <FormattedMessage {...messages.totalPriceSubmit} />
-                </DescriptionTitle>
-                <DescriptionPrice>
-                <span>{data.final_price} <FormattedMessage {...messages.toman} /> </span> 
-                </DescriptionPrice>
-                </DescriptionArea>
-                </ContainerCode>
-                    <ButtonWrapper>
-                    <Button
-                     type="filled"
-                     label={<FormattedMessage {...messages.submitOrder} />}
-                     onClick={()=>console.log('man safheye order hastam')}
-                    />
-                    </ButtonWrapper>
+      <Line />
+
+      <DescriptionArea>
+        <DescriptionTitle>
+          <FormattedMessage {...messages.descriptionPackage} />
+          <FormattedMessage {...messages.pricePackage} />
+          <FormattedMessage {...messages.offPrice} />
+        </DescriptionTitle>
+
+        <DescriptionPrice>
+          <DescriptionPack>{Pkg.description}</DescriptionPack>
+
+          <PriceArea isLineThrough={isLineThrough}>
+            {Pkg.price} <FormattedMessage {...messages.toman} />
+          </PriceArea>
+
+          {Pkg.price === Pkg.price_discount ? (
+            <PriceArea>-</PriceArea>
+          ) : (
+            <PriceArea>
+              {Pkg.price_discount} <FormattedMessage {...messages.toman} />
+            </PriceArea>
+          )}
+        </DescriptionPrice>
+      </DescriptionArea>
+
+      <Line />
+
+      <ContainerCode>
+        <Title>
+          <FormattedMessage {...messages.titleOff} />
+        </Title>
+
+        <Discount handleOTPBtnClick={handleOTPBtnClick} />
+
+        <TotalSection>
+          <FormattedMessage {...messages.totalPriceSubmit} />
+
+          <TotalPrice>
+            {Pkg.final_price} <FormattedMessage {...messages.toman} />
+          </TotalPrice>
+        </TotalSection>
+      </ContainerCode>
+
+      <ButtonWrapper>
+        <Button
+          type="filled"
+          label={<FormattedMessage {...messages.submitOrder} />}
+          onClick={() => console.log('man safheye order hastam')}
+        />
+      </ButtonWrapper>
     </PackageContainer>
-    );
-    };
-
+  );
+};
 
 export default withRouter(OrderForm);
