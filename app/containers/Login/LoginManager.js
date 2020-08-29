@@ -17,6 +17,7 @@ import {
   forgetPasswordConfirmationCodeAction,
   forgetPasswordSetNewPasswordAction,
   updateStepAction,
+  resetErrorMessageAction,
 } from './redux/actions';
 import LoginPageReducer from './redux/reducer';
 import LoginPageSaga from './redux/saga';
@@ -51,6 +52,7 @@ const LoginManager = () => {
     forgetPasswordConfirmationCode,
     forgetPasswordSetNewPassword,
     updateStep,
+    resetErrorMessage,
   ] = useBindDispatch([
     enterPhoneNumberAction,
     enterOTPLoginPhoneNumberAction,
@@ -62,6 +64,7 @@ const LoginManager = () => {
     forgetPasswordConfirmationCodeAction,
     forgetPasswordSetNewPasswordAction,
     updateStepAction,
+    resetErrorMessageAction,
   ]);
 
   useEffect(() => {
@@ -69,6 +72,11 @@ const LoginManager = () => {
       updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);
     };
   }, []);
+
+  useEffect(() => {
+    console.log('auth flow step updated');
+    resetErrorMessage();
+  }, [authFlowStep]);
 
   /** Handlers */
   const handleEnterPhoneNumber = useCallback(({ phoneNumber }) => {
@@ -230,11 +238,17 @@ const LoginManager = () => {
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: handleForgetPasswordSetPassword,
       handleBackToEnterPhoneNumber,
 
+      // BACK BTNS
       handleBackBtns: {
         [AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD]: () =>
           updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
         [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: () =>
           updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
+      },
+
+      // RESEND CODE
+      handleResendCodes: {
+        [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: handleOTPLogin,
       },
     },
   };

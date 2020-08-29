@@ -1,12 +1,16 @@
 import produce from 'immer';
 import initialState from './initialState';
-import { LOADING, ERROR, UPDATE_STEP } from './constants';
+import { LOADING, ERROR, REST_ERROR_MSG, UPDATE_STEP } from './constants';
 
 const LoginPageReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case ERROR:
         draft.error = action.payload.error;
+        return draft;
+
+      case REST_ERROR_MSG:
+        draft.error = '';
         return draft;
 
       case LOADING:

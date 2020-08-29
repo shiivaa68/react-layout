@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
 import { FormattedMessage } from 'react-intl';
+import messages from '../../messages';
+import { RequestAgainCode } from './components';
+import ConfirmationCodeManager from './ConfirmationCodeManager';
 import {
   RegisterFormWrapper,
   RegisterBox,
@@ -10,31 +13,13 @@ import {
   WrapperBack,
   LoginButtonsGroup,
 } from './styles';
-import { initialValues, validationSchema } from './form';
-import messages from '../../messages';
-import useLoginContext from 'containers/Login/context';
-import { RequestAgainCode, BackStepOneOtp } from './components';
 
 const ConfirmationCode = () => {
   const {
-    data: { mobile, loading, error, authFlowStep },
-    actions,
-  } = useLoginContext();
-
-  const formProps = {
-    initialValues,
-    validationSchema,
-    onSubmit: actions[authFlowStep],
-  };
-
-  const handleBackOtpBtnClick = useCallback(() => {
-    actions.handleBackBtns[authFlowStep]();
-  }, [authFlowStep]);
-
-  const handleResendCodeBtnClick = values => {
-    if (phoneNumberRegex.test(values.phoneNumber));
-    // actions.handleOTPLogin(values);
-  };
+    data: { mobile, error, countDown },
+    actions: { handleBackOtpBtnClick, handleResendCodeBtnClick },
+    formProps,
+  } = ConfirmationCodeManager();
 
   return (
     <RegisterFormWrapper>
@@ -57,17 +42,20 @@ const ConfirmationCode = () => {
           />
           {error && <ErrorContainer>{error}</ErrorContainer>}
           <LoginButtonsGroup>
-            <RequestAgainCode
-              handleResendCodeBtnClick={handleResendCodeBtnClick}
-            />
+            {countDown > 0 ? (
+              <h1>{countDown}</h1>
+            ) : (
+              <RequestAgainCode
+                handleResendCodeBtnClick={handleResendCodeBtnClick}
+              />
+            )}
+
             <Button
               type={ButtonTypes.FILLED}
               label={<FormattedMessage {...messages.checkCode} />}
               typeAttr="submit"
             />
           </LoginButtonsGroup>
-
-          {/* {loading && <span>در حال پردازش</span>} */}
         </RegisterBox>
       </Form>
     </RegisterFormWrapper>
