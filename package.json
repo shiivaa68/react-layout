@@ -90,6 +90,7 @@
     "qs": "^6.9.4",
     "rc-slider": "^9.3.1",
     "react": "^16.8.6",
+    "react-cool-img": "^1.2.2",
     "react-dom": "^16.8.6",
     "react-helmet": "6.0.0-beta",
     "react-id-swiper": "^4.0.0",

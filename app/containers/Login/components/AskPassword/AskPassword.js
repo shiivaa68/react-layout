@@ -8,7 +8,13 @@ import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 import { FORGETPassBtn } from './components';
 
-import { LoginWrapper, LoginBox, LoginButtonsGroup,ErrorContainer} from './styles';
+import {
+  LoginWrapper,
+  LoginBox,
+  LoginButtonsGroup,
+  ErrorContainer,
+  WrapperBack,
+} from './styles';
 
 const AskPassword = () => {
   const {
@@ -26,15 +32,27 @@ const AskPassword = () => {
     actions.handleForgetPasswordLogin(mobile);
   }, [mobile]);
 
+  const handleBackBtnClick = useCallback(() => {
+    actions.handleBackBtns[authFlowStep]();
+  }, [authFlowStep]);
+
   return (
     <LoginWrapper>
+      <WrapperBack>
+        <Button
+          type={ButtonTypes.TEXT_ONLY}
+          label={<FormattedMessage {...messages.backWard} />}
+          onClick={handleBackBtnClick}
+        />
+      </WrapperBack>
+
       <Form {...formProps}>
         <LoginBox>
           <InputField
             readOnly
             type="text"
             name="phoneNumber"
-            icon={'fas fa-phone'}
+            // icon={'fas fa-phone'}
             placeholder={mobile}
             autoComplete="off"
             label={<FormattedMessage {...messages.mobile} />}
@@ -46,20 +64,18 @@ const AskPassword = () => {
             autoComplete="off"
             label={<FormattedMessage {...messages.password} />}
           />
-            {error && <ErrorContainer>{error}</ErrorContainer>}
-           </LoginBox>
-          <LoginButtonsGroup>
-            <FORGETPassBtn handleFORGETBtnClick={handleFORGETBtnClick} />
-            <Button
-              type={ButtonTypes.FILLED}
-              label={<FormattedMessage {...messages.submitLogin} />}
-              typeAttr="submit"
-            />
+          {error && <ErrorContainer>{error}</ErrorContainer>}
+        </LoginBox>
+        <LoginButtonsGroup>
+          <FORGETPassBtn handleFORGETBtnClick={handleFORGETBtnClick} />
+          <Button
+            type={ButtonTypes.FILLED}
+            label={<FormattedMessage {...messages.submitLogin} />}
+            typeAttr="submit"
+          />
 
-            {/* {loading && <span>در حال پردازش</span>} */}
-          
-          </LoginButtonsGroup>
-        
+          {/* {loading && <span>در حال پردازش</span>} */}
+        </LoginButtonsGroup>
       </Form>
     </LoginWrapper>
   );

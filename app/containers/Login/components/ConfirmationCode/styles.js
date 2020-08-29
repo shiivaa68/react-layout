@@ -36,3 +36,25 @@ background-color:var(--primary-danger);
 padding:1rem;
 border-radius:5px;
 `;
+
+export const WrapperBack = styled.div`
+margin:1rem;
+direction:ltr;
+padding:2rem;
+`;
+
+
+export const LoginButtonsGroup = styled.div`
+  width: 350px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  & > button {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 0.90rem;
+  }
+`;

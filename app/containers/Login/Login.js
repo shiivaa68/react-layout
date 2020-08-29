@@ -10,6 +10,7 @@ import { LoginWrapper, ImgLogin } from './styles';
 import LoginManager from './LoginManager';
 import AUTH from 'images/auth.svg';
 import useMyMediaQuery from 'utils/useMyMediaQuery'
+import Img from 'react-cool-img';
 
 const Login = () => {
   const { data, errors, actions } = LoginManager();
@@ -26,7 +27,7 @@ const Login = () => {
     <LoginContext.Provider value={{ data, errors, actions }}>
       <LoginWrapper isMobile={isMobile}>
         <ImgLogin>
-          <img src={AUTH} alt="image login" />
+          <Img src={AUTH} alt="image login" />
         </ImgLogin>
 
         {shouldShowEnterPhoneNumberForm && <EnterPhoneNumber />}

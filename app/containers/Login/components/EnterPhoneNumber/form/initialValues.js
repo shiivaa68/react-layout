@@ -1,5 +1,5 @@
 const initialValues = {
-    phoneNumber: '',
-  };
-  
-  export default initialValues;
+  phoneNumber: '',
+};
+
+export default initialValues;

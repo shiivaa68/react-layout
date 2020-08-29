@@ -1,5 +1,5 @@
 const loginUserNameRegex = /^[A-Za-z0-9]{5,15}$/;
-const phoneNumberRegex = /^(0[\s]?)9[0-39]\d[\s]?\d{3}[\s]?\d{4}$/;
+const phoneNumberRegex = /^(0?[\s]?)9[0-39]\d[\s]?\d{3}[\s]?\d{4}$/;
 const passwordRegex = /^[A-Za-z0-9-.;_!#@]{5,15}$/;
 const englishRegex = /^[a-zA-Z 0-9]+$/;
 const persianRegex = /^[\u0600-\u06FF\s]+$/;

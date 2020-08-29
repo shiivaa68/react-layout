@@ -69,11 +69,22 @@ const LoginManager = () => {
       updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER);
     };
   }, []);
-  
+
   /** Handlers */
   const handleEnterPhoneNumber = useCallback(({ phoneNumber }) => {
-    enterPhoneNumber({ phoneNumber });
-    setMobile(phoneNumber);
+    let makePhoneValid = null;
+
+    if (phoneNumber[0] !== '0') makePhoneValid = `0${phoneNumber}`;
+    else makePhoneValid = phoneNumber;
+
+    enterPhoneNumber({ phoneNumber: makePhoneValid });
+    setMobile(makePhoneValid);
+  }, []);
+
+  const handleBackToEnterPhoneNumber = useCallback(({ phoneNumber }) => {
+    console.log('man to log manageram');
+    // enterPhoneNumber({ phoneNumber });
+    // setMobile(phoneNumber);
   }, []);
 
   const handleOTPLogin = useCallback(({ phoneNumber }) => {
@@ -216,7 +227,15 @@ const LoginManager = () => {
 
       handleForgetPasswordLogin,
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleFORGETConfirmationCode,
-      [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]:handleForgetPasswordSetPassword,
+      [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: handleForgetPasswordSetPassword,
+      handleBackToEnterPhoneNumber,
+
+      handleBackBtns: {
+        [AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD]: () =>
+          updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
+        [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: () =>
+          updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
+      },
     },
   };
 };

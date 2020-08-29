@@ -48,6 +48,15 @@ export default defineMessages({
     id: `${scope}.passwordRepeat`,
     defaultMessage: ' تکرار رمز عبور',
   },
+
+  backWard:{
+    id: `${scope}.backWard`,
+    defaultMessage: ' بازگشت',
+  },
+  resendCode:{
+    id: `${scope}.resendCode`,
+    defaultMessage: ' ارسال مجدد کد',
+  },
   
   rules:{
     id: `${scope}.rules`,

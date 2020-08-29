@@ -41,7 +41,7 @@ const EnterPhoneNumber = () => {
           <InputField
             type="text"
             name="phoneNumber"
-            icon="fas fa-phone"
+            // icon="fas fa-phone"
             placeholder="09*********"
             autoComplete="off"
             label={<FormattedMessage {...messages.mobile} />}

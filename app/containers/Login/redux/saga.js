@@ -35,6 +35,7 @@ function* enterPhoneNumberWorker({ payload: { phoneNumber } }) {
   };
 
   const data = {
+    
     mobile: phoneNumber,
   };
 
