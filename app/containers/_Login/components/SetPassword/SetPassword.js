@@ -1,4 +1,4 @@
-import React,{useCallback} from 'react';
+import React from 'react';
 import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
@@ -7,7 +7,7 @@ import { initialValues, validationSchema } from './form';
 import messages from '../../messages';
 import useLoginContext from 'containers/Login/context';
 
-import { PasswordFormWrapper, LoginBox, LoginButtonsGroup,ErrorContainer,WrapperBack } from './styles';
+import { PasswordFormWrapper, LoginBox, LoginButtonsGroup,ErrorContainer } from './styles';
 
 const SetPassword = () => {
   const {
@@ -21,20 +21,9 @@ const SetPassword = () => {
     onSubmit: actions[authFlowStep],
   };
 
-  const handleBackBtnClick = useCallback(() => {
-    actions.handleBackBtns[authFlowStep]();
-  }, [authFlowStep]);
-
   return (
     <PasswordFormWrapper>
       <Form {...formProps}>
-      <WrapperBack>
-        <Button
-          type={ButtonTypes.TEXT_ONLY}
-          label={<FormattedMessage {...messages.backWard} />}
-          onClick={handleBackBtnClick}
-        />
-      </WrapperBack>
         <LoginBox>
           <InputField
             type="password"

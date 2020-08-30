@@ -89,14 +89,15 @@ const LoginManager = () => {
     setMobile(makePhoneValid);
   }, []);
 
+  const handleBackToEnterPhoneNumber = useCallback(({ phoneNumber }) => {
+    console.log('man to log manageram');
+    // enterPhoneNumber({ phoneNumber });
+    // setMobile(phoneNumber);
+  }, []);
+
   const handleOTPLogin = useCallback(({ phoneNumber }) => {
-    let makePhoneValid = null;
-
-    if (phoneNumber[0] !== '0') makePhoneValid = `0${phoneNumber}`;
-    else makePhoneValid = phoneNumber;
-
-    enterOTPLoginPhoneNumber({ phoneNumber: makePhoneValid });
-    setMobile(makePhoneValid);
+    enterOTPLoginPhoneNumber({ phoneNumber });
+    setMobile(phoneNumber);
   }, []);
 
   const handleForgetPasswordLogin = useCallback(mobile => {
@@ -235,6 +236,7 @@ const LoginManager = () => {
       handleForgetPasswordLogin,
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleFORGETConfirmationCode,
       [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: handleForgetPasswordSetPassword,
+      handleBackToEnterPhoneNumber,
 
       // BACK BTNS
       handleBackBtns: {
@@ -242,23 +244,11 @@ const LoginManager = () => {
           updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
         [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: () =>
           updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
-        [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: () =>
-          updateStep(AUTH_FLOW_STEPS.LOGIN_ASK_PASSWORD),
-        [AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE]: () =>
-          updateStep(AUTH_FLOW_STEPS.ENTER_PHONE_NUMBER),
-
-        [AUTH_FLOW_STEPS.REGISTER_NEW_PASSWORD]: () =>
-          updateStep(AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE),
-
-        [AUTH_FLOW_STEPS.FORGET_PASSWORD_NEW_PASSWORD]: () =>
-          updateStep(AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE),
       },
 
       // RESEND CODE
       handleResendCodes: {
         [AUTH_FLOW_STEPS.OTP_CONFIRMATION_CODE]: handleOTPLogin,
-        [AUTH_FLOW_STEPS.FORGET_PASSWORD_CONFIRMATION_CODE]: handleForgetPasswordLogin,
-        [AUTH_FLOW_STEPS.REGISTER_CONFIRMATION_CODE]: handleEnterPhoneNumber,
       },
     },
   };

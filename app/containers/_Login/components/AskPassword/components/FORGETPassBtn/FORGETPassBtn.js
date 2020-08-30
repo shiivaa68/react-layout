@@ -1,30 +1,26 @@
 import React, { useCallback } from 'react';
 import { Button } from 'components/kit';
-import { useFormikContext } from 'formik';
 import messages from '../../../../messages';
 import { FormattedMessage } from 'react-intl';
 import { ButtonTypes } from 'components/kit/Button/constants';
 
-const OTPLoginBtn = ({ handleOTPBtnClick }) => {
-  const { values, errors, submitForm } = useFormikContext();
-
+const FORGETPassBtn = ({ handleFORGETBtnClick }) => {
   const onClickHandler = useCallback(
     e => {
-      if (values.phoneNumber === '') submitForm();
       e.preventDefault();
-      handleOTPBtnClick(values);
+      handleFORGETBtnClick();
     },
-    [values],
+    [handleFORGETBtnClick],
   );
 
   return (
     <Button
       id="first_button"
       type={ButtonTypes.TEXT_ONLY}
-      label={<FormattedMessage {...messages.otpMessage} />}
+      label={<FormattedMessage {...messages.forgetPassword} />}
       onClick={onClickHandler}
     />
   );
 };
 
-export default OTPLoginBtn;
+export default FORGETPassBtn;

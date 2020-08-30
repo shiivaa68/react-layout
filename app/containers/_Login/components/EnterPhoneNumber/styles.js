@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const PasswordFormWrapper = styled.article`
+export const RegisterStepOneWrapper = styled.article`
   width: 100%;
   max-width: 500px;
   * {
@@ -21,18 +21,35 @@ margin: auto;
 `;
 
 export const LoginButtonsGroup = styled.div`
-  width: 30%;
+  width: 80%;
   height: 100px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  margin-bottom:2rem;
   & > button {
     width: 100%;
     box-sizing: border-box;
     text-align: center;
     font-size: 0.90rem;
   }
+`;
+
+export const RulesSite= styled(Link)`
+width: 80%;
+height: 20px;
+display:inline-flex;
+text-decoration:none;
+user-select:  none;
+cursor: pointer;
+margin_buttom: 2rem;
+padding-right:2rem;
+list-style-type: none;
+color:white;
+ :hover {
+    color:var(--dim-blue);
+} ;
 `;
 
 export const ErrorContainer = styled.div`
@@ -44,12 +61,4 @@ align-items: center;
 background-color:var(--primary-danger);
 padding:1rem;
 border-radius:5px;
-
-`;
-
-export const WrapperBack = styled.div`
-margin:1rem;
-direction:ltr;
-padding:2rem;
-
 `;

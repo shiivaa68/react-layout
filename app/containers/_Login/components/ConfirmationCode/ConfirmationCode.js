@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Form from 'components/Form';
 import { Button, InputField } from 'components/kit';
 import { ButtonTypes } from 'components/kit/Button/constants';
@@ -16,16 +16,10 @@ import {
 
 const ConfirmationCode = () => {
   const {
-    data: { mobile, error, countDown, authFlowStep },
-    actions: { handleResendCodeBtnClick, handleBackBtnClick },
+    data: { mobile, error, countDown },
+    actions: { handleBackOtpBtnClick, handleResendCodeBtnClick },
     formProps,
   } = ConfirmationCodeManager();
-
-  console.log({ mobile });
-
-  // const handleBackBtnClick = useCallback(() => {
-  //   actions.handleBackBtns[authFlowStep]();
-  // }, [authFlowStep]);
 
   return (
     <RegisterFormWrapper>
@@ -34,7 +28,7 @@ const ConfirmationCode = () => {
           <Button
             type={ButtonTypes.TEXT_ONLY}
             label={<FormattedMessage {...messages.backWard} />}
-            onClick={handleBackBtnClick}
+            onClick={handleBackOtpBtnClick}
           />
         </WrapperBack>
         <RegisterBox>

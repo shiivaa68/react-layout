@@ -46,10 +46,3 @@ padding:1rem;
 border-radius:5px;
 
 `;
-
-export const WrapperBack = styled.div`
-margin:1rem;
-direction:ltr;
-padding:2rem;
-
-`;

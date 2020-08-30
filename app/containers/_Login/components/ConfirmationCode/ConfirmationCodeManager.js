@@ -3,7 +3,7 @@ import { initialValues, validationSchema } from './form';
 import useLoginContext from 'containers/Login/context';
 import { phoneNumberRegex } from 'utils/regexUtils';
 
-const COUNT_DOWN_LIMIT = 120;
+const COUNT_DOWN_LIMIT = 5;
 
 const ConfirmationCodeManager = () => {
   const {
@@ -36,19 +36,18 @@ const ConfirmationCodeManager = () => {
     onSubmit: actions[authFlowStep],
   };
 
-  const handleResendCodeBtnClick = useCallback(() => {
-    console.log('confimration code resend');
-    setCountDown(COUNT_DOWN_LIMIT);
-    actions.handleResendCodes[authFlowStep](mobile);
-  }, [mobile, authFlowStep]);
-
-  const handleBackBtnClick = useCallback(() => {
+  const handleBackOtpBtnClick = useCallback(() => {
     actions.handleBackBtns[authFlowStep]();
   }, [authFlowStep]);
 
+  const handleResendCodeBtnClick = useCallback(() => {
+    console.log('confimration code resend');
+    actions.handleResendCodes[authFlowStep]({ phoneNumber: mobile });
+  }, [mobile, authFlowStep]);
+
   return {
     data: { mobile, loading, error, authFlowStep, countDown },
-    actions: { handleResendCodeBtnClick, handleBackBtnClick },
+    actions: { handleBackOtpBtnClick, handleResendCodeBtnClick },
     formProps,
   };
 };
