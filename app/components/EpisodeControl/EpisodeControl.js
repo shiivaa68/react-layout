@@ -5,6 +5,7 @@ import Button from '../kit/Button';
 import messages from './messages';
 
 import { ButtonWrapper,ButtonControl } from './styles';
+import Select from '../kit/Select';
 
 const EpisodeControl = ( {seasons = [],
   handleSetActiveSeason,
@@ -15,19 +16,8 @@ const EpisodeControl = ( {seasons = [],
   return (
     <ButtonWrapper>
     <ButtonControl>
-    {seasons.length > 0 &&
-          seasons.map(season => (
-            <Button
-              key={season.title}
-              type="fullfill"
-              keepActive={activeSeasonId === season.id}
-              label={season.title}
-              onClick={() => handleSetActiveSeason(season.id)}
-            />
-          ))}
-          
+      <Select placeholder='انتخاب فصل' items={seasons} selectedId={activeSeasonId} handleSelect={handleSetActiveSeason}/>
     </ButtonControl>
-   
      </ButtonWrapper>
   );
 };

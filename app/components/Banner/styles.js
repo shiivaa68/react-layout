@@ -1,16 +1,23 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const BannerSection = styled.section`
   margin-bottom: 1.5rem;
   position: relative;
   border-radius: 30px;
   & img {
-    border-radius: 10px;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
   }
-
   &:hover {
     & > button {
       opacity: 1;
+    }
+  }
+  @media ${responsive.tablet} {
+    & img {
+      border-radius: 10px;
     }
   }
 `;
@@ -18,6 +25,27 @@ export const BannerSection = styled.section`
 export const HeadingBanner = styled.div`
   position: relative;
   min-height: 50vh;
+`;
+
+export const MySwiperContainer = styled.div`
+  margin-bottom: 4rem;
+  @media ${responsive.tablet} {
+    min-height: 10vh;
+    max-height: 355px;
+    margin-bottom: 0;
+    & img {
+      padding: 0;
+      cursor: unset;
+    }
+  }
+
+  @media ${responsive.laptop} {
+    max-height: 450px;
+  }
+
+  @media ${responsive.laptopL} {
+    max-height: 550px;
+  }
 `;
 
 export const BannerNavigators = styled.div`
@@ -32,7 +60,6 @@ export const BannerNavigators = styled.div`
  display:flex;
  justify-content:space-evenly;
  align-items:center;
-
  & button {
    all:unset;
    color:#E7DBDB;
@@ -46,6 +73,8 @@ export const BannerNavigators = styled.div`
  `;
 
 export const PrevButton = styled.button`
+cursor: pointer;
+
   all: unset;
   position: absolute;
   z-index: 10;
@@ -64,6 +93,8 @@ export const PrevButton = styled.button`
 `;
 
 export const NextButton = styled.button`
+cursor: pointer;
+
   all: unset;
   position: absolute;
   z-index: 10;

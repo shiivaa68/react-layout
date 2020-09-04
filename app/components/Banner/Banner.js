@@ -5,17 +5,21 @@ import { withRouter } from 'react-router-dom';
 import { PublicRoutes } from 'utils/routes/PublicRoutes';
 
 import Swiper from 'react-id-swiper';
-
+import Img from 'react-cool-img';
 import {
   BannerSection,
   BannerNavigators,
   HeadingBanner,
   NextButton,
   PrevButton,
+  MySwiperContainer,
   OtherBannerNavigators,
 } from './styles';
+import useMyMediaQuery from '../../utils/useMyMediaQuery';
 
 const Banner = ({ style, items = [], history }) => {
+
+  const { isMobile } = useMyMediaQuery();
   const swpierRef = useRef(null);
   const swiperRefOtherBanner = useRef(null);
 
@@ -65,26 +69,35 @@ const Banner = ({ style, items = [], history }) => {
     const opt = {};
 
     opt.lazy = true;
-
+    opt.rebuildOnUpdate =true;
     switch (type) {
       case 'full':
+        opt.effect= 'fade'
+        if(isMobile) {
+          opt.pagination = {
+            el: '.swiper-pagination',
+            type: 'bullets'
+          }
+        }
         opt.slidesPerView = 1;
         opt.spaceBetween = 0;
         opt.loop = true;
+        opt.speed = 2000,
         opt.autoplay = {
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false,
         };
         break;
-
       case 'long':
         opt.slidesPerView = 1;
         opt.spaceBetween = 0;
         break;
 
       case 'item':
-        opt.slidesPerView = 4;
-        opt.spaceBetween = 10;
+        if (isMobile) {
+          opt.slidesPerView = 2;
+          opt.slidesPerColumn = 2;
+        } else opt.slidesPerView = 4;
         break;
 
       case 'quad':
@@ -97,7 +110,7 @@ const Banner = ({ style, items = [], history }) => {
     }
 
     return opt;
-  }, [style, items]);
+  }, [style, items, isMobile]);
 
   const extraOptions = {};
   if (isHeadingBanner) extraOptions.ref = swpierRef;
@@ -120,6 +133,11 @@ const Banner = ({ style, items = [], history }) => {
 
   //handler other banner
 
+  const getBannerImgSrc = useCallback((path) => {
+    if (isMobile)
+      return `${path}&platform=1&size=${window.innerWidth}x${parseInt(window.innerWidth * 18 / 15)}`
+    return `${path}&size=${1920}x${720}`
+  })
   const handlePrevSlideOther = useCallback(() => {
     if (swiperRefOtherBanner.current !== null && swiperRefOtherBanner.current.swiper !== null) {
       swiperRefOtherBanner.current.swiper.slidePrev();
@@ -134,22 +152,20 @@ const Banner = ({ style, items = [], history }) => {
 
   return (
     <BannerSection>
-      {items.length > 0 && (
-        <Swiper {...options} {...extraOptions} {...extraOptionOther}>
-          {isHeadingBanner &&
-            items.map(item => (
-              <HeadingBanner key={item.id}>
-                {/* <BannerItem>{item.title_fa}</BannerItem> */}
-                <img src={item.image_path} className="swiper-lazy" onClick={() => callPageSingle(item)} />
-              </HeadingBanner>
-            ))}
-        </Swiper>
+      {items.length > 0 && isHeadingBanner && (
+        <MySwiperContainer>
+          <Swiper {...options} {...extraOptions} {...extraOptionOther}>
+              {items.map((item, i) => (
+                  <Img key={i} src={getBannerImgSrc(item.image_path)} className="swiper-lazy" onClick={() => callPageSingle(item)} />
+              ))}
+          </Swiper>
+        </MySwiperContainer>
       )}
       {items.length > 0 && (
         <Swiper {...options} {...extraOptions} {...extraOptionOther}>
           {isOtherBanner &&
             items.map(item => (
-              <img
+              <Img
                 key={item.id}
                 src={`${item.image_path}&size=${imageSize}`}
                 className="swiper-lazy"
@@ -159,12 +175,12 @@ const Banner = ({ style, items = [], history }) => {
         </Swiper>
       )}
 
-      {isHeadingBanner ? (
+      {isHeadingBanner && !isMobile ? (
         <BannerNavigators>
-          <button onClick={handlePrevSlide}>
+          <button style={{cursor: 'pointer'}} onClick={handlePrevSlide}>
             <i className="fas fa-chevron-right" />
           </button>
-          <button onClick={handleNextSlide}>
+          <button style={{cursor: 'pointer'}} onClick={handleNextSlide}>
             <i className="fas fa-chevron-left" />
           </button>
         </BannerNavigators>

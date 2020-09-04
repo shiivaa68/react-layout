@@ -13,19 +13,11 @@ const ActiveFilterItem = ({ id, name, category, isSingleChoise, ...rest }) => {
     <ActiveFilterItemBox>
       {name}
 
-      {isSingleChoise ? (
-        <Reaload_IMG
-          src={RELOAD_ICON}
-          alt="reload icon"
-          onClick={() => handleGeneralResetFilter({ category, id, name })}
-        />
-      ) : (
-        <Close_IMG
-          src={CLOSE_ICON}
-          alt="close icon"
-          onClick={() => handleGeneralResetFilter({ category, id, name })}
-        />
-      )}
+      <Close_IMG
+        src={CLOSE_ICON}
+        alt="close icon"
+        onClick={() => handleGeneralResetFilter({ category, id, name })}
+      />
     </ActiveFilterItemBox>
   );
 };

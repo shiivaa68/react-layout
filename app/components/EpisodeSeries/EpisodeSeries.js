@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { IMAGE_SIZES } from '../../constants';
-
+import { FormattedMessage } from 'react-intl';
+import messages from './messages'
 import {ContainerWrapper,Container,EpisodeCover,EpisodeDescription,EpisodeTitle,PlayIcon,Image} from './styles';
+import Img from 'react-cool-img';
 
 const EpisodeSeries = ({ episodes = [] })=> {
 
@@ -15,7 +17,7 @@ const EpisodeSeries = ({ episodes = [] })=> {
         <Container key={i}>
           <EpisodeCover>
             <Image>
-              <img
+              <Img
                 src={`${episode.poster_path}?size=${
                   IMAGE_SIZES.SERIE_IMAGE_SIZE
                 }`}
@@ -31,7 +33,9 @@ const EpisodeSeries = ({ episodes = [] })=> {
           </EpisodeCover>
 
           <EpisodeDescription>
-            <EpisodeTitle>{episode.title_fa}</EpisodeTitle>
+            <EpisodeTitle><FormattedMessage id={messages.episode.id}
+            defaultMessage={messages.episode.defaultMessage + (i + 1)} />
+            </EpisodeTitle>
           </EpisodeDescription>
         </Container>
       ))}

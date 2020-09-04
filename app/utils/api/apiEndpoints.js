@@ -1,7 +1,7 @@
 import { toUrlParams } from './toUrlParams';
 
-// const baseURL = 'https://api.tamashakhoneh.ir/v3';
-const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
+const baseURL = 'https://api.tamashakhoneh.ir/v3';
+// const baseURL = 'https://alpha.tamashakhoneh.ir/v3';
 
 const apiEndpoints = {
   //auth route
@@ -34,6 +34,7 @@ const apiEndpoints = {
   getListData: (categoryId, queryOptions) =>
     `${baseURL}/movies/categories/${categoryId}?${toUrlParams(queryOptions)}`,
   getMoviesPage: id => `${baseURL}/movies/${id}`,
+  getMoviesWatch: id => `${baseURL}/watch/${id}`,
   getSeriesPage: id => `${baseURL}/series/${id}`,
   getSuggestedMovies: (movieId, queryOptions) =>
     `${baseURL}/recommender/movie/${movieId}?${toUrlParams(queryOptions)}`,
@@ -49,11 +50,33 @@ const apiEndpoints = {
     `${baseURL}/casts/search?${toUrlParams(searchConfig)}`,
   //package api calls
   getListPackages: () => `${baseURL}/buy/packages`,
-  getCategoryDetails:(id)=>`${baseURL}/buy/packages/${id}`,
-  getDiscountPackage:(id,discount_code)=>`${baseURL}/buy/packages/discount/${id}/code/${discount_code}`,
-  orderPackage:(id)=>`${baseURL}//buy/order/packages/${id}`,
+  getCategoryDetails: id => `${baseURL}/buy/packages/${id}`,
+  getDiscountPackage: (id, discount_code) =>
+    `${baseURL}/buy/packages/discount/${id}/code/${discount_code}`,
+  orderPackage: id => `${baseURL}/buy/order/packages/${id}`,
   //cast details routes
-  getCrew:id=>`${baseURL}/casts/${id}`,
+  getCrew: id => `${baseURL}/casts/${id}`,
+  //awards
+  getAwardsMoviesPage: movieId => `${baseURL}/movies/awards/${movieId}`,
+  getAwardsSeriesPage: serieId => `${baseURL}/series/awards/${serieId}`,
+
+  //like dislike bookmark
+  updateMovieRank: (movieId, rank) =>
+    `${baseURL}/movies/rank/${movieId}/${rank}`,
+  setFavariteSeries: (serieId, favariteSeries) =>
+    `${baseURL}/series/rank/${serieId}/${favariteSeries}`,
+
+  //bookmark movie and series
+  setBookmarkMovies: movieId => `${baseURL}/users/favorites/movies/${movieId}`,
+  deletBookmarkMovies: movieId =>
+    `${baseURL}/users/favorites/movies/${movieId}`,
+  setBookmarkSeries: serieId => `${baseURL}/users/favorites/series/${serieId}`,
+  deletBookmarkSeries: serieId =>
+    `${baseURL}/users/favorites/series/${serieId}`,
+
+  //COMMENT MOVIE
+  getCommentMovies: (movieId, queryOptions) =>
+    `${baseURL}/comments/movies/${movieId}?${toUrlParams(queryOptions)}`,
 };
 
 export default apiEndpoints;

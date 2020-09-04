@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { PublicRoutes } from 'utils/routes';
 import CategoryItem from '../CategoryItem';
 import CategoryContext from './context';
+import IMDB from '../../images/imdb.svg';
+import Img from 'react-cool-img';
 
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -24,18 +26,24 @@ import {
   PosterWrapper,
   InformationFilm,
   TitleAccordion,
+  TitleAccordionFa,
   DescriptionAccordion,
   BGImage,
   Dim,
-  RangeAgeStyle,
-  Genrs,
+  StyleInformation,
+  GenresStyle,
+  StyleImdb,
 } from './styles';
+import useMyMediaQuery from '../../utils/useMyMediaQuery';
 
 const Category = ({ history, category, items }) => {
-  const { push } = history;
 
+  const { push } = history;
+  const { isMobile } = useMyMediaQuery();
   const swpierRef = useRef(null);
   const [activeItem, setActiveItem] = useState(null);
+
+
 
   const { country = [] } = useSelector(state => state.global);
   const { agerange = [] } = useSelector(state => state.global);
@@ -46,17 +54,21 @@ const Category = ({ history, category, items }) => {
     const opt = {};
 
     opt.lazy = true;
-    opt.slidesPerView = 7;
+    opt.slidesPerView = isMobile ? 3 : 7;
     opt.spaceBetween = 10;
-
+    opt.rebuildOnUpdate =true;
     return opt;
-  }, [category, items]);
+  }, [category, items, isMobile]);
 
-  // useEffect(() => {
-  //   console.log('>>>>> ', { country, agerange, genres, activeItem });
-  // }, [country, agerange, genres, activeItem]);
+  useEffect(() => {
+    // console.log({ activeItem });
+  }, [activeItem]);
 
-  //genrs accordion
+  useEffect(() => {
+  
+  }, [country, agerange, genres]);
+
+  const accordion = useRef(null)
 
   const handleSliderPrev = useCallback(() => {
     if (swpierRef.current !== null && swpierRef.current.swiper !== null) {
@@ -78,21 +90,33 @@ const Category = ({ history, category, items }) => {
   const handleActiveItem = useCallback(
     selectedItem => {
       if (activeItem && selectedItem.id === activeItem.id) setActiveItem(null);
-      else setActiveItem(selectedItem);
+      else {
+        if (isMobile) handleNavigateToPage(selectedItem);
+        else {
+          setActiveItem(selectedItem);
+          // window.scrollBy({
+          //   top: accordion.current.offsetTop, 
+          //   left: 0, 
+          //   behavior: 'auto'
+          //   });
+        }
+      };
     },
     [activeItem],
   );
 
-  const handleNavigateToPage = useCallback(() => {
-    const { id, is_series } = activeItem;
+  const handleNavigateToPage = useCallback((e) => {
+    const { id, is_series } = e.id ? e : activeItem;
     if (is_series) push(PublicRoutes.seriesDetailRoute(id));
     else push(PublicRoutes.movieDetailRoute(id));
   }, [activeItem]);
 
   const GnrsData = useMemo(() => {
+
     const itemGnrs = activeItem && activeItem.genres;
 
     const result = [];
+
     itemGnrs &&
       itemGnrs.length > 0 &&
       itemGnrs.forEach(genresId => {
@@ -102,7 +126,16 @@ const Category = ({ history, category, items }) => {
     return result;
   }, [genres, activeItem]);
 
+
+  const CountryFilm = useMemo(()=>{
+   
+    const itemCountry = activeItem && activeItem.country;
+    const foundCountry = country && country.length>0 && country.find(countryElement => countryElement.country_code === itemCountry);
+      return foundCountry;
+  },[country,activeItem]);
+
   return (
+
     <CategoryContext.Provider value={{ data: { category, activeItem }, actions: { handleActiveItem } }}>
       <CategorySection>
         <CategoryHeading>
@@ -131,23 +164,29 @@ const Category = ({ history, category, items }) => {
             <i className="fas fa-arrow-circle-left" />
           </NextButton>
         </CategoryBody>
-        <ActiveItemDescription shouldShow={!!activeItem} /*background={activeItem && activeItem.poster_path} */>
+        {
+          !isMobile && <ActiveItemDescription ref={accordion} shouldShow={!!activeItem} /*background={activeItem && activeItem.poster_path} */>
           <ContanerAccordion>
-            {/* {console.log(activeItem)} */}
             <PosterWrapper>
-              <img src={activeItem && activeItem.poster_path} />
+              <Img src={activeItem && activeItem.poster_path} />
             </PosterWrapper>
-            <InformationFilm>
-              <TitleAccordion>{activeItem && activeItem.title_fa}</TitleAccordion>
+              <InformationFilm>
+              <TitleAccordionFa>{activeItem && activeItem.title_fa}</TitleAccordionFa>
               <TitleAccordion>{activeItem && activeItem.title_en}</TitleAccordion>
               <DescriptionAccordion>
-                <RangeAgeStyle>
-                  {/* <img src={appropriateAge&&appropriateAge.symbol} /> */}
-                  {/* { appropriateAge => agerange && agerange.length >0 && agerange.find(age =>age.id === activeItem && activeItem.age_range)} */}
-                  {/* {console.log({appropriateAge})} */}
-                  {/* <img src={appropriateAge&&appropriateAge.symbol} />  */}
-                </RangeAgeStyle>
-                <Genrs>{GnrsData.map(el => el.name).join(', ')}</Genrs>
+            
+               <StyleInformation>
+                 <div>{CountryFilm &&CountryFilm.country_fa}</div>
+                 <div>{activeItem&&activeItem. publish_date}</div> 
+                 <Img src={IMDB} width="40" height="40"/><div>{activeItem&&activeItem.imdb_rank}</div>
+               </StyleInformation>
+              <GenresStyle>
+                <span>  
+                {<FormattedMessage {...messages.genres} />}:
+                </span>
+                <span>{GnrsData.map(el => el.name).join(', ')}</span>
+             </GenresStyle>
+
               </DescriptionAccordion>
               <Button
                 type="fullfill"
@@ -159,6 +198,7 @@ const Category = ({ history, category, items }) => {
           <BGImage alt="cover" src={activeItem && activeItem.poster_path} />
           <Dim />
         </ActiveItemDescription>
+        }
       </CategorySection>
     </CategoryContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React,{useRef ,useState,useCallback} from 'react';
 
 import SEARCH_ICON from 'images/search.svg';
 import CLOSE_ICON from 'images/close.svg';
@@ -19,7 +19,7 @@ import {
 const Search = () => {
   const {
     data: { searchQuery },
-    action: { handleSetSearchQuery, handelResetFilterSearchQuery },
+    action: { handleSetSearchQuery ,handelResetFilterSearchQuery},
   } = useSearchContext();
 
   return (
@@ -30,6 +30,8 @@ const Search = () => {
         <FormattedMessage {...messages.searchPlaceHolder}>
           {placeholder => (
             <SearchInput
+              minLength={2}
+              debounceTimeout={1000}
               type="text"
               value={searchQuery}
               onChange={handleSetSearchQuery}
@@ -37,13 +39,7 @@ const Search = () => {
             />
           )}
         </FormattedMessage>
-        {/** ------- */}
-
-        <CloseSearch
-          src={CLOSE_ICON}
-          alt="close-search"
-          onClick={handelResetFilterSearchQuery}
-        />
+        { searchQuery &&  <CloseSearch src={CLOSE_ICON} alt="close-search" onClick={handelResetFilterSearchQuery}  />}
       </SearchBox>
     </SearchContainer>
   );

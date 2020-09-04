@@ -4,7 +4,7 @@ import { ErrorContainer, ErrorEmoji, ErrorMessage } from './style';
 const ErrorComponent = ({ message }) => (
   <ErrorContainer>
     <ErrorEmoji>:((</ErrorEmoji>
-    <ErrorMessage>{message}</ErrorMessage>
+    <ErrorMessage>{message ? message : 'صفحه مورد نظر پیدا نشد'}</ErrorMessage>
   </ErrorContainer>
 );
 

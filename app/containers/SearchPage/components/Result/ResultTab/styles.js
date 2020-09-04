@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const TabWrapper = styled.section`
   width: 100%;
@@ -10,6 +11,15 @@ export const TabWrapper = styled.section`
   flex-direction: row;
   margin-bottom: 2rem;
   & > button {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    
+  }
+
+
+
+  @media ${responsive.tablet} {
+    & > button {
+      font-size: 1.3rem;
+    }
   }
 `;

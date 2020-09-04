@@ -2,6 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import  messages  from '../messages';
 
+import IMDB from '../../../images/imdb.svg';
+
 import {MovieInformationStyle} from '../styles';
 
 const MovieInformation = ({publish_date,movie_length,imdb_rank,country,quality,default_voice,languages,default_origin,countryUtility})=>
@@ -20,7 +22,7 @@ const MovieInformation = ({publish_date,movie_length,imdb_rank,country,quality,d
           <span>{movie_length}  {<FormattedMessage {...messages.movie_length} />}</span>
         </div>
         <div>
-          <i className="fa fa-imdb" /> <span>{imdb_rank}</span>
+      <span>{imdb_rank}</span> <span>IMDb</span>
         </div>
         <div>
           <span>{countryMovie &&countryMovie.country_fa}</span>

@@ -54,8 +54,6 @@ export const ButtonComponent = styled.button`
             border: 1px solid var(--dark-blue);
           }
         `}
-
-
         ${props =>
           props.filled &&
           css`

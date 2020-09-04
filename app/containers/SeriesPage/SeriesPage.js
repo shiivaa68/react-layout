@@ -3,10 +3,11 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import SerieSuggestions from 'containers/SerieSuggestions';
 import HeadingCover from 'components/HeadingCover';
 import Casts from 'components/Casts';
-import EpisodeControl from 'components/EpisodeControl';
 import EpisodeSeries from 'components/EpisodeSeries';
 
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -14,14 +15,19 @@ import { useBindDispatch } from 'utils/redux/useBindDispatch';
 
 import SeriesPageReducer from './redux/reducer';
 import seriesPageSaga from './redux/saga';
-import { getSeriesAction } from './redux/actions';
+import {
+  getSeriesAction,
+  getSeriesAwardsAction,
+  getSeriesFavariteAction,
+} from './redux/actions';
 import initialState from './redux/initialState';
 
+import useMyMediaQuery from '../../utils/useMyMediaQuery';
 import { SeriesContainer } from './styles';
 
 const SeriesPageKeyOnRedux = 'SeriesPage';
 
-const SeriesPage = ({ match }) => {
+const SeriesPage = ({ match, history }) => {
   /** injectors  */
   useInjectReducer({ key: SeriesPageKeyOnRedux, reducer: SeriesPageReducer });
   useInjectSaga({ key: SeriesPageKeyOnRedux, saga: seriesPageSaga });
@@ -30,23 +36,36 @@ const SeriesPage = ({ match }) => {
   const [activeSeasonId, setActiveSeasonId] = useState(null);
 
   /** bounded redux actions */
-  const [getSeriesPage] = useBindDispatch([getSeriesAction]);
+  const [getSeriesPage, getSeriesAwards, getSeriesFavarite] = useBindDispatch([
+    getSeriesAction,
+    getSeriesAwardsAction,
+    getSeriesFavariteAction,
+  ]);
 
   /** store data */
-  const { loading, error, data = [] } = useSelector(
+  const { loading, error, data = [], data_awards } = useSelector(
     state => state[SeriesPageKeyOnRedux] || initialState,
   );
   const { rols = [] } = useSelector(state => state.global);
   const { languages = [] } = useSelector(state => state.global);
-  const {agerange =[] } = useSelector(state=>state.global);
-  const {genres =[]} = useSelector(state =>state.global );
-  const {country =[]} = useSelector(state =>state.global );
+  const { agerange = [] } = useSelector(state => state.global);
+  const { genres = [] } = useSelector(state => state.global);
+  const { country = [] } = useSelector(state => state.global);
 
   /** efects */
   useEffect(() => {
     const id = match.params.serieId;
     getSeriesPage({ id });
-    window.scrollTo({ top: 0, left: 0 });
+  }, [match.params.serieId]);
+
+  useEffect(() => {
+    const serieId = match.params.serieId;
+    getSeriesAwards({ serieId });
+  }, []);
+
+  useEffect(() => {
+    const serieId = match.params.serieId;
+    // getSeriesFavarite({ serieId ,favariteSeries});
   }, []);
 
   useEffect(() => {
@@ -58,8 +77,8 @@ const SeriesPage = ({ match }) => {
 
   /** handlers */
   const handleSetActiveSeason = useCallback(
-    selectedId => {
-      setActiveSeasonId(selectedId);
+    selected => {
+      setActiveSeasonId(selected.id);
     },
     [activeSeasonId, setActiveSeasonId],
   );
@@ -74,21 +93,38 @@ const SeriesPage = ({ match }) => {
     return result && result.episodes.length > 0 ? result.episodes : [];
   }, [data, activeSeasonId]);
 
+  const { isMobile } = useMyMediaQuery();
   return (
     <SeriesContainer>
-      <HeadingCover type="SERIES" {...data} languages={languages} agerange={agerange} genresUtility={genres} countryUtility={country}/>
-      <EpisodeControl
-        activeSeasonId={activeSeasonId}
-        seasons={data.seasons}
-        handleSetActiveSeason={handleSetActiveSeason}
-      />
-      <EpisodeSeries episodes={activeSeasonEpisodes} />
-      <Casts type="SERIES" casts={data.casts || []} rols={rols} />
-      <SerieSuggestions
-        type="SERIES"
-        {...data}
-        serieId={match.params.serieId}
-      />
+      <Helmet>
+        <title>{data.title_fa}</title>
+        <meta name="description" content={'سریال' + data.title_fa} />
+      </Helmet>
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          <HeadingCover
+            activeSeasonId={activeSeasonId}
+            handleSetActiveSeason={handleSetActiveSeason}
+            data_awards={data_awards}
+            isMobile={isMobile}
+            type="SERIES"
+            languages={languages}
+            agerange={agerange}
+            genresUtility={genres}
+            countryUtility={country}
+            {...data}
+          />
+          <EpisodeSeries history={history} episodes={activeSeasonEpisodes} />
+          <Casts type="SERIES" casts={data.casts || []} rols={rols} />
+          <SerieSuggestions
+            type="SERIES"
+            {...data}
+            serieId={match.params.serieId}
+          />
+        </>
+      )}
     </SeriesContainer>
   );
 };

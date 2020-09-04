@@ -2,8 +2,7 @@ import React from 'react';
 import useSearchContext from 'containers/SearchPage/context';
 
 import { SortTypeWrapper } from './styles';
-
-import { Checkbox } from 'components/kit';
+import Select from 'components/kit/Select';
 
 const SortTypeContent = () => {
   const {
@@ -13,7 +12,7 @@ const SortTypeContent = () => {
 
   return (
     <SortTypeWrapper>
-      {sortTypes.map(sType => {
+      {/* {sortTypes.map(sType => {
         return (
           <Checkbox
             {...sType}
@@ -24,7 +23,8 @@ const SortTypeContent = () => {
             onChange={handleSetSelectedSortTypes}
           />
         );
-      })}
+      })} */}
+    <Select placeholder='مرتب سازی' items={sortTypes} selectedId={selectedSortTypes.id} handleSelect={handleSetSelectedSortTypes}/>
     </SortTypeWrapper>
   );
 };

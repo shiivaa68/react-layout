@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { ButtonTypes } from './constants';
 import { ButtonComponent } from './styles';
 
-const Button = ({ type, label, onClick, keepActive, typeAttr }) => {
+const Button = ({ type, label, onClick, keepActive,typeAttr }) => {
   const btnProps = useMemo(() => {
     const options = { custom_btn: true };
 
@@ -26,20 +26,15 @@ const Button = ({ type, label, onClick, keepActive, typeAttr }) => {
       case ButtonTypes.OUTFILL:
         options.outfill = true;
         break;
-
-      default:
+        
+        default:
         break;
     }
     return options;
   }, [type]);
 
   return (
-    <ButtonComponent
-      onClick={onClick}
-      {...btnProps}
-      type={typeAttr}
-      keepActive={keepActive}
-    >
+    <ButtonComponent onClick={onClick} {...btnProps} keepActive={keepActive} type={typeAttr}>
       {label}
     </ButtonComponent>
   );

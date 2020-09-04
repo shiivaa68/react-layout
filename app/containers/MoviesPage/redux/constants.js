@@ -4,3 +4,40 @@ export const LOADING = 'SH/MoviesPage/LOADING';
 export const GET_MOVIEPAGE = 'SH/MoviesPage/GET_MOVIEPAGE';
 
 export const UPDATE_MOVIEPAGE = 'SH/MoviesPage/UPDATE_MOVIEPAGE';
+
+//awardes movie
+
+export const ERROR_MOVIE = 'SH/MoviesPage/ERROR_MOVIE';
+export const LOADING_MOVIE = 'SH/MoviesPage/LOADING_MOVIE';
+
+export const GET_AWARD_MOVIEPAGE = 'SH/MoviesPage/GET_AWARD_MOVIEPAGE';
+
+export const UPDATE_AWARD_MOVIEPAGE = 'SH/MoviesPage/UPDATE_AWARD_MOVIEPAGE';
+
+//favarite movie
+export const ERROR_MOVIE_RANK = 'SH/MoviesPage/ERROR_MOVIE_RANK';
+export const LOADING_MOVIE_RANK = 'SH/MoviesPage/LOADING_MOVIE_RANK';
+export const UPDATE_MOVIE_RANK = 'SH/MoviesPage/UPDATE_MOVIE_RANK';
+export const UPDATE_MOVIE_RANK_REDUCER =
+  'SH/MoviesPage/UPDATE_MOVIE_RANK_REDUCER';
+
+//add bookmark
+export const ERROR_MOVIE_BOOKMARK = 'SH/MoviesPage/ERROR_MOVIE_BOOKMARK';
+export const LOADING_MOVIE_BOOKMARK = 'SH/MoviesPage/LOADING_MOVIE_BOOKMARK';
+
+export const GET_BOOKMARK_MOVIEPAGE = 'SH/MoviesPage/GET_BOOKMARK_MOVIEPAGE';
+
+export const UPDATE_BOOKMARK_MOVIEPAGE =
+  'SH/MoviesPage/UPDATE_BOOKMARK_MOVIEPAGE';
+
+//delete bookmark
+export const ERROR_MOVIE_BOOKMARK_DELET =
+  'SH/MoviesPage/ERROR_MOVIE_BOOKMARK_DELET';
+export const LOADING_MOVIE_BOOKMARK_DELET =
+  'SH/MoviesPage/LOADING_MOVIE_BOOKMARK_DELET';
+
+export const GET_BOOKMARK_MOVIEPAGE_DELET =
+  'SH/MoviesPage/GET_BOOKMARK_MOVIEPAGE_DELET';
+
+export const UPDATE_BOOKMARK_MOVIEPAGE_DELET =
+  'SH/MoviesPage/UPDATE_BOOKMARK_MOVIEPAGE_DELET';

@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
+import responsive from 'responsive';
 
 export const CategoryItemContainer = styled.section`
+  cursor: pointer;
   position: relative;
   top: 0;
   transition: all 0.15s ease-in-out;
@@ -15,7 +17,10 @@ export const CategoryImage = styled.div`
   height: fit-content;
   position: relative;
   overflow: hidden;
-  border-radius: 0.625em;
+  border-radius: 0.312em;
+  @media ${responsive.tablet} {
+    border-radius: 0.625em;
+  }
 `;
 
 export const CategoryItemHoverDetails = styled.div`
@@ -69,6 +74,13 @@ export const ItemTitle = styled.p`
   user-select: none;
   white-space: initial;
   font-family: var(--primary-font-family);
+  font-size: smaller;
+  text-align: center;
+  @media ${responsive.tablet} {
+    font-size: unset;
+    text-align: unset;
+    padding-right: 1rem;
+  }
 `;
 
 export const CategoryItemActiveNuddle = styled.div`

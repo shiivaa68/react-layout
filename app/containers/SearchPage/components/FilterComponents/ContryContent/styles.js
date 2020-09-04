@@ -1,10 +1,13 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const CountryWrapper = styled.section`
   padding: 1.25rem;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  @media ${responsive.tablet} {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
   max-height: 375px;
   overflow-y: scroll;
 

@@ -1,21 +1,26 @@
 import styled from 'styled-components';
+import responsive from '../../responsive'
 
 export const ContainerWrapper = styled.section`
 position: relative;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-justify-content:flex-start ;
+justify-content:space-around;
 align-items: center;
 padding: 0 2rem;
+@media ${responsive.tablet} {
+  justify-content:space-evenly ;
+  margin-top: 2rem;
+}
 `;
 
 export const Container = styled.div`
 
-width: 225px;
+width: 45%;
 height: fit-content;
 
-margin-bottom: 3rem;
+margin-bottom: 0;
 
   &:hover {
     position: relative;
@@ -23,6 +28,13 @@ margin-bottom: 3rem;
       opacity: 1;
       cursor: pointer;
     }
+  }
+  @media ${responsive.mobileM} {
+    width: 30%;
+  }
+
+  @media ${responsive.tablet} {
+    width: 225px;
   }
 `;
 
@@ -33,6 +45,12 @@ export const EpisodeCover = styled.div`
   position: relative;
   width: 100%;
   min-height: 250px;
+  @media ${responsive.mobileM} {
+    min-height: 180px;
+  }
+  @media ${responsive.tablet} {
+    min-height: 250px;
+  }
 `;
 export const Image = styled.div`
 position: relative;
@@ -61,6 +79,12 @@ export const EpisodeDescription = styled.div`
 
 export const EpisodeTitle = styled.h4`
 width: 100%;
-padding: 3rem;
-  margin: 1rem 0;
+padding: 1rem;
+margin: unset;
+text-align: center;
+  @media ${responsive.tablet} {
+    padding: 1rem 3rem; 
+    margin: 1rem 0;
+    text-align: right;
+  }
 `;

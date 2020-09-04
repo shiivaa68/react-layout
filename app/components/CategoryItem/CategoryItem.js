@@ -2,6 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { useCategoryContext } from '../Category/context';
 
 import { Normal, Special } from './components';
+import Img from 'react-cool-img';
 
 import {
   CategoryItemContainer,
@@ -35,13 +36,18 @@ const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
   const IMAGE_SIZE = useMemo(() => {
     if (isSpecialCategoryItem) return '420x840';
     // add more condition
-    return '216x331';
+    return '187x287';
   }, [isSpecialCategoryItem]);
 
   const toggleQuikView = useCallback(() => {
     handleActiveItem({ id, poster_path, title_fa, ...rest });
   }, [activeItem]);
 
+  const getTitle = useCallback((t) => {
+    return (t.length > 15) ?
+    (!t.substring(0, 14).endsWith('..') ? t.substring(0, 14) +
+    ' ...' : t.substring(0, 14)) : t
+  })
   return (
     <>
       <CategoryItemContainer
@@ -49,7 +55,7 @@ const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
         quickViewMode={activeItem && activeItem.id === id}
       >
         <CategoryImage>
-          <img width="100%" src={`${poster_path}?size=${IMAGE_SIZE}`} />
+          <Img width="100%" src={`${poster_path}?size=${IMAGE_SIZE}`} />
 
           {/* special */}
           {isSpecialCategoryItem && (
@@ -60,7 +66,9 @@ const CategoryItem = ({ id, poster_path, title_fa, ...rest }) => {
         </CategoryImage>
 
         {/* normal */}
-        {!isSpecialCategoryItem && <ItemTitle>{title_fa}</ItemTitle>}
+        {!isSpecialCategoryItem && <ItemTitle>{
+          getTitle(title_fa)
+          }</ItemTitle>}
       </CategoryItemContainer>
       <CategoryItemActiveNuddle
         shouldShow={activeItem && activeItem.id === id}

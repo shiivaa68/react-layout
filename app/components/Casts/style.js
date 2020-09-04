@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from '../../responsive'
 
 export const CastWrapper = styled.section`
   position: relative;
@@ -6,8 +7,10 @@ export const CastWrapper = styled.section`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 2rem;
-
-
+  justify-content: space-around;
+  @media ${responsive.tablet} {
+    justify-content:unset ;
+  }
 `;
 
 export const Container = styled.div`
@@ -16,6 +19,8 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.div`
+cursor: pointer;
+
   margin: 0.5em;
   overflow: hidden;
   border-radius: 0.5em;
@@ -30,6 +35,8 @@ export const Image = styled.div`
 `;
 
 export const DescriptionCast = styled.div`
+cursor: pointer;
+
   text-align: center;
   color: #aaaaaa;
   vertical-align: middle;

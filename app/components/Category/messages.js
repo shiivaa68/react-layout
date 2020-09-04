@@ -12,5 +12,10 @@ export default defineMessages({
     id: `${scope}.moreDetail`,
     defaultMessage: 'اطلاعات بیشتر.. ',
   },
+  genres:{
+    id: `${scope}.genres`,
+    defaultMessage: 'دسته بندی ',
+  },
+
 
 });

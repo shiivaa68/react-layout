@@ -4,4 +4,5 @@ export const ButtonTypes = {
   TEXT_ONLY: 'text_only',
   FULLFILL: 'fullfill',
   OUTFILL: 'outfill',
+  
 };

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const CategorySection = styled.section`
   margin-bottom: 1rem;
@@ -16,6 +15,7 @@ export const CategoryHeading = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+  z-index: 1;
 `;
 
 export const CategoryItemContainer = styled.section`
@@ -134,7 +134,6 @@ export const ActiveItemDescription = styled.section`
    display:flex;
    justify-content: flex-start;
    align-items: center;
- 
  ` ;
 
  export const PosterWrapper=styled.div`
@@ -143,11 +142,11 @@ export const ActiveItemDescription = styled.section`
   width:200px;
   hieght:150px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1;
   margin-right:2rem;
   border-radius: 10%;
  }
- 
+
  `;
 
  export const InformationFilm=styled.div`
@@ -157,19 +156,35 @@ export const ActiveItemDescription = styled.section`
 
  `;
 
+ export const TitleAccordionFa=styled.div`
+ line-height: 1;
+ user-select: text;
+ font-weight: bold;
+ margin: 1.5rem;
+ font-size: 2rem;
+  z-index: 2;
+ `;
+
  export const TitleAccordion=styled.div`
  line-height: 1;
  user-select: text;
  font-weight: bold;
- margin: 2rem;
+ margin: 1.5rem;
  font-size: 1rem;
   z-index: 2;
  `;
 
+ export const GenresStyle =styled.div`
+  padding:1rem;
+
+  margin-bottom: 1rem;
+  & span {
+   padding: 0.25rem;
+   }
+ `;
 
  export const DescriptionAccordion=styled.div`
 
- 
  `;
 
  export const BGImage = styled.img`
@@ -195,31 +210,29 @@ export const RangeAgeStyle=styled.div`
 display: flex;
 justify-content: flex-start;
 align-item: center;
-padding:10px;
-
 margin-bottom:2rem;
 z-index:2;
 & img {
 width:40px;
 margin-left:1rem;
-
-
 }
 & img:nth-child(2){
   text-color:white;
   width:60px;
-
 }
 `;
 
-export const Genrs= styled.div`
+export const StyleInformation=styled.div`
 display: flex;
 justify-content: flex-start;
 align-item: center;
-
-margin-bottom: 1rem;
 & div {
   padding: 1rem;
 }
+`;
 
+export const StyleImdb=styled.div`
+display: flex;
+justify-content: flex-start;
+align-item: center;
 `;

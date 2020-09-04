@@ -7,6 +7,7 @@ import { Waypoint } from 'react-waypoint';
 import SEARCH_TYPES from 'constants/SearchTypes';
 
 import ResultTab from './ResultTab';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
   ResultWrapper,
@@ -21,14 +22,17 @@ import {
   Title,
   WayPointArea,
 } from './styles';
+import Img from 'react-cool-img';
+import { withRouter } from 'react-router-dom';
+import { PublicRoutes } from 'utils/routes'
 
-const Result = () => {
+const Result = ({history}) => {
   const {
-    data: { movies_data, series_data, casts_data },
+    data: { movies_data, series_data, casts_data,movies_loading, series_loading, casts_loading },
     action: { handleNextPage },
   } = useSearchContext();
 
-  const [selectedTabID, setSelectedTabID] = useState(1);
+  const [selectedTabID, setSelectedTabID] = useState(0);
 
   const TabTypes = useMemo(() => {
     return [
@@ -38,6 +42,12 @@ const Result = () => {
     ];
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('CHANGE_TYPE_EVENT', e => {
+      const { id } = e.detail;
+      setSelectedTabID(id);
+    });
+  }, []);
   const handleActiveButton = useCallback(
     tabId => {
       setSelectedTabID(tabId);
@@ -52,6 +62,8 @@ const Result = () => {
     [selectedTabID, setSelectedTabID],
   );
 
+  const callCast = useCallback((id) => 
+  history.push(PublicRoutes.castDetailsRoute(id)));
   return (
     <ResultWrapper>
       <ResultTab
@@ -59,14 +71,15 @@ const Result = () => {
         selectedTabID={selectedTabID}
         handleActiveButton={handleActiveButton}
       />
-
-      {selectedTabID === 1 && (
+      {
+      selectedTabID === 1 && (
         <SearchMovieLayout>
           <SearchMovieWrapper>
             {movies_data &&
               movies_data.length > 0 &&
-              movies_data.map(item => <MovieItem key={item.id} {...item} />)}
+              movies_data.map(item => <MovieItem clickable type='MOVIE' key={item.id} {...item} />)}
           </SearchMovieWrapper>
+          {movies_loading && <LoadingIndicator marginTop={'1rem'}/>}
 
           <WayPointArea>
             <Waypoint onEnter={handleNextPage} />
@@ -74,34 +87,46 @@ const Result = () => {
         </SearchMovieLayout>
       )}
 
-      {selectedTabID === 2 && (
+{
+      selectedTabID === 2 && (
         <SearchSeriesLayout>
           <SearchSeriesWrapper>
             {series_data &&
               series_data.length > 0 &&
-              series_data.map(item => <MovieItem key={item.id} {...item} />)}
+              series_data.map(item => <MovieItem clickable type='SERIES' key={item.id} {...item} />)}
           </SearchSeriesWrapper>
+          {series_loading && <LoadingIndicator marginTop={'1rem'}/> }
+
+          <WayPointArea>
+            <Waypoint onEnter={handleNextPage} />
+          </WayPointArea>
         </SearchSeriesLayout>
       )}
 
-      {selectedTabID === 3 && (
+{
+      selectedTabID === 3 && (
         <CastWrapper>
           {casts_data &&
             casts_data.length > 0 &&
             casts_data.map((cast, i) => (
-              <Container key={i}>
+              <Container onClick={() => callCast(cast.id)} key={i}>
                 <Image>
-                  <img src={cast.profile_picture} />
+                  <Img src={cast.profile_picture} />
                 </Image>
                 <DescriptionCast>
                   <Title>{cast.fullname_fa}</Title>
                 </DescriptionCast>
               </Container>
             ))}
+                      {casts_loading && <LoadingIndicator marginTop={'1rem'}/>}
+
+          <WayPointArea>
+            <Waypoint onEnter={handleNextPage} />
+          </WayPointArea>
         </CastWrapper>
       )}
     </ResultWrapper>
   );
 };
 
-export default Result;
+export default withRouter(Result);

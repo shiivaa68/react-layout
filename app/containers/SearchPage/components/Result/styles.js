@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const ResultWrapper = styled.section`
   width: 100%;
@@ -22,7 +23,29 @@ export const SearchMovieWrapper = styled.section`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0 2rem;
+  justify-content: space-evenly;
+  section {
+    width: 45%;
+    max-width: 225px;
+    height: unset;
+    margin: unset
+  }
+  div {
+    height: unset;
+  }
+  @media ${responsive.mobileM} {
+    section {
+      width: 30%;
+    }
+  }
+
+  @media ${responsive.tablet} {
+    justify-content: space-around;
+    section {
+      width: 225px;
+    }
+    padding: 0 2rem;
+  }
 `;
 
 export const SearchSeriesLayout = styled.article`
@@ -39,7 +62,29 @@ export const SearchSeriesWrapper = styled.section`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0 2rem;
+  justify-content: space-evenly;
+  section {
+    width: 45%;
+    max-width: 225px;
+    height: unset;
+    margin: unset
+  }
+  div {
+    height: unset;
+  }
+  @media ${responsive.mobileM} {
+    section {
+      width: 30%;
+    }
+  }
+
+  @media ${responsive.tablet} {
+    justify-content: space-around;
+    section {
+      width: 225px;
+    }
+    padding: 0 2rem;
+  }
 `;
 
 export const SearchCastLayout = styled.article`
@@ -57,6 +102,14 @@ export const CastWrapper = styled.section`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 2rem;
+  justify-content: space-around;
+  @media ${responsive.tablet} {
+    justify-content: unset;
+    section {
+      width: 225px;
+    }
+    padding: 0 2rem;
+  }
 `;
 
 export const Container = styled.div`
@@ -93,11 +146,9 @@ export const Title = styled.h4`
 
 export const WayPointArea = styled.div`
   position: relative;
-  width: 100%;
-  height: 100px;
+  width: 100vw;
+  height: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:red;
 `;
-

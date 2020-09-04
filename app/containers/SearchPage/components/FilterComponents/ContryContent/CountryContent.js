@@ -18,7 +18,7 @@ const CountryContent = () => {
           {...item}
           id={item.id}
           label={item.country_fa}
-          checked={selectedCountries.map(el => el.id).includes(item.id)}
+          checked={ item.id === selectedCountries.id}
           onChange={handleSetSelectedContries}
         />
       ))}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const ScreenShotWrapper = styled.section`
 
@@ -36,14 +37,31 @@ right:0;
 width:100vw;
 height:100vh;
 z-index:100000 ;
+svg {
+  z-index: 10 !important;
+}
 `;
 
 
 export const ImageCover = styled.div`
 display:flex;
 flex-wrap: wrap;
-justify-content:space-beetween;
+justify-content:space-around;
 align-item:center;
 flex-direction:row;
+img {
+  width: 45%;
+}
+
+@media ${responsive.mobileL} {
+  img {
+    width: 30%;
+  }
+}
+@media ${responsive.tablet} {
+  img {
+    width: unset;
+  }
+}
 `;
 

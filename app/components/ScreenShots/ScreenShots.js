@@ -1,26 +1,24 @@
-import React,{useState ,useMemo} from 'react';
-import { FormattedMessage } from 'react-intl'
+import React, { useState, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import ReactImageVideoLightbox from 'react-image-video-lightbox';
-
 
 import messages from './messages';
 
-import { ScreenShotWrapper, Title,LightBox,ImageCover } from './styles';
+import { ScreenShotWrapper, Title, LightBox, ImageCover } from './styles';
+import Img from 'react-cool-img';
 
-const ScreenShots = ({ screenshots, trailer_path }) =>
- {
-   const [lightboxOpen,setlightboxOpen] = useState(false);
+const ScreenShots = ({ screenshots, trailer_path }) => {
+  const [lightboxOpen, setlightboxOpen] = useState(false);
 
-  const imageData = useMemo(()=>{
-    const images = screenshots && screenshots.map(img =>({url:img,type:'photo'})) || [];
-    const videos = trailer_path ? [{url:trailer_path,type:'video'}] :[];
-    return [...images,...videos]
-  },[screenshots,trailer_path]);
+  const imageData = useMemo(() => {
+    const images =
+      (screenshots && screenshots.map(img => ({ url: img, type: 'photo' }))) ||
+      [];
+    const videos = trailer_path ? [{ url: trailer_path, type: 'video' }] : [];
+    return [...videos, ...images];
+  }, [screenshots, trailer_path]);
 
-
-  const IMAGE_SIZE ='200x160';
-
- 
+  const IMAGE_SIZE = '200x160';
 
   return (
     <ScreenShotWrapper>
@@ -28,16 +26,22 @@ const ScreenShots = ({ screenshots, trailer_path }) =>
         <FormattedMessage {...messages.title} />
       </Title>
       <ImageCover>
-      {imageData.length > 0 && imageData.map(imgData => (
-     
-            <img key={imageData.url} src={`${imgData.url}&size=${IMAGE_SIZE}`}   onClick={() => setlightboxOpen(true)} />
-           
-      ))}
-
+        {imageData.length > 0 &&
+          imageData.map((imgData, key) =>
+            imgData.type === 'photo' ? (
+              <Img
+                style={{ cursor: 'pointer' }}
+                key={imageData.url}
+                src={`${imgData.url}&size=${IMAGE_SIZE}`}
+                onClick={() => setlightboxOpen(true)}
+              />
+            ) : (
+              ''
+            ),
+          )}
       </ImageCover>
       {lightboxOpen && (
-     
-              <LightBox>
+        <LightBox>
           <ReactImageVideoLightbox
             data={imageData}
             startIndex={0}
@@ -45,13 +49,9 @@ const ScreenShots = ({ screenshots, trailer_path }) =>
             onCloseCallback={() => setlightboxOpen(false)}
           />
         </LightBox>
-      
-    
-        
       )}
-     </ScreenShotWrapper>
+    </ScreenShotWrapper>
   );
 };
 
 export default ScreenShots;
-

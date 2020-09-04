@@ -12,6 +12,8 @@ import SEARCH_TYPES from 'constants/SearchTypes';
 import SORT_TYPES from 'constants/SortTypes';
 import BUILT_YEAR_FILTER from 'constants/BuiltYearFilter';
 import RANK_NUMBER from 'constants/RankNumber';
+import SUBTITLE_TYPES from 'constants/SubtitleTypes';
+import VOICE_TYPES from 'constants/VoiceTypes';
 
 import {
   getMovieSearchPageAction,
@@ -52,30 +54,37 @@ const SearchManager = ({ history, location }) => {
   /** States */
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSearchTypes, setSelectedSearchTypes] = useState({
-    id: 1,
-    name: SEARCH_TYPES.MOVIES,
-    label: 'فیلم ها',
+    // id: 1,
+    // name: SEARCH_TYPES.MOVIES,
+    // label: 'فیلم ها',
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedSubtitleTypes, setSelectedSubtitleTypes] = useState([]);
+  const [selectedVoiceTypes, setSelectedVoiceTypes] = useState([]);
+  const [selectedDubbing, setSelectedDubbing] = useState(false);
+
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedBuiltYear, setSelectedBuiltYear] = useState([
-    START_DATE,
-    STOP_DATE,
+    // START_DATE,
+    // STOP_DATE,
   ]);
   const [selectedRankNumber, setSelectedRankNumber] = useState([
-    MIN_RANK,
-    MAX_RANK,
+    // MIN_RANK,
+    // MAX_RANK,
   ]);
 
   const [selectedAgeRange, setSelectedAgeRange] = useState([]);
-  const [selectedSubtitle, setSelectedSubtitle] = useState(false);
-  const [selectedSortTypes, setSelectedSortTypes] = useState({
-    id: 1,
-    sortOrder: 'ASC',
-    sortType: 'imdb_rank',
-    label: 'امتیاز IMDB (صعودی)',
-    name: SORT_TYPES.IMDB_RANK_ASC,
-  });
+
+  const [selectedSortTypes, setSelectedSortTypes] = useState(
+    [],
+    //   {
+    //   id: 1,
+    //   sortOrder: 'ASC',
+    //   sortType: 'imdb_rank',
+    //   label: 'امتیاز IMDB (صعودی)',
+    //   name: SORT_TYPES.IMDB_RANK_ASC,
+    // }
+  );
   const [page, setPage] = useState(0);
 
   // bounded redux actions
@@ -97,9 +106,14 @@ const SearchManager = ({ history, location }) => {
 
   /** Redux Data */
   const { genres, country, agerange } = useSelector(state => state.global);
-  const { movies_data, series_data, casts_data } = useSelector(
-    state => state.SearchPage || InitialState,
-  );
+  const {
+    movies_data,
+    series_data,
+    casts_data,
+    movies_loading,
+    series_loading,
+    casts_loading,
+  } = useSelector(state => state.SearchPage || InitialState);
 
   /** Effects */
   /** DECODING PART */
@@ -120,9 +134,10 @@ const SearchManager = ({ history, location }) => {
   useEffect(() => {
     const gnrIDs = selectedGenres.map(gnr => gnr.id);
     const searchTypes = selectedSearchTypes.name;
-    const countryCodes = selectedCountries.map(country => country.country_code);
+    const countryCodes = selectedCountries.country_code;
     const ageRangeIDs = selectedAgeRange.id;
-
+    const voiceTypes = selectedVoiceTypes.map(voicetype => voicetype.name);
+    const subtitleTypes = selectedSubtitleTypes.map(subtype => subtype.name);
     // console.log({ searchQuery, gnrIDs, countryCodes, ageRangeIDs });
 
     /** TWO ACTIONS HERE
@@ -133,37 +148,43 @@ const SearchManager = ({ history, location }) => {
       page,
       searchQuery,
       searchTypes,
+      voiceTypes,
+      subtitleTypes,
       gnrIDs,
       countryCodes,
       selectedBuiltYear,
       selectedRankNumber,
       ageRangeIDs,
-      selectedSubtitle,
-      selectedSortTypes,
+      selectedDubbing,
+      // selectedSortTypes,
     });
     handleApiSide({
       page,
       searchQuery,
       searchTypes,
+      voiceTypes,
+      subtitleTypes,
       gnrIDs,
       countryCodes,
       selectedBuiltYear,
       selectedRankNumber,
       ageRangeIDs,
-      selectedSubtitle,
+      selectedDubbing,
       selectedSortTypes,
     });
   }, [
     page,
     searchQuery,
     selectedSearchTypes,
+    selectedSubtitleTypes,
+    selectedVoiceTypes,
     selectedGenres,
     selectedCountries,
     selectedBuiltYear,
     selectedRankNumber,
     selectedAgeRange,
     selectedSortTypes,
-    selectedSubtitle,
+    selectedDubbing,
   ]);
 
   useEffect(() => {
@@ -174,32 +195,16 @@ const SearchManager = ({ history, location }) => {
   }, [
     searchQuery,
     selectedSearchTypes,
+    selectedVoiceTypes,
+    selectedSubtitleTypes,
     selectedGenres,
     selectedCountries,
     selectedBuiltYear,
     selectedRankNumber,
     selectedAgeRange,
     selectedSortTypes,
-    selectedSubtitle,
+    selectedDubbing,
   ]);
-
-  // /** requestPage api Call */
-  // const getNextPage = useCallback(() => {
-  //   /** INCREMENT PAGE */
-  //   const newPageIndex = page + 1;
-  //   setPage(newPageIndex);
-
-  //   const { search } = location;
-  //   const parsedQueryString = qs.parse(decodeURI(search.slice(1)));
-  //   console.log({ parsedQueryString });
-  //   const searchConfig = {
-  //     page: newPageIndex,
-  //     limit: globalConfigs.pageLimit,
-  //     parsedQueryString,
-  //   };
-
-  //   getMovieSearchPage({ searchConfig });
-  // }, [page]);
 
   const handleNextPage = useCallback(() => {
     const _page = page + 1;
@@ -209,46 +214,46 @@ const SearchManager = ({ history, location }) => {
   /** Data handlers */
   const sidebarMenuData = useMemo(() => {
     return [
+      // {
+      //   menuId: 1,
+      //   name: <FormattedMessage {...messages.filterTypes} />,
+      //   component: SearchTypeContent,
+      // },
       {
         menuId: 1,
-        name: <FormattedMessage {...messages.filterTypes} />,
-        component: SearchTypeContent,
-      },
-      {
-        menuId: 2,
         name: <FormattedMessage {...messages.filterGenres} />,
         component: GenresContent,
       },
       {
-        menuId: 3,
+        menuId: 2,
         name: <FormattedMessage {...messages.filterAge} />,
         component: AgeRangeContent,
       },
       {
-        menuId: 4,
+        menuId: 3,
         name: <FormattedMessage {...messages.filterCountry} />,
         component: ContryContent,
       },
       {
-        menuId: 5,
+        menuId: 4,
         name: <FormattedMessage {...messages.filterBuiltYear} />,
         component: BuiltYearContet,
       },
       {
-        menuId: 6,
+        menuId: 5,
         name: <FormattedMessage {...messages.filterRank} />,
         component: RankContent,
       },
       {
-        menuId: 7,
+        menuId: 6,
         name: <FormattedMessage {...messages.filterSubtitle} />,
         component: SubtitleContent,
       },
-      {
-        menuId: 8,
-        name: <FormattedMessage {...messages.filterSort} />,
-        component: SortTypeContent,
-      },
+      // {
+      //   menuId: 8,
+      //   name: <FormattedMessage {...messages.filterSort} />,
+      //   component: SortTypeContent,
+      // },
     ];
   }, []);
 
@@ -257,6 +262,41 @@ const SearchManager = ({ history, location }) => {
       { id: 1, name: SEARCH_TYPES.MOVIES, label: 'فیلم ها' },
       { id: 2, name: SEARCH_TYPES.SERIES, label: 'سریال ها' },
       { id: 3, name: SEARCH_TYPES.CASTS, label: 'عوامل' },
+    ];
+  }, []);
+
+  const voiceTypes = useMemo(() => {
+    return [
+      {
+        id: 1,
+        name: VOICE_TYPES.ENGLISH,
+        label: <FormattedMessage {...messages.voiceEnglish} />,
+      },
+      {
+        id: 2,
+        name: VOICE_TYPES.PERSION,
+        label: <FormattedMessage {...messages.voicePersion} />,
+      },
+      {
+        id: 3,
+        name: VOICE_TYPES.TURKISH,
+        label: <FormattedMessage {...messages.voiceTurkish} />,
+      },
+    ];
+  }, []);
+
+  const subtitleTypes = useMemo(() => {
+    return [
+      {
+        id: 1,
+        name: SUBTITLE_TYPES.ENGLISH,
+        label: <FormattedMessage {...messages.subtitleEnglish} />,
+      },
+      {
+        id: 2,
+        name: SUBTITLE_TYPES.PERSION,
+        label: <FormattedMessage {...messages.subtitlePersion} />,
+      },
     ];
   }, []);
 
@@ -318,6 +358,11 @@ const SearchManager = ({ history, location }) => {
 
   const handleSetSelectedSearchTypes = useCallback(
     ({ id, name, label }) => {
+      const changeTabEvent = new CustomEvent('CHANGE_TYPE_EVENT', {
+        detail: { id },
+      });
+
+      dispatchEvent(changeTabEvent);
       setSelectedSearchTypes({
         id,
         name,
@@ -337,18 +382,25 @@ const SearchManager = ({ history, location }) => {
 
   const handleSetSelectedContries = useCallback(
     ({ id, label, country_code }) => {
-      const newCountryArray = handleUpdateArray(selectedCountries, {
+      if (country_code === selectedCountries.country_code) {
+        setSelectedCountries([]);
+        return;
+      }
+      setSelectedCountries({
         id,
         label,
         country_code,
       });
-      setSelectedCountries(newCountryArray);
     },
     [selectedCountries, setSelectedCountries],
   );
 
   const handleSetSelectedAgeRange = useCallback(
     ({ id, name }) => {
+      if (id === selectedAgeRange.id) {
+        setSelectedAgeRange([]);
+        return;
+      }
       setSelectedAgeRange({
         id,
         name,
@@ -358,6 +410,11 @@ const SearchManager = ({ history, location }) => {
   );
 
   const handleSetSelectedSortTypes = useCallback(
+    // e => {
+    //   const { value } = e.target;
+    //   setSelectedSortTypes(value);
+    //   console.log({name},'hiiiiiiiiiii')
+    // },
     ({ id, sortType, sortOrder, name, label }) => {
       setSelectedSortTypes({
         id,
@@ -369,12 +426,35 @@ const SearchManager = ({ history, location }) => {
     },
     [selectedSortTypes, setSelectedSortTypes],
   );
-
-  const handleSetSelectedSubtitle = useCallback(
-    e => {
-      setSelectedSubtitle(state => !state);
+  const handleSetSelectedSubtitleTypes = useCallback(
+    ({ id, name, label }) => {
+      const newSubArray = handleUpdateArray(selectedSubtitleTypes, {
+        id,
+        name,
+        label,
+      });
+      setSelectedSubtitleTypes(newSubArray);
     },
-    [selectedSubtitle, setSelectedSubtitle],
+    [selectedSubtitleTypes, setSelectedSubtitleTypes],
+  );
+
+  const handleSetSelectedVoiceTypes = useCallback(
+    ({ id, name, label }) => {
+      const newVoiceArray = handleUpdateArray(selectedVoiceTypes, {
+        id,
+        name,
+        label,
+      });
+      setSelectedVoiceTypes(newVoiceArray);
+    },
+    [selectedVoiceTypes, setSelectedVoiceTypes],
+  );
+
+  const handleSetSelectedDubbing = useCallback(
+    e => {
+      setSelectedDubbing(state => !state);
+    },
+    [selectedDubbing, setSelectedDubbing],
   );
 
   const handleSelectedBuiltYear = useCallback(
@@ -396,11 +476,13 @@ const SearchManager = ({ history, location }) => {
     ({ category, id, ...rest }) => {
       switch (true) {
         case category === 'selectedSearchTypes': {
-          setSelectedSearchTypes({
-            id: 1,
-            name: SEARCH_TYPES.MOVIES,
-            label: 'فیلم ها',
-          });
+          setSelectedSearchTypes([]);
+          //   (
+          //     {
+          //     id: 1,
+          //     name: SEARCH_TYPES.MOVIES,
+          //     label: 'فیلم ها',
+          // });
           break;
         }
 
@@ -419,16 +501,12 @@ const SearchManager = ({ history, location }) => {
         }
 
         case category === 'selectedCountries': {
-          const newSelecrtedContries = handleUpdateArray(selectedCountries, {
-            id,
-            name,
-          });
-          setSelectedCountries(newSelecrtedContries);
+          setSelectedCountries([]);
           break;
         }
 
         case category === 'selectedBuiltYear': {
-          setSelectedBuiltYear([START_DATE, STOP_DATE]);
+          setSelectedBuiltYear([]);
           break;
         }
 
@@ -437,19 +515,30 @@ const SearchManager = ({ history, location }) => {
           break;
         }
 
-        case category === 'selectedSubtitle': {
-          setSelectedSubtitle(false);
+        case category === 'selectedSubtitleTypes': {
+          const newSubArray = handleUpdateArray(selectedSubtitleTypes, {
+            id,
+            name,
+            label,
+          });
+          setSelectedSubtitleTypes(newSubArray);
           break;
         }
-
-        case category === 'selectedSortTypes': {
-          setSelectedSortTypes({
-            id: 1,
-            sortOrder: 'ASC',
-            sortType: 'imdb_rank',
-            label: 'امتیاز IMDB (صعودی)',
-            name: SORT_TYPES.IMDB_RANK_ASC,
+        case category === 'selectedVoiceTypes': {
+          const newVoiceArray = handleUpdateArray(selectedVoiceTypes, {
+            id,
+            name,
+            label,
           });
+          setSelectedVoiceTypes(newVoiceArray);
+          break;
+        }
+        case category === 'selectedDubbing': {
+          setSelectedDubbing(false);
+          break;
+        }
+        case category === 'selectedSortTypes': {
+          setSelectedSortTypes([]);
           break;
         }
 
@@ -463,24 +552,16 @@ const SearchManager = ({ history, location }) => {
   const handleResetFilters = useCallback(() => {
     // console.log('RESET_ALL_FILTERS');
     /** RESET FILTERS PART */
-    setSelectedSearchTypes({
-      id: 1,
-      name: SEARCH_TYPES.MOVIES,
-      label: 'فیلم ها',
-    });
+    setSelectedSearchTypes([]);
     setSelectedGenres([]);
     setSelectedCountries([]);
-    setSelectedBuiltYear([START_DATE, STOP_DATE]);
-    setSelectedRankNumber([MIN_RANK, MAX_RANK]);
+    setSelectedBuiltYear([]);
+    setSelectedRankNumber([]);
     setSelectedAgeRange([]);
-    setSelectedSubtitle(false);
-    setSelectedSortTypes({
-      id: 1,
-      sortOrder: 'ASC',
-      sortType: 'imdb_rank',
-      label: 'امتیاز IMDB (صعودی)',
-      name: SORT_TYPES.IMDB_RANK_ASC || null,
-    });
+    setSelectedSubtitleTypes([]);
+    setSelectedVoiceTypes([]);
+    setSelectedDubbing();
+    setSelectedSortTypes([]);
   }, []);
 
   //handle close input search
@@ -510,19 +591,20 @@ const SearchManager = ({ history, location }) => {
     page,
     searchQuery,
     searchTypes,
+    subtitleTypes,
+    voiceTypes,
     gnrIDs,
     countryCodes,
     selectedBuiltYear,
     selectedRankNumber,
     ageRangeIDs,
-    selectedSortTypes,
-    selectedSubtitle,
+    // selectedSortTypes,
+    selectedDubbing,
   }) => {
     const queries = new URLSearchParams();
 
     /** search Query */
     queries.append('query', searchQuery);
-
     /** Page */
     queries.append('page', Number(page));
 
@@ -531,13 +613,6 @@ const SearchManager = ({ history, location }) => {
 
     /** gneres */
     gnrIDs.length > 0 && queries.append('genres', gnrIDs.join(','));
-
-    /** ageRange */
-    queries.append('age_range', ageRangeIDs);
-
-    /** contrycodes */
-    countryCodes.length > 0 &&
-      queries.append('countries', countryCodes.join(','));
 
     const [startDate, stopDate] = selectedBuiltYear;
     queries.append('min_year', startDate);
@@ -551,9 +626,18 @@ const SearchManager = ({ history, location }) => {
     //sort types
     queries.append('item_sort', selectedSortTypes.sortType);
     queries.append('sort_type', selectedSortTypes.sortOrder);
+    /** ageRange */
+    queries.append('age_range', ageRangeIDs);
+
+    /** contrycodes */
+
+    queries.append('countries', countryCodes);
 
     /** Subtitle */
-    queries.append('voice', Number(selectedSubtitle));
+    queries.append('dubbing', selectedDubbing);
+    subtitleTypes.length > 0 &&
+      queries.append('subtitles', subtitleTypes.join(','));
+    voiceTypes.length > 0 && queries.append('voices', voiceTypes.join(','));
 
     history.push(`/search?${queries.toString()}`);
   };
@@ -562,13 +646,16 @@ const SearchManager = ({ history, location }) => {
     page,
     searchQuery,
     searchTypes,
+    subtitleTypes,
+    voiceTypes,
+    selectedDubbing,
     gnrIDs,
     countryCodes,
     selectedBuiltYear,
     selectedRankNumber,
     ageRangeIDs,
     selectedSortTypes,
-    selectedSubtitle,
+    // selectedSubtitle,
   }) => {
     // TODO:
     //  - call related api
@@ -580,14 +667,16 @@ const SearchManager = ({ history, location }) => {
       text: searchQuery,
       genres: gnrIDs.join(','),
       age_range: ageRangeIDs,
-      country: countryCodes.map(el => el.toLowerCase()).join(','),
+      country: countryCodes,
       item_sort: selectedSortTypes.sortType,
       sort_type: selectedSortTypes.sortOrder,
-      voice: Number(selectedSubtitle),
+      dubbing: selectedDubbing,
       min_year: startDate,
       max_year: stopDate,
       min_imdb: minrank,
       max_imdb: maxrank,
+      voices: voiceTypes.join(','),
+      subtitles: subtitleTypes.join(','),
     };
 
     switch (searchTypes) {
@@ -626,6 +715,8 @@ const SearchManager = ({ history, location }) => {
       searchQuery,
       sidebarMenuData,
       searchTypes,
+      subtitleTypes,
+      voiceTypes,
       genres,
       country,
       agerange,
@@ -633,11 +724,13 @@ const SearchManager = ({ history, location }) => {
 
       // configured data
       selectedSearchTypes,
+      selectedSubtitleTypes,
+      selectedVoiceTypes,
       selectedGenres,
       selectedCountries,
       selectedRankNumber,
       selectedAgeRange,
-      selectedSubtitle,
+      selectedDubbing,
       selectedSortTypes,
       selectedBuiltYear,
 
@@ -646,6 +739,9 @@ const SearchManager = ({ history, location }) => {
       movies_data,
       series_data,
       casts_data,
+      movies_loading,
+      series_loading,
+      casts_loading,
     },
     action: {
       handleSetSearchQuery,
@@ -655,12 +751,14 @@ const SearchManager = ({ history, location }) => {
       handleSelectedBuiltYear,
       handleSelectedRankNumber,
       handleSetSelectedAgeRange,
-      handleSetSelectedSubtitle,
+      handleSetSelectedDubbing,
       handleSetSelectedSortTypes,
       handleGeneralResetFilter,
       handleResetFilters,
       handelResetFilterSearchQuery,
       handleNextPage,
+      handleSetSelectedSubtitleTypes,
+      handleSetSelectedVoiceTypes,
     },
   };
 };

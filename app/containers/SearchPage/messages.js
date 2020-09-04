@@ -13,7 +13,7 @@ export default defineMessages({
   },
   filter: {
     id: `${scope}.filter`,
-    defaultMessage: 'فیلتر',
+    defaultMessage: 'انتخاب فیلتر',
   },
   filterTypes: {
     id: `${scope}.filterTypes`,
@@ -33,17 +33,38 @@ export default defineMessages({
   },
   filterBuiltYear: {
     id: `${scope}.filterBuiltYear`,
-    defaultMessage:'سال انتشار ',
+    defaultMessage: 'سال انتشار ',
   },
   filterRank: {
     id: `${scope}.filterRank`,
-    defaultMessage:'رنک ',
+    defaultMessage: 'امتیاز IMDB ',
   },
   filterSubtitle: {
     id: `${scope}.filterSubtitle`,
-    defaultMessage: 'زیر نویس',
+    defaultMessage: ' صدا و زیر نویس ',
   },
- 
+  voiceEnglish: {
+    id: `${scope}.dobleEnglish`,
+    defaultMessage: 'صدای انگلیسی ',
+  },
+  voicePersion: {
+    id: `${scope}.doblePersion`,
+    defaultMessage: ' صدای فارسی ',
+  },
+  voiceTurkish: {
+    id: `${scope}.doblePersion`,
+    defaultMessage: '  صدای ترکی ',
+  },
+  subtitlePersion: {
+    id: `${scope}.subtitlePersion`,
+    defaultMessage: 'زیرنویس فارسی ',
+  },
+  subtitleEnglish: {
+    id: `${scope}.subtitleEnglish`,
+    defaultMessage: '  زیرنویس انگلیسی  ',
+  },
+
+
   filterSort: {
     id: `${scope}.filterSort`,
     defaultMessage: 'مرتب سازی',
@@ -60,16 +81,14 @@ export default defineMessages({
 
   MinRank: {
     id: `${scope}.MinRank`,
-    defaultMessage: 'از رنک {rankNumber}',
+    defaultMessage: 'از امتیاز {rankNumber}',
   },
   MaxRank: {
     id: `${scope}.MaxRank`,
-    defaultMessage: 'تا رنک {rankNumber}',
+    defaultMessage: 'تا امتیاز {rankNumber}',
   },
   reset_filter: {
     id: `${scope}.reset_filter`,
     defaultMessage: 'پاک کردن فیلتر ها',
   },
-
-
 });

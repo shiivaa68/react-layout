@@ -5,28 +5,65 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
-import { SubtitleWrapper } from './styles';
+import { SubtitleWrapper,WrapperSub,WrapperVoice ,WrapperDubbled} from './styles';
 
 import { Checkbox } from 'components/kit';
 
-const SearchTypeContent = () => {
+const SubtitleContent = () => {
   const {
-    data: { selectedSubtitle },
-    action: { handleSetSelectedSubtitle },
+    data: { subtitleTypes,voiceTypes,selectedSubtitleTypes ,selectedVoiceTypes,selectedDubbing},
+    action: { handleSetSelectedSubtitleTypes,handleSetSelectedVoiceTypes,handleSetSelectedDubbing },
   } = useSearchContext();
 
   return (
     <SubtitleWrapper>
-    
+
+  
+<WrapperVoice>
+{voiceTypes.map(voiceType => {
+        return (
           <Checkbox
-            label={<FormattedMessage {...messages.subtitleTpeContent} />}
-            checked={selectedSubtitle}
-            onChange={handleSetSelectedSubtitle}
+            {...voiceType}
+            key={voiceType.id}
+            id={voiceType.id}
+            label={voiceType.label}
+            checked={selectedVoiceTypes.map(el => el.id).includes(voiceType.id)}
+            onChange={handleSetSelectedVoiceTypes}
           />
+        );
+      })}
+
+</WrapperVoice>
+
+<WrapperSub>
+  {subtitleTypes.map(subType => {
+        return (
+          <Checkbox
+            {...subType}
+            key={subType.id}
+            id={subType.id}
+            label={subType.label}
+            checked={selectedSubtitleTypes.map(el => el.id).includes(subType.id)}
+            onChange={handleSetSelectedSubtitleTypes}
+          />
+        );
+      })}
+  </WrapperSub>
+<WrapperDubbled>
+<Checkbox
+            label={<FormattedMessage {...messages.dublling} />}
+            checked={selectedDubbing}
+            onChange={handleSetSelectedDubbing}
+          />
+     
+</WrapperDubbled>
+  
+
+
    
     </SubtitleWrapper>
   );
 };
 
-export default SearchTypeContent;
+export default SubtitleContent;
 

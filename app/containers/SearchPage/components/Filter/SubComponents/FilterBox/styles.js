@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const FilterBoxContainer = styled.section`
   width: 100%;
@@ -9,7 +10,11 @@ export const FilterBoxContainer = styled.section`
   color: var(--primary-white);
   background-color: var(--secondary-dark);
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 35% 65%;
+
+  @media ${responsive.tablet} {
+    grid-template-columns: 25% 75%;
+  }
 `;
 
 export const SideNav = styled.ul`
@@ -18,6 +23,9 @@ export const SideNav = styled.ul`
   padding: 1.5rem 0;
   list-style-type: none;
   background-color: var(--secondary-gray);
+  li {
+    text-align: right;
+  }
 `;
 
 export const FilterContent = styled.div`

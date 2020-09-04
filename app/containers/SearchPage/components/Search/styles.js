@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {DebounceInput} from 'react-debounce-input';
 
 export const SearchContainer = styled.article`
   width: 100vw;
@@ -32,8 +33,8 @@ export const ClearText = styled.span`
   position: absolute;
   left: 1rem;
 `;
-
-export const SearchInput = styled.input`
+styled(DebounceInput)
+export const SearchInput = styled(DebounceInput)`
   width: 100%;
   height: 64px;
   border: 0px;

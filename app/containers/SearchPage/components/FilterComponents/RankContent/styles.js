@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import responsive from 'responsive';
 
 export const RankWrapper = styled.section`
   padding: 1.25rem;
@@ -6,7 +7,10 @@ export const RankWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 5rem;
+  padding: 0 1rem;
+  @media ${responsive.tablet} {
+    padding: 0 5rem;
+  }
   flex-direction: column;
   direction: ltr;
 `;

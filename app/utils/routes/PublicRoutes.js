@@ -6,8 +6,7 @@ export const PublicRoutes = {
   listViewRoute: params => `/videos?${toUrlParams(params)}`,
   pageSingle: pageId => `/page/${pageId}`,
   packageDetailsRoute: id => `/order/${id}`,
-  castDetailsRoute:id =>`/crew/${id}`,
-
+  castDetailsRoute:id =>`/crew/${id}`
 };
 
 export default PublicRoutes;

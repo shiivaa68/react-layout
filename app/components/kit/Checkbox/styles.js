@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled,{css} from 'styled-components';
 
 export const CheckBoxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 62px;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+height:62px;
+font-size:12px;
 `;
 
 export const CheckboxLabel = styled.label`
@@ -13,18 +14,16 @@ export const CheckboxLabel = styled.label`
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 3rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   top: -6px;
   left: 10px;
-
   & * {
-    border-radius: 2px;
+    border-radius: 5px;
   }
-
   & > input {
     position: absolute;
     opacity: 0;
@@ -32,19 +31,15 @@ export const CheckboxLabel = styled.label`
     height: 0;
     width: 0;
   }
-
   &:hover input ~ span {
     background-color: #ccc;
   }
-
   & > input:checked ~ span {
     background-color: #2196f3;
   }
-
   & > input:checked ~ span:after {
     display: block;
   }
-
   & span:after {
     left: 9px;
     top: 5px;
@@ -67,7 +62,6 @@ export const CheckboxSpan = styled.span`
   height: 25px;
   width: 25px;
   background-color: #eee;
-
   &:after {
     content: '';
     position: absolute;

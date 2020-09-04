@@ -1,15 +1,33 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import responsive from '../../../responsive';
 
 export const PackageContainer = styled.section`
   position: relative;
-  min-height: 100px;
-  display: grid;
-  grid-template-columns: 4fr 2fr 2fr 2fr;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin: 0rem 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   background-color: var(--gray-light);
   border-radius: 10px;
   color: var(--primary-dark);
-  font-weight: bold;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0.4rem;
+  font-weight: 500;
+  border: 1px;
+  font-size: smaller;
+  @media ${responsive.tablet} {
+    height: 10vh;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 1rem 1rem;
+    font-weight: bold;
+    font-size: unset;
+  }
 `;
 
 export const DescriptionArea = styled.div`
@@ -33,10 +51,10 @@ export const PriceArea = styled.div`
 `;
 export const PriceAreaOff = styled.div`
   text-decoration: line-through;
-  align-self: center;
-  justify-self: center;
 `;
 export const ButtonWrapper = styled.div`
-  align-self: center;
-  justify-self: center;
+  padding: 0;
+  @media ${responsive.tablet} {
+    padding: 2rem 2rem;
+  }
 `;

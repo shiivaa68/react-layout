@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const ErrorContainer = styled.div`
+text-align: center;
+p {
+  font-family: 'Vazir FD','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+
+}
   width: 100vw;
   min-height: 40vh;
   display: flex;
@@ -16,6 +21,6 @@ export const ErrorEmoji = styled.p`
 `;
 
 export const ErrorMessage = styled.p`
-  font-size: 4rem;
+  font-size: calc(1vw + 1em);
   padding: 1rem 0;
 `;
