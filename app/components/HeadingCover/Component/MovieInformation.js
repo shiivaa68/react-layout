@@ -2,9 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import  messages  from '../messages';
 
+import IMDB_TV from '../../../images/imdb-tv.svg';
 import IMDB from '../../../images/imdb.svg';
 
-import {MovieInformationStyle} from '../styles';
+import {MyBadgeValue, MovieInformationStyle, MyBadge} from '../styles';
 
 const MovieInformation = ({publish_date,movie_length,imdb_rank,country,quality,default_voice,languages,default_origin,countryUtility})=>
 {
@@ -15,33 +16,30 @@ const MovieInformation = ({publish_date,movie_length,imdb_rank,country,quality,d
 
     return(
         <MovieInformationStyle>
-        <div>
+
+        <MyBadge>
           <span>{publish_date}</span>
-        </div>
-        <div>
-          <span>{movie_length}  {<FormattedMessage {...messages.movie_length} />}</span>
-        </div>
-        <div>
-      <span>{imdb_rank}</span> <span>IMDb</span>
-        </div>
-        <div>
+        </MyBadge>
+        <MyBadgeValue>{movie_length}`</MyBadgeValue>
+        <MyBadge>
+          <span> {<FormattedMessage {...messages.movie_length} />}</span>
+        </MyBadge>
+        <MyBadgeValue>{imdb_rank}</MyBadgeValue>
+        <MyBadge>
+        <span>imdb</span>
+        </MyBadge>
+        <MyBadge>
           <span>{countryMovie &&countryMovie.country_fa}</span>
-        </div>
+        </MyBadge>
 
-          <div>
             {default_origin === "خارجی" && default_voice === 1 ?
-              <i className="fa fa-microphone" > {` `} {<FormattedMessage {...messages.double} />} </i>
+              <MyBadge> <span>{<FormattedMessage {...messages.double} />}  </span></MyBadge>
             : default_origin === "ایرانی" && default_voice === 0 ?
-             <i className="fa fa-microphone" >{<FormattedMessage {...messages.subtitle} />}</i>
+            <MyBadge> <span>{<FormattedMessage {...messages.subtitle} />}</span></MyBadge>
             : null}
-          </div>
-
-        <div>
-          {subtitleMovie && subtitleMovie.value}
-        </div>
-        <div>
-        {<FormattedMessage {...messages.quality} />} <span> {quality} </span>
-        </div>
+        <MyBadge>
+        <span>{quality}</span>
+        </MyBadge>
       </MovieInformationStyle>
 
     )

@@ -16,6 +16,18 @@ import {
   ERROR_MOVIE_BOOKMARK,
   UPDATE_BOOKMARK_MOVIEPAGE,
   LOADING_MOVIE_BOOKMARK,
+  ERROR_MOVIE_COMMENT,
+  UPDATE_COMMENT_MOVIES,
+  LOADING_MOVIE_COMMENT,
+  ERROR_MOVIE_COMMENT_SEND,
+  LOADING_MOVIE_COMMENT_SEND,
+  UPDATE_COMMENT_MOVIES_SEND,
+  ERROR_MOVIE_LIKE,
+  LOADING_MOVIE_LIKE,
+  UPDATE_MOVIE_LIKE,
+  ERROR_MOVIE_COMMENT_SEND_REPLY,
+  LOADING_MOVIE_COMMENT_SEND_REPLY,
+  UPDATE_COMMENT_MOVIES_SEND_REPLY,
 } from './constants';
 
 const MoviesPageReducer = (state = initialState, action) =>
@@ -49,45 +61,99 @@ const MoviesPageReducer = (state = initialState, action) =>
         draft.data = action.payload;
         return draft;
 
-      ///FAVARITE
-      // case ERROR_MOVIE_RANK:
-      //   draft.error_movie_favarite = action.payload.error.message;
-      //   return draft;
-
-      // case LOADING_MOVIE_RANK:
-      //   draft.loading_movie_favarite = action.payload.loadingStatus;
-      //   return draft;
-
       case UPDATE_MOVIE_RANK_REDUCER:
         draft.data.epizod_rank = action.payload.new_epizod_rank;
         draft.data.user_rank = action.payload.rank;
         return draft;
 
       //BOOKMAR
-      case ERROR_MOVIE_BOOKMARK:
-        draft.error_movie_bookmark = action.payload.error.message;
-        return draft;
+      // case ERROR_MOVIE_BOOKMARK:
+      //   draft.error_movie_bookmark = action.payload.error.message;
+      //   return draft;
 
-      case LOADING_MOVIE_BOOKMARK:
-        draft.loading_movie_bookmark = action.payload.loadingStatus;
-        return draft;
+      // case LOADING_MOVIE_BOOKMARK:
+      //   draft.loading_movie_bookmark = action.payload.loadingStatus;
+      //   return draft;
 
       case UPDATE_BOOKMARK_MOVIEPAGE:
-        draft.data_movie_bookmark = action.payload;
+        draft.data.user_favorite = action.payload;
         return draft;
 
       //DELETE BOOKMARK
 
-      case ERROR_MOVIE_BOOKMARK_DELET:
-        draft.error_movie_bookmark_remove = action.payload.error.message;
-        return draft;
+      // case ERROR_MOVIE_BOOKMARK_DELET:
+      //   draft.error_movie_bookmark_remove = action.payload.error.message;
+      //   return draft;
 
-      case LOADING_MOVIE_BOOKMARK_DELET:
-        draft.loading_movie_bookmark_remove = action.payload.loadingStatus;
-        return draft;
+      // case LOADING_MOVIE_BOOKMARK_DELET:
+      //   draft.loading_movie_bookmark_remove = action.payload.loadingStatus;
+      //   return draft;
 
       case UPDATE_BOOKMARK_MOVIEPAGE_DELET:
-        draft.data_movie_bookmark_remove = action.payload;
+        draft.data.user_favorite = action.payload;
+        return draft;
+
+      //COMMENT MOVIE
+      case ERROR_MOVIE_COMMENT:
+        draft.error_comment = action.payload.error.message;
+        return draft;
+
+      case LOADING_MOVIE_COMMENT:
+        draft.loading_comment = action.payload.loadingStatus;
+        return draft;
+
+      case UPDATE_COMMENT_MOVIES:
+        draft.comment_movie = action.payload;
+        return draft;
+
+      //COMMENT SEND
+      case ERROR_MOVIE_COMMENT_SEND:
+        draft.error_comment = action.payload.error.message;
+        return draft;
+
+      case LOADING_MOVIE_COMMENT_SEND:
+        draft.loading_send_comment = action.payload.loadingStatus;
+        return draft;
+
+      case UPDATE_COMMENT_MOVIES_SEND:
+        draft.send_comment = action.payload;
+        return draft;
+      //LIKE
+
+      case ERROR_MOVIE_LIKE:
+        draft.error_movie_like = action.payload.error.message;
+        return draft;
+
+      case LOADING_MOVIE_LIKE:
+        draft.loading_movie_like = action.payload.loadingStatus;
+        return draft;
+
+      case UPDATE_MOVIE_LIKE: {
+        const { commentId, comment_score, score } = action.payload;
+
+        console.log({ commentId, comment_score, score });
+
+        const targetIndex = draft.comment_movie.findIndex(
+          comment => comment.id === commentId,
+        );
+
+        draft.comment_movie[targetIndex].score = comment_score;
+        draft.comment_movie[targetIndex].your_score = Number(score);
+
+        return draft;
+      }
+
+      //COMMENT  REPLY SEND
+      case ERROR_MOVIE_COMMENT_SEND_REPLY:
+        draft.error_reply_comment = action.payload.error.message;
+        return draft;
+
+      case LOADING_MOVIE_COMMENT_SEND_REPLY:
+        draft.loading_send_reply_comment = action.payload.loadingStatus;
+        return draft;
+
+      case UPDATE_COMMENT_MOVIES_SEND_REPLY:
+        draft.send_reply_comment = action.payload;
         return draft;
     }
   });

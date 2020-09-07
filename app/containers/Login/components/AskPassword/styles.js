@@ -46,8 +46,8 @@ export const ErrorContainer = styled.div`
 `;
 
 export const WrapperBack = styled.div`
-margin:1rem;
+width: 90%;
 direction:ltr;
-padding:2rem;
+
 
 `;

@@ -22,12 +22,12 @@ margin: auto;
 
 export const LoginButtonsGroup = styled.div`
   width: 80%;
-  height: 100px;
+  height: 90px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  margin-bottom:2rem;
+
   & > button {
     width: 100%;
     box-sizing: border-box;
@@ -38,12 +38,12 @@ export const LoginButtonsGroup = styled.div`
 
 export const RulesSite= styled(Link)`
 width: 80%;
-height: 20px;
+height: 30px;
 display:inline-flex;
 text-decoration:none;
 user-select:  none;
 cursor: pointer;
-margin_buttom: 2rem;
+margin-top: 2rem;
 padding-right:2rem;
 list-style-type: none;
 color:white;

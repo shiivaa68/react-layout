@@ -9,8 +9,8 @@ export const RegisterFormWrapper = styled.article`
 `;
 
 export const RegisterBox = styled.div`
-max-width: 450px;
-margin: auto;
+  max-width: 450px;
+  margin: auto;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -26,27 +26,25 @@ margin: auto;
 `;
 
 export const ErrorContainer = styled.div`
-margin-bottom:2rem;
-width: 80%;
-height: 40px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-background-color:var(--primary-danger);
-padding:1rem;
-border-radius:5px;
+  margin-bottom: 2rem;
+  width: 80%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-danger);
+  padding: 1rem;
+  border-radius: 5px;
 `;
 
 export const WrapperBack = styled.div`
-margin:1rem;
+width: 90%;
 direction:ltr;
-padding:2rem;
 `;
-
 
 export const LoginButtonsGroup = styled.div`
   width: 350px;
-  height: 100px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +53,16 @@ export const LoginButtonsGroup = styled.div`
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    font-size: 0.90rem;
+    font-size: 0.9rem;
   }
+`;
+export const WrapperCounter = styled.h2`
+
+`;
+export const FakeWrap=styled.div`
+width: 100%;
+box-sizing: border-box;
+text-align: center;
+font-size: 0.9rem;
+
 `;

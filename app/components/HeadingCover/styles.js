@@ -37,17 +37,13 @@ export const CoverDetails = styled.div`
   padding-right: 20px;
   padding-left: 20px;
   text-align: center;
-  padding-top: 56vw;
+  padding-top: 60vw;
   background-size: contain;
   background-repeat: no-repeat;
   box-shadow: rgb(18, 18, 18) 0px -5px 5px inset;
-  background-image: linear-gradient(
-      rgba(18, 18, 18, 0) 5vw,
-      rgb(18, 18, 18) 68.875vw
-    ),
-    linear-gradient(to left, rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0) 50%)
-      ${prop => (prop.img ? ',url(' + prop.img + ');' : '')} @media
-      ${responsive.tablet} {
+  background-image: linear-gradient(rgba(18,18,18,0) 5vw,rgb(18,18,18) 120vw),
+  linear-gradient(to left,rgba(18,18,18,0.7),rgba(18,18,18,0) 50%) ${prop => prop.img ? ',url(' + prop.img + ');': '' }
+ @media ${responsive.tablet} {
     padding: 4rem;
     padding-top: 15rem;
     text-align: right;
@@ -67,7 +63,7 @@ export const Title = styled.h1`
   line-height: 1.75;
   user-select: text;
   font-weight: bold;
-  margin: 1rem;
+  margin: 1rem  0;
   font-size: 1rem;
   display: block;
   @media ${responsive.tablet} {
@@ -81,23 +77,36 @@ export const MovieInformationStyle = styled.div`
   font-size: 10px;
   justify-content: center;
   align-item: center;
-  & div {
-    padding: 4px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  @media ${responsive.mobileL} {
-    & div {
-      padding: 9px;
-    }
-  }
+  justify-content: center;
+  margin-top: 2rem;
+
   @media ${responsive.tablet} {
-    & div {
-      padding: 1rem;
-    }
     justify-content: flex-start;
     font-size: 14px;
   }
+`;
+
+export const MyBadge = styled.div`
+  background-color: rgb(196,198,198);
+  font-size: 11px;
+  margin-left: 6px;
+  @media ${responsive.mobileL} {
+    margin-left: 10px;
+  }
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  color: #39393a;
+  font-weight: 500;
+  @media ${responsive.tablet} {
+    margin-left: 20px;
+
+  }
+`;
+
+export const MyBadgeValue = styled.span`
+  margin-left: 5px;
 `;
 
 export const Description = styled.div`
@@ -112,62 +121,77 @@ export const Description = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin-top: 2rem;
   @media ${responsive.tablet} {
-    width: 55%;
+    width:40%;
     font-weight: 400;
   }
 `;
 
 export const ControlButton = styled.div`
   margin-bottom: 2rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: space-around;
   @media ${responsive.tablet} {
     justify-content: unset;
   }
+
+  button {
+    margin:unset;
+    margin-left: 1rem;
+    padding: 0.625em;
+  }
 `;
 
-export const GenresStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-item: center;
-
-  margin-bottom: 1rem;
-  & div {
-    padding: 1rem;
-  }
-  @media ${responsive.tablet} {
-    justify-content: flex-start;
-  }
+export const GenresStyle =styled.div`
+display: flex;
+justify-content: center;
+align-item: center;
+font-size: small;
+margin-bottom: 1rem;
+& div {
+  padding: 1rem;
+}
+@media ${responsive.tablet} {
+  justify-content: flex-start;
+}
 `;
 
 export const RangeAgeStyle = styled.div`
-  svg {
-    width: 50px;
-    height: 50px;
-    .cls-1 {
-      fill: none;
-      stroke: #fff;
-      stroke-miterlimit: 10;
-      stroke-width: 1.5px;
-    }
-    .cls-2 {
-      fill: #fff;
-    }
-  }
-  div {
-    margin: 1rem;
-  }
-  width: 50%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-item: center;
-  padding: 10px;
-  margin-bottom: 1 rem;
-  z-index: 2;
+* {
+  font-family: var(--primary-font) !important;
+}
+div {
+  min-width: 50px;
+  direction: ltr;
+}
+width: 50%;
+margin: auto;
+display: flex;
+justify-content: center;
+align-item: center;
+padding-bottom:20px;
+margin-bottom:1 rem;
+z-index:2;
+
+@media ${responsive.tablet} {
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+  margin: 0;
+}
+
+img {
+  width: 50px;
+}
+img:nth-child(2) {
+  margin-right:10px;
+}
+`;
+
+export const MoreInfo =styled.div`
 
   @media ${responsive.tablet} {
     justify-content: flex-start;
@@ -176,7 +200,6 @@ export const RangeAgeStyle = styled.div`
   }
 `;
 
-export const MoreInfo = styled.div``;
 export const MoreDetailInformation = styled.div`
   margin-bottom: 2rem;
 `;
@@ -186,7 +209,8 @@ export const ReviewBlankLink = styled.a`
   text-decoration: none;
   user-select: none;
   cursor: pointer;
-  margin: 0 1em;
+  
+  font-size: 1rem;
   list-style-type: none;
   color: var(--primary-danger);
   :hover {
@@ -238,4 +262,31 @@ export const WrapDislike = styled.div`
   & img {
     filter: invert(100%);
   }
+`;
+
+export const CommentBox = styled.article`
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+`;
+
+export const SendComment=styled.img`
+width:15px;
+height:15px;
+position:absolute;
+left:1rem;
+font-size: 0.75rem;
+`;
+
+export const CommentInput = styled.input`
+  width: 100%;
+  height: 64px;
+  border: 0px;
+  outline: 0px;
+  line-height: 2rem;
+  font-size: 1.35rem;
+  border-radius: 0.5em;
+  padding: 0 3.5rem 0 4rem;
 `;

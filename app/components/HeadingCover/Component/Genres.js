@@ -23,13 +23,9 @@ useEffect(() => {
   }, [genersAll]);
 
     return(
-        <GenresStyle>
-                <span>  
-               {<FormattedMessage {...messages.genres} />}:
-                </span>
-                
+        <GenresStyle>       
       <span>{genersAll.map((genr,index) =>(
-       <span key={`genr_${index}`}> {(index ? ',':'') + genr.name}</span>
+       <span key={`genr_${index}`}> {(index ? ', #':'#') + genr.name}</span>
         
     ))}</span>
 

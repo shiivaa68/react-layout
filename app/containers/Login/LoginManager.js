@@ -74,7 +74,6 @@ const LoginManager = () => {
   }, []);
 
   useEffect(() => {
-    console.log('auth flow step updated');
     resetErrorMessage();
   }, [authFlowStep]);
 

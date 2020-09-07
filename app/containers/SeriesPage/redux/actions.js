@@ -1,4 +1,34 @@
-import { ERROR, GET_SERIESPAGE, UPDATE_SERIESPAGE, LOADING,ERROR_AWARDS,GET_SERIESPAGE_AWARDS,UPDATE_SERIESPAGE_AWARDS,LOADING_AWARDS,GET_SERIESPAGE_FAVARITE,UPDATE_SERIESPAGE_FAVARITE,ERROR_FAVARITE_SERIES,LOADING_FAVARITE_SERIES,GET_SERIESPAGE_BOOKMARK,UPDATE_SERIESPAGE_BOOKMARK,LOADING_BOOKMARK_SERIES,ERROR_BOOKMARK_SERIES,ERROR_BOOKMARK_SERIES_DEL,LOADING_BOOKMARK_SERIES_DEL,UPDATE_SERIESPAGE_BOOKMARK_DEL,GET_SERIESPAGE_BOOKMARK_DEL } from './constants';
+import {
+  ERROR,
+  GET_SERIESPAGE,
+  UPDATE_SERIESPAGE,
+  LOADING,
+  ERROR_AWARDS,
+  GET_SERIESPAGE_AWARDS,
+  UPDATE_SERIESPAGE_AWARDS,
+  LOADING_AWARDS,
+
+  ERROR_SERIES_RANK,
+  LOADING_SERIES_RANK,
+  UPDATE_SERIES_RANK,
+  UPDATE_SERIES_RANK_REDUCER,
+
+  GET_SERIESPAGE_BOOKMARK,
+  UPDATE_SERIESPAGE_BOOKMARK,
+  LOADING_BOOKMARK_SERIES,
+  ERROR_BOOKMARK_SERIES,
+  
+  ERROR_BOOKMARK_SERIES_DEL,
+  LOADING_BOOKMARK_SERIES_DEL,
+  UPDATE_SERIESPAGE_BOOKMARK_DEL,
+  GET_SERIESPAGE_BOOKMARK_DEL,
+
+  ERROR_SERIE_COMMENT,
+  LOADING_SERIE_COMMENT,UPDATE_COMMENT_SERIE,GET_COMMENT_SERIE,
+  ERROR_SERIES_COMMENT_SEND,LOADING_SERIES_COMMENT_SEND,SET_COMMENT_SERIES,UPDATE_COMMENT_SERIES_SEND,
+
+  ERROR_SERIES_LIKE,LOADING_SERIES_LIKE,SET_SERIES_LIKE,UPDATE_SERIES_LIKE,
+} from './constants';
 
 export function loadingAction(loadingstatus) {
   return {
@@ -58,33 +88,32 @@ export function updateSeriesAwardsAction(data) {
   };
 }
 
-
 //FAVARITE
 
-export function loadingFavariteAction(loadingstatus) {
+export function loadingRankAction(loadingstatus) {
   return {
-    type: LOADING_FAVARITE_SERIES,
+    type: LOADING_SERIES_RANK,
     payload: { loadingstatus },
   };
 }
 
-export function errorFavariteAction(error) {
+export function errorRankAction(error) {
   return {
-    type: ERROR_FAVARITE_SERIES,
+    type: ERROR_SERIES_RANK,
     payload: { error },
   };
 }
 
-export function getSeriesFavariteAction({ ...options }) {
+export function updateSeriesRankAction(data) {
   return {
-    type: GET_SERIESPAGE_FAVARITE,
-    payload: { ...options },
+    type: UPDATE_SERIES_RANK,
+    payload:data,
   };
 }
 
-export function updateSeriesFavariteAction(data) {
+export function updateSeriesRankReducerAction(data) {
   return {
-    type: UPDATE_SERIESPAGE_FAVARITE,
+    type: UPDATE_SERIES_RANK_REDUCER,
     payload: data,
   };
 }
@@ -142,6 +171,95 @@ export function getSeriesBookmarkDelAction({ ...options }) {
 export function updateSeriesBookmarkDelAction(data) {
   return {
     type: UPDATE_SERIESPAGE_BOOKMARK_DEL,
+    payload: data,
+  };
+}
+
+
+//COMMENT SERIES
+export function loadingCommentAction(loadingStatus) {
+  return {
+    type: LOADING_SERIE_COMMENT,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorCommentAction(error) {
+  return {
+    type: ERROR_SERIE_COMMENT,
+    payload: { error },
+  };
+}
+
+export function getCommentSeriesAction({ ...options }) {
+  return {
+    type: GET_COMMENT_SERIE,
+    payload: { ...options },
+  };
+}
+
+export function updateCommentSeriesAction(data) {
+  return {
+    type: UPDATE_COMMENT_SERIE,
+    payload: data,
+  };
+}
+
+//SET COMMENT
+export function loadingSetCommentAction(loadingStatus) {
+  return {
+    type: LOADING_SERIES_COMMENT_SEND,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorSetCommentAction(error) {
+  return {
+    type: ERROR_SERIES_COMMENT_SEND,
+    payload: { error },
+  };
+}
+
+export function setCommentSeriesAction({ ...options }) {
+  return {
+    type: SET_COMMENT_SERIES,
+    payload: { ...options },
+  };
+}
+
+export function updateSetCommentSeriesAction(data) {
+  return {
+    type: UPDATE_COMMENT_SERIES_SEND,
+    payload: data,
+  };
+}
+
+//LIKE
+
+export function loadingLikeAction(loadingstatus) {
+  return {
+    type: LOADING_SERIES_LIKE,
+    payload: { loadingstatus },
+  };
+}
+
+export function errorLikeAction(error) {
+  return {
+    type: ERROR_SERIES_LIKE,
+    payload: { error },
+  };
+}
+
+export function setSeriesLikeAction(data) {
+  return {
+    type: SET_SERIES_LIKE,
+    payload:data,
+  };
+}
+
+export function updateSeriesLikeAction(data) {
+  return {
+    type: UPDATE_SERIES_LIKE,
     payload: data,
   };
 }

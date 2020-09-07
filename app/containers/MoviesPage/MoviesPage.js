@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
 
+import CommentMovie from 'components/CommentMovie';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 import HeadingCover from 'components/HeadingCover';
 import Casts from 'components/Casts';
 import ScreenShots from 'components/ScreenShots';
 import MovieSuggestions from 'containers/MovieSuggestions';
-import CommentMovie from 'containers/CommentMovie';
+
+import { EnterComment } from './components';
 import { Helmet } from 'react-helmet';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { MoviePageContext } from './context';
-
+import Img from 'react-cool-img';
 import MoviePageManager from './MoviePageManager';
-
-import { MoviesContainer } from './styles';
+import SEND from 'images/send.svg';
+import { MoviesContainer, SubTitle, MainWrapperComment } from './styles';
 
 const MoviesPage = ({ match, history }) => {
   const {
@@ -22,17 +26,21 @@ const MoviesPage = ({ match, history }) => {
       data_movie,
       data_movie_favarite,
       isMobile,
+      comment_movie,
       rols,
       languages,
       agerange,
       genres,
       country,
+      activeCommentIdForReply,
     },
     actions,
   } = MoviePageManager({ match, history });
 
   return (
-    <MoviePageContext.Provider value={{ data, actions }}>
+    <MoviePageContext.Provider
+      value={{ data: { data, activeCommentIdForReply }, actions }}
+    >
       <MoviesContainer>
         <Helmet>
           <title>{data.title_fa}</title>
@@ -63,7 +71,16 @@ const MoviesPage = ({ match, history }) => {
               {...data}
               movieId={match.params.movieId}
             />
-            <CommentMovie />
+            <MainWrapperComment>
+              <SubTitle>
+                <FormattedMessage {...messages.commentMovie} />
+              </SubTitle>
+              <EnterComment />
+              {comment_movie.length > 0 &&
+                comment_movie.map(comment => (
+                  <CommentMovie key={comment.id} {...comment} />
+                ))}
+            </MainWrapperComment>
           </>
         )}
       </MoviesContainer>

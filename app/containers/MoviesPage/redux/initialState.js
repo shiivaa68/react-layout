@@ -21,6 +21,30 @@ const initialState = {
   error_movie_bookmark_remove:false,
   loading_movie_bookmark_remove:false,
   data_movie_bookmark_remove:{},
+
+  //commnet 
+  //get comment
+  error_comment: false,
+  loading_comment: false,
+  comment_movie: {},
+  
+//send comment
+  error_comment:false,
+  loading_send_comment:false,
+  send_comment:{},
+
+//SET LIKE
+  error_movie_like:false,
+  loading_movie_like:false,
+  data_movie_like:{},
+
+  //send reply comment
+  error_reply_comment:false,
+  loading_send_reply_comment:false,
+  send_reply_comment:{},
+
 };
+
+
 
 export default initialState;

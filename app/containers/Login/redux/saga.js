@@ -3,7 +3,7 @@ import requestCall from 'utils/redux/requestCall';
 import { apiEndpoints } from 'utils/api';
 import { push } from 'connected-react-router';
 import { RouterRoutes } from 'utils/routes';
-
+import history from 'utils/history'
 import { AUTH_FLOW_STEPS } from '../../../constants';
 
 import {
@@ -18,6 +18,7 @@ import {
   FORGET_SET_NEW_PASSWORD,
 } from './constants';
 import { loadingAction, errorAction, updateStepAction } from './actions';
+import qs from 'qs';
 
 function* enterPhoneNumberWorker({ payload: { phoneNumber } }) {
   const method = 'POST';
@@ -91,7 +92,15 @@ function* loginOtpConfirmationCodeWorker({ payload: { code, mobile, extra } }) {
   const url = apiEndpoints.otpLoginStepTwo();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () =>  push(RouterRoutes.home),
+    // {
+    //   try {
+    //     return push(qs.parse(history.location.search.substring(1)).from);
+    //   }
+    //   catch {
+    //     return push(RouterRoutes.home);
+    //   }
+    // },
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -115,7 +124,15 @@ function* registerNewPasswordWorker({
   const url = apiEndpoints.registerStepThree();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () =>push(RouterRoutes.home),
+    //  {
+    //   try {
+    //     return push(qs.parse(history.location.search.substring(1)).from);
+    //   }
+    //   catch {
+    //     return push(RouterRoutes.home);
+    //   }
+    // },
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -139,6 +156,14 @@ function* loginAskPasswordWorker({ payload: { mobile, password, extra } }) {
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
     success: () => push(RouterRoutes.home),
+    // {
+    //   try {
+    //     return push(qs.parse(history.location.search.substring(1)).from);
+    //   }
+    //   catch {
+    //     return push(RouterRoutes.home);
+    //   }
+    // },
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;
@@ -211,7 +236,15 @@ function* forgetPasswordNewPasswordWorker({
   const url = apiEndpoints.forgetPassStepThree();
   const actions = {
     loading: loadingStatus => loadingAction(loadingStatus),
-    success: () => push(RouterRoutes.home),
+    success: () =>  push(RouterRoutes.home),
+    // {
+    //   try {
+    //     return push(qs.parse(history.location.search.substring(1)).from);
+    //   }
+    //   catch {
+    //     return push(RouterRoutes.home);
+    //   }
+    // },
     failure: error => {
       console.log('ERROR', error);
       const { status, message } = error;

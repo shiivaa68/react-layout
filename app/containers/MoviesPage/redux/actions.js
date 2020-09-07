@@ -7,18 +7,42 @@ import {
   GET_AWARD_MOVIEPAGE,
   UPDATE_AWARD_MOVIEPAGE,
   LOADING_MOVIE,
+
   ERROR_MOVIE_RANK,
   LOADING_MOVIE_RANK,
   UPDATE_MOVIE_RANK,
   UPDATE_MOVIE_RANK_REDUCER,
+  
   GET_BOOKMARK_MOVIEPAGE,
   UPDATE_BOOKMARK_MOVIEPAGE,
   ERROR_MOVIE_BOOKMARK,
   LOADING_MOVIE_BOOKMARK,
+
   ERROR_MOVIE_BOOKMARK_DELET,
   LOADING_MOVIE_BOOKMARK_DELET,
   UPDATE_BOOKMARK_MOVIEPAGE_DELET,
   GET_BOOKMARK_MOVIEPAGE_DELET,
+
+  ERROR_MOVIE_COMMENT,
+  LOADING_MOVIE_COMMENT,
+  UPDATE_COMMENT_MOVIES,
+  GET_COMMENT_MOVIES,
+
+  ERROR_MOVIE_COMMENT_SEND,
+  LOADING_MOVIE_COMMENT_SEND,
+  SET_COMMENT_MOVIES,
+  UPDATE_COMMENT_MOVIES_SEND,
+
+  ERROR_MOVIE_LIKE,
+  LOADING_MOVIE_LIKE,
+  SET_MOVIE_LIKE,
+  UPDATE_MOVIE_LIKE,
+
+  ERROR_MOVIE_COMMENT_SEND_REPLY,
+  LOADING_MOVIE_COMMENT_SEND_REPLY,
+  SET_REPLY_COMMENT_MOVIES,
+  UPDATE_COMMENT_MOVIES_SEND_REPLY,
+
 } from './constants';
 
 export function loadingAction(loadingStatus) {
@@ -132,6 +156,7 @@ export function updateMoviesBookmarkAction(data) {
   return {
     type: UPDATE_BOOKMARK_MOVIEPAGE,
     payload: data,
+    
   };
 }
 //DELETE BOOK MARK
@@ -159,6 +184,121 @@ export function getMoviesDelBookmarkAction({ ...options }) {
 export function updateMoviesDelBookmarkAction(data) {
   return {
     type: UPDATE_BOOKMARK_MOVIEPAGE_DELET,
+    payload: data,
+  };
+}
+
+//COMMENT MOVIE 
+export function loadingCommentAction(loadingStatus) {
+  return {
+    type: LOADING_MOVIE_COMMENT,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorCommentAction(error) {
+  return {
+    type: ERROR_MOVIE_COMMENT,
+    payload: { error },
+  };
+}
+
+export function getCommentMoviesAction({ ...options }) {
+  return {
+    type: GET_COMMENT_MOVIES,
+    payload: { ...options },
+  };
+}
+
+export function updateCommentMoviesAction(data) {
+  return {
+    type: UPDATE_COMMENT_MOVIES,
+    payload: data,
+  };
+}
+
+//SET COMMENT
+export function loadingSetCommentAction(loadingStatus) {
+  return {
+    type: LOADING_MOVIE_COMMENT_SEND,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorSetCommentAction(error) {
+  return {
+    type: ERROR_MOVIE_COMMENT_SEND,
+    payload: { error },
+  };
+}
+
+export function setCommentMoviesAction({ ...options }) {
+  return {
+    type: SET_COMMENT_MOVIES,
+    payload: { ...options },
+  };
+}
+
+export function updateSetCommentMoviesAction(data) {
+  return {
+    type: UPDATE_COMMENT_MOVIES_SEND,
+    payload: data,
+  };
+}
+
+//LIKE
+export function loadingMovieLikeAction(loadingStatus) {
+  return {
+    type: LOADING_MOVIE_LIKE,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorMovieLikeAction(error) {
+  return {
+    type: ERROR_MOVIE_LIKE,
+    payload: { error },
+  };
+}
+
+export function setMovieLikeAction(data) {
+  return {
+    type: SET_MOVIE_LIKE,
+    payload: data,
+  };
+}
+export function updateMovieLikeAction(data) {
+  return {
+    type: UPDATE_MOVIE_LIKE,
+    payload: data,
+  };
+}
+
+//SET  REPLY COMMENT
+export function loadingSetReplyCommentAction(loadingStatus) {
+  return {
+    type: LOADING_MOVIE_COMMENT_SEND_REPLY,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorSetReplyCommentAction(error) {
+  return {
+    type: ERROR_MOVIE_COMMENT_SEND_REPLY,
+    payload: { error },
+  };
+}
+
+export function setReplyCommentMoviesAction({ ...options }) {
+  return {
+    type: SET_REPLY_COMMENT_MOVIES,
+    payload: { ...options },
+  };
+}
+
+export function updateSetReplyCommentMoviesAction(data) {
+  return {
+    type: UPDATE_COMMENT_MOVIES_SEND_REPLY,
     payload: data,
   };
 }

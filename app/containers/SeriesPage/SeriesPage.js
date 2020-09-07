@@ -1,100 +1,47 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
+import React, { useEffect } from 'react';
+import CommentSeries from 'components/CommentSeries';
 import SerieSuggestions from 'containers/SerieSuggestions';
 import HeadingCover from 'components/HeadingCover';
 import Casts from 'components/Casts';
 import EpisodeSeries from 'components/EpisodeSeries';
-
-import { useSelector } from 'react-redux';
+import { SeriesPageContext } from './context';
 import { Helmet } from 'react-helmet';
 import LoadingIndicator from 'components/LoadingIndicator';
-
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
-import { useBindDispatch } from 'utils/redux/useBindDispatch';
-
-import SeriesPageReducer from './redux/reducer';
-import seriesPageSaga from './redux/saga';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+import { SeriesContainer,SubTitle ,MainWrapperComment} from './styles';
+import SeriesPageManager from './SeriesPageManager';
 import {
-  getSeriesAction,
-  getSeriesAwardsAction,
-  getSeriesFavariteAction,
-} from './redux/actions';
-import initialState from './redux/initialState';
-
-import useMyMediaQuery from '../../utils/useMyMediaQuery';
-import { SeriesContainer } from './styles';
-
-const SeriesPageKeyOnRedux = 'SeriesPage';
+  EnterComment,
+} from './components';
 
 const SeriesPage = ({ match, history }) => {
-  /** injectors  */
-  useInjectReducer({ key: SeriesPageKeyOnRedux, reducer: SeriesPageReducer });
-  useInjectSaga({ key: SeriesPageKeyOnRedux, saga: seriesPageSaga });
+const{ 
+  data: {
+    loading,
+    error,
+    data,
+    error_comment,
+     loading_send_comment,
+    data_favarite_series,
+    data_awards,
+    isMobile,
+    activeSeasonId,
+    comment_series,
+    handleSetActiveSeason,
+    activeSeasonEpisodes,
+    rols,
+    languages,
+    agerange,
+    genres,
+    country,
+  },
+  actions,
+} = SeriesPageManager({ match, history });
 
-  /** local states  */
-  const [activeSeasonId, setActiveSeasonId] = useState(null);
-
-  /** bounded redux actions */
-  const [getSeriesPage, getSeriesAwards, getSeriesFavarite] = useBindDispatch([
-    getSeriesAction,
-    getSeriesAwardsAction,
-    getSeriesFavariteAction,
-  ]);
-
-  /** store data */
-  const { loading, error, data = [], data_awards } = useSelector(
-    state => state[SeriesPageKeyOnRedux] || initialState,
-  );
-  const { rols = [] } = useSelector(state => state.global);
-  const { languages = [] } = useSelector(state => state.global);
-  const { agerange = [] } = useSelector(state => state.global);
-  const { genres = [] } = useSelector(state => state.global);
-  const { country = [] } = useSelector(state => state.global);
-
-  /** efects */
-  useEffect(() => {
-    const id = match.params.serieId;
-    getSeriesPage({ id });
-  }, [match.params.serieId]);
-
-  useEffect(() => {
-    const serieId = match.params.serieId;
-    getSeriesAwards({ serieId });
-  }, []);
-
-  useEffect(() => {
-    const serieId = match.params.serieId;
-    // getSeriesFavarite({ serieId ,favariteSeries});
-  }, []);
-
-  useEffect(() => {
-    if (data && data.seasons && data.seasons.length > 0) {
-      const activeSeasonId = data.seasons[0].id;
-      setActiveSeasonId(activeSeasonId);
-    }
-  }, [data]);
-
-  /** handlers */
-  const handleSetActiveSeason = useCallback(
-    selected => {
-      setActiveSeasonId(selected.id);
-    },
-    [activeSeasonId, setActiveSeasonId],
-  );
-
-  const activeSeasonEpisodes = useMemo(() => {
-    const result =
-      data &&
-      data.seasons &&
-      data.seasons.length > 0 &&
-      data.seasons.filter(season => season.id === activeSeasonId)[0];
-
-    return result && result.episodes.length > 0 ? result.episodes : [];
-  }, [data, activeSeasonId]);
-
-  const { isMobile } = useMyMediaQuery();
   return (
+    <SeriesPageContext.Provider value={{ data, actions }}>
     <SeriesContainer>
       <Helmet>
         <title>{data.title_fa}</title>
@@ -115,6 +62,7 @@ const SeriesPage = ({ match, history }) => {
             genresUtility={genres}
             countryUtility={country}
             {...data}
+            data_favarite_series={data_favarite_series}
           />
           <EpisodeSeries history={history} episodes={activeSeasonEpisodes} />
           <Casts type="SERIES" casts={data.casts || []} rols={rols} />
@@ -123,9 +71,20 @@ const SeriesPage = ({ match, history }) => {
             {...data}
             serieId={match.params.serieId}
           />
+           <MainWrapperComment>
+            <SubTitle>
+              <FormattedMessage {...messages.commentMovie} />
+            </SubTitle>
+            <EnterComment/>
+               {comment_series.length > 0 &&
+                comment_series.map(comment => (
+                <CommentSeries key={comment.id} {...comment} />
+              ))}
+         </MainWrapperComment>
         </>
       )}
     </SeriesContainer>
+    </SeriesPageContext.Provider>
   );
 };
 

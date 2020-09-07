@@ -12,6 +12,8 @@ import {
   ErrorContainer,
   WrapperBack,
   LoginButtonsGroup,
+  WrapperCounter,
+  FakeWrap,
 } from './styles';
 
 const ConfirmationCode = () => {
@@ -21,7 +23,7 @@ const ConfirmationCode = () => {
     formProps,
   } = ConfirmationCodeManager();
 
-  console.log({ mobile });
+  // console.log({ mobile });
 
   // const handleBackBtnClick = useCallback(() => {
   //   actions.handleBackBtns[authFlowStep]();
@@ -49,7 +51,7 @@ const ConfirmationCode = () => {
           {error && <ErrorContainer>{error}</ErrorContainer>}
           <LoginButtonsGroup>
             {countDown > 0 ? (
-              <h1>{countDown}</h1>
+            <FakeWrap></FakeWrap>
             ) : (
               <RequestAgainCode
                 handleResendCodeBtnClick={handleResendCodeBtnClick}
@@ -62,10 +64,11 @@ const ConfirmationCode = () => {
               typeAttr="submit"
             />
           </LoginButtonsGroup>
+          <WrapperCounter>{countDown}</WrapperCounter>
         </RegisterBox>
       </Form>
     </RegisterFormWrapper>
   );
 };
 
-export default ConfirmationCode;
+export default ConfirmationCode

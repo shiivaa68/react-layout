@@ -8,6 +8,10 @@ import {
   UPDATE_MOVIE_RANK,
   GET_BOOKMARK_MOVIEPAGE,
   GET_BOOKMARK_MOVIEPAGE_DELET,
+  GET_COMMENT_MOVIES,
+  SET_COMMENT_MOVIES,
+  SET_MOVIE_LIKE,
+  SET_REPLY_COMMENT_MOVIES,
 } from './constants';
 import {
   loadingAction,
@@ -25,6 +29,18 @@ import {
   loadingDelBookmarkAction,
   updateMoviesDelBookmarkAction,
   errorBookmarkAction,
+  loadingCommentAction,
+  updateCommentMoviesAction,
+  errorCommentAction,
+  loadingSetCommentAction,
+  errorSetCommentAction,
+  updateSetCommentMoviesAction,
+  loadingMovieLikeAction,
+  errorMovieLikeAction,
+  updateMovieLikeAction,
+  loadingSetReplyCommentAction,
+  errorSetReplyCommentAction,
+  updateSetReplyCommentMoviesAction,
 } from './actions';
 
 function* getMoviesPageWorker({ payload: { id } }) {
@@ -68,7 +84,7 @@ function* getMoviesBookmarkWorker({ payload: { movieId } }) {
   const method = 'POST';
   const actions = {
     loading: loadingStatus => loadingBookmarkAction(loadingStatus),
-    success: result => updateMoviesBookmarkAction(result),
+    success: result => updateMoviesBookmarkAction(true),
     failure: error => errorBookmarkAction(error),
   };
 
@@ -80,11 +96,82 @@ function* getMoviesBookmarkDelWorker({ payload: { movieId } }) {
   const method = 'DELETE';
   const actions = {
     loading: loadingStatus => loadingDelBookmarkAction(loadingStatus),
-    success: result => updateMoviesDelBookmarkAction(result),
+    success: result => updateMoviesDelBookmarkAction(false),
     failure: error => errorDelBookmarkAction(error),
   };
 
   yield requestCall({ url, method, actions });
+}
+
+function* getCommentMoviesWorker({ payload: { movieId, options } }) {
+  const url = apiEndpoints.getCommentMovies(movieId, options);
+  const method = 'GET';
+  const actions = {
+    loading: loadingStatus => loadingCommentAction(loadingStatus),
+    success: result => updateCommentMoviesAction(result),
+    failure: error => errorCommentAction(error),
+  };
+
+  yield requestCall({ url, method, actions });
+}
+
+function* enterSetCommentWorker({ payload: { comment, movieId } }) {
+  const method = 'POST';
+  const url = apiEndpoints.sendComment(movieId);
+  const actions = {
+    loading: loadingStatus => loadingSetCommentAction(loadingStatus),
+    success: result => updateSetCommentMoviesAction(result),
+    // failure: error => errorSetCommentAction(error),
+    failure: error => {
+      console.log('ERROR', message);
+      const { status, message } = error;
+      return errorSetCommentAction(message);
+    },
+  };
+
+  const data = {
+    comment,
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
+function* setMovieLikeWorker({ payload: { id, score } }) {
+  const url = apiEndpoints.setMovieLike(id);
+  const method = 'POST';
+  const actions = {
+    loading: loadingStatus => loadingMovieLikeAction(loadingStatus),
+    success: result =>
+      updateMovieLikeAction({ ...result, commentId: id, score }),
+    failure: error => errorMovieLikeAction(error),
+  };
+
+  const data = {
+    score: String(score),
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
+function* SetReplyCommentWorker({ payload: { comment, id } }) {
+  const method = 'POST';
+  const url = apiEndpoints.sendReplyComment(id);
+  const actions = {
+    loading: loadingStatus => loadingSetReplyCommentAction(loadingStatus),
+    success: result => updateSetReplyCommentMoviesAction(result),
+    // failure: error => errorSetCommentAction(error),
+    failure: error => {
+      console.log('ERROR', message);
+      const { status, message } = error;
+      return errorSetReplyCommentAction(message);
+    },
+  };
+
+  const data = {
+    comment,
+  };
+
+  yield requestCall({ url, method, actions, data });
 }
 
 export default function* moviesPageSaga() {
@@ -95,4 +182,8 @@ export default function* moviesPageSaga() {
   yield all([
     takeLatest(GET_BOOKMARK_MOVIEPAGE_DELET, getMoviesBookmarkDelWorker),
   ]);
+  yield all([takeLatest(GET_COMMENT_MOVIES, getCommentMoviesWorker)]);
+  yield all([takeLatest(SET_COMMENT_MOVIES, enterSetCommentWorker)]);
+  yield all([takeLatest(SET_MOVIE_LIKE, setMovieLikeWorker)]);
+  yield all([takeLatest(SET_REPLY_COMMENT_MOVIES, SetReplyCommentWorker)]);
 }

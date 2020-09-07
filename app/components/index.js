@@ -1,12 +1,11 @@
 export { default as Banner } from './Banner';
 export { default as Category } from './Category';
-// export { default as Movie } from './Movie';
 export { default as HeadingCover } from './HeadingCover';
 export { default as Casts } from './Casts';
 export { default as Crew } from './Crew';
-export { default as MovieDetail } from './MovieDetail';
 export { default as Suggestions } from './Suggestions';
-export { default as Comments } from './Comments';
 export { default as ScreenShots } from './ScreenShots';
 export { default as EpisodeControl } from './EpisodeControl';
 export { default as EpisodeSeries } from './EpisodeSeries';
+export { default as CommentMovie } from './CommentMovie';
+export { default as CommentSeries } from './CommentSeries';

@@ -2,6 +2,8 @@ import React, { useMemo, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '../kit/Button';
 import Modal from '../kit/Modal/Modal';
+import BACK from 'images/back.jpg'
+import BACK_MOBILE from 'images/back-mobile.jpg'
 
 import AuthManager from 'containers/App/AuthManager';
 
@@ -12,18 +14,17 @@ import SeriesInformaion from './Component/SeriesInformaion';
 import Genres from './Component/Genres';
 import RangeAge from './Component/RangeAge';
 import Favarite from './Component/Favarite';
+import FavariteSeries from './Component/FavariteSeries';
 import Select from '../kit/Select';
 
 import {
   HeadingCoverContainer,
-  CoverImage,
   CoverDetails,
   Title,
   Description,
   ControlButton,
   MoreInfo,
   ReviewBlankLink,
-  WrapperModal,
 } from './styles';
 
 const HeadingCover = ({
@@ -55,6 +56,8 @@ const HeadingCover = ({
   history,
   seasons,
   data_movie_favarite,
+  data_favarite_series,
+  seriesId,
   movieId,
 }) => {
   const coverImage = useMemo(
@@ -72,12 +75,13 @@ const HeadingCover = ({
         ? poster_path
         : undefined;
     let sign = (path + '').includes('?') ? '&' : '?';
+    // if (isMobile)
+    //   return `${path+sign}platform=1&size=${window.innerWidth}x${parseInt(window.innerWidth * 12 / 15)}`
+    // return `${path+sign}size=${1920}x${900}`
     if (isMobile)
-      return `${path + sign}platform=1&size=${window.innerWidth}x${parseInt(
-        (window.innerWidth * 12) / 15,
-      )}`;
-    return `${path + sign}size=${1920}x${900}`;
-  });
+      return BACK_MOBILE
+    return BACK
+  })
 
   function createMarkup(a) {
     return { __html: a };
@@ -174,8 +178,12 @@ const HeadingCover = ({
               data_movie={data_movie}
               data_awards={data_awards}
             />
-            {isLoggedIn && (
-              <Favarite data_movie_favarite={data_movie_favarite} type={type} />
+            {isLoggedIn && type === 'MOVIE' && (
+              <  Favarite data_movie_favarite={data_movie_favarite} type={type} />
+            )}
+
+          {isLoggedIn && type === 'SERIES' && (
+              <  FavariteSeries data_favarite_series={data_favarite_series} type={type} />
             )}
           </ControlButton>
         }

@@ -22,7 +22,7 @@ margin: auto;
 
 export const LoginButtonsGroup = styled.div`
   width: 30%;
-  height: 100px;
+  height: 90px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -47,9 +47,8 @@ border-radius:5px;
 
 `;
 
-export const WrapperBack = styled.div`
-margin:1rem;
-direction:ltr;
-padding:2rem;
 
+export const WrapperBack = styled.div`
+width: 90%;
+direction:ltr;
 `;

@@ -3,10 +3,12 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import messages from '../messages';
 import BOOKMARK from 'images/bookmark.svg';
+import BOOKMARKFILL from 'images/bookmarkfill.svg';
 import LIKE_FILL from 'images/like-fill.svg';
 import LIKE_STROKE from 'images/like-stroke.svg';
 import DISLIKE_FILL from 'images/dislike-fill.svg';
 import DISLIKE_STROKE from 'images/dislike-stroke.svg';
+
 import Img from 'react-cool-img';
 import {
   WrapperFavarite,
@@ -19,10 +21,11 @@ import {
 import useMoviePageContext from 'containers/MoviesPage/context';
 
 const Favarite = ({ type, data_movie_favarite, match }) => {
-  const {
+
+  let {
     data,
-    actions: { handleMovieLikeDislike },
-  } = useMoviePageContext();
+    actions: { handleMovieLikeDislike,handleMovieSetBookmark,handleMovieDelBookmark },
+  } = useMoviePageContext() || {data:{}};
 
   const handleLikeDislikeClick = useCallback(
     likeType => {
@@ -36,15 +39,7 @@ const Favarite = ({ type, data_movie_favarite, match }) => {
           else if (likeType === 'DISLIKE') handleMovieLikeDislike(movieId, 1);
           break;
 
-        case 'SERIES':
-          const {
-            params: { serieId },
-          } = match;
-          console.log({ type, serieId });
-          // TODO:
-          //  - handle like dislike for series
-          break;
-
+    
         default:
           break;
       }
@@ -52,10 +47,26 @@ const Favarite = ({ type, data_movie_favarite, match }) => {
     [type],
   );
 
-  const handleBookmrak = useCallback(() => {
-    console.log('inja like bookmark');
-  }, []);
+  const handlelBookMarkClick = useCallback(
+    bookmarkType => {
+      switch (type) {
+        case 'MOVIE':
+          const {
+            params: { movieId },
+          } = match;
 
+          if (bookmarkType === 'BOOKMARK') handleMovieSetBookmark(movieId);
+          else if (bookmarkType === 'UNBOOKMARK') handleMovieDelBookmark(movieId);
+          break;
+
+
+        default:
+          break;
+      }
+    },
+    [type],
+  );
+ 
   const isUserLiked = useMemo(() => {
     if (data.user_rank === null) return false;
 
@@ -69,10 +80,38 @@ const Favarite = ({ type, data_movie_favarite, match }) => {
     else return false;
   }, [data]);
 
+  const isUserBookmark = useMemo(() => {
+    if (data.user_favorite === null) return false;
+    if (data.user_favorite === true) return true;
+    else return false;
+  }, [data]);
+
+  const isUserDisBookmark = useMemo(() => {
+    if (data.user_favorite === null) return false;
+    if (data.user_favorite === false ) return true;
+    else return false;
+  }, [data]);
+
+
+
   return (
     <WrapperFavarite>
-      <ContainerBookmark onClick={handleBookmrak}>
-        <Img src={BOOKMARK} width="30" height="25" />
+      <ContainerBookmark >
+        {data.user_favorite ? (<div onClick={()=>handlelBookMarkClick('UNBOOKMARK')}> <Img
+            src={BOOKMARKFILL}
+            width="30"
+            height="25"
+          /></div>
+       
+          ) :(<div  onClick={()=>handlelBookMarkClick('BOOKMARK')}> <Img
+            src={ BOOKMARK}
+            width="30"
+            height="25"
+          /></div>
+         
+          )}
+     
+
       </ContainerBookmark>
 
       <ContainerFavarite>
