@@ -7,47 +7,44 @@ import {
   GET_AWARD_MOVIEPAGE,
   UPDATE_AWARD_MOVIEPAGE,
   LOADING_MOVIE,
-
   ERROR_MOVIE_RANK,
   LOADING_MOVIE_RANK,
   UPDATE_MOVIE_RANK,
   UPDATE_MOVIE_RANK_REDUCER,
-  
   GET_BOOKMARK_MOVIEPAGE,
   UPDATE_BOOKMARK_MOVIEPAGE,
   ERROR_MOVIE_BOOKMARK,
   LOADING_MOVIE_BOOKMARK,
-
   ERROR_MOVIE_BOOKMARK_DELET,
   LOADING_MOVIE_BOOKMARK_DELET,
   UPDATE_BOOKMARK_MOVIEPAGE_DELET,
   GET_BOOKMARK_MOVIEPAGE_DELET,
-
   ERROR_MOVIE_COMMENT,
   LOADING_MOVIE_COMMENT,
   UPDATE_COMMENT_MOVIES,
   GET_COMMENT_MOVIES,
-
   ERROR_MOVIE_COMMENT_SEND,
   LOADING_MOVIE_COMMENT_SEND,
   SET_COMMENT_MOVIES,
   UPDATE_COMMENT_MOVIES_SEND,
-
   ERROR_MOVIE_LIKE,
   LOADING_MOVIE_LIKE,
   SET_MOVIE_LIKE,
   UPDATE_MOVIE_LIKE,
-
   ERROR_MOVIE_COMMENT_SEND_REPLY,
   LOADING_MOVIE_COMMENT_SEND_REPLY,
   SET_REPLY_COMMENT_MOVIES,
   UPDATE_COMMENT_MOVIES_SEND_REPLY,
-
   ERROR_MOVIE_COMMENT_REPLY_MORE,
   LOADING_MOVIE_COMMENT_REPLY_MORE,
   GET_COMMENT_MOVIES_REPLY_MORE,
   UPDATE_COMMENT_MOVIES_REPLY_MORE,
 
+  // Reply Like
+  ERROR_COMMENT_REPLY_LIKE,
+  LOADING_COMMENT_REPLY_LIKE,
+  GET_COMMENT_REPLY_LIKE,
+  UPDATE_COMMENT_REPLY_LIKE,
 } from './constants';
 
 export function loadingAction(loadingStatus) {
@@ -161,7 +158,6 @@ export function updateMoviesBookmarkAction(data) {
   return {
     type: UPDATE_BOOKMARK_MOVIEPAGE,
     payload: data,
-    
   };
 }
 //DELETE BOOK MARK
@@ -193,7 +189,7 @@ export function updateMoviesDelBookmarkAction(data) {
   };
 }
 
-//COMMENT MOVIE 
+//COMMENT MOVIE
 export function loadingCommentAction(loadingStatus) {
   return {
     type: LOADING_MOVIE_COMMENT,
@@ -334,6 +330,34 @@ export function getCommentReplyMoreMoviesAction({ ...options }) {
 export function updateCommentReplyMoreMoviesAction(data) {
   return {
     type: UPDATE_COMMENT_MOVIES_REPLY_MORE,
+    payload: data,
+  };
+}
+
+// Reply Like
+export function loadingReplyLikeAction(loadingStatus) {
+  return {
+    type: LOADING_COMMENT_REPLY_LIKE,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorReplyLikeAction(error) {
+  return {
+    type: ERROR_COMMENT_REPLY_LIKE,
+    payload: { error },
+  };
+}
+
+export function setReplyLikeAction(data) {
+  return {
+    type: GET_COMMENT_REPLY_LIKE,
+    payload: data,
+  };
+}
+export function updateReplyLikeAction(data) {
+  return {
+    type: UPDATE_COMMENT_REPLY_LIKE,
     payload: data,
   };
 }

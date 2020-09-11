@@ -20,6 +20,7 @@ import {
   setMovieLikeAction,
   setReplyCommentMoviesAction,
   getCommentReplyMoreMoviesAction,
+  setReplyLikeAction,
 } from './redux/actions';
 import initialState from './redux/initialState';
 import useMyMediaQuery from 'utils/useMyMediaQuery';
@@ -46,6 +47,7 @@ const MoviePageManager = ({ match }) => {
     setMovieLike,
     setReplyCommentMovies,
     getCommentReplyMoreMovies,
+    setReplyLike,
   ] = useBindDispatch([
     getMoviesAction,
     getMoviesAwardsAction,
@@ -57,6 +59,7 @@ const MoviePageManager = ({ match }) => {
     setMovieLikeAction,
     setReplyCommentMoviesAction,
     getCommentReplyMoreMoviesAction,
+    setReplyLikeAction,
   ]);
 
   const {
@@ -142,6 +145,10 @@ const MoviePageManager = ({ match }) => {
     setMovieLike({ id, score });
   }, []);
 
+  const handleReplyLike = useCallback(({ commentId, replyId, score }) => {
+    setReplyLike({ commentId, replyId, score });
+  }, []);
+
   const handleSetReplyComment = useCallback(
     ({ comment, activeCommentIdForReply }) => {
       console.log({ activeCommentIdForReply });
@@ -200,6 +207,7 @@ const MoviePageManager = ({ match }) => {
       handleSetReplyComment,
       handleActiveCommentForReply,
       handleLoadMoreReplyAPI,
+      handleReplyLike,
     },
   };
 };

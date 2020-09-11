@@ -13,6 +13,7 @@ import {
   SET_MOVIE_LIKE,
   SET_REPLY_COMMENT_MOVIES,
   GET_COMMENT_MOVIES_REPLY_MORE,
+  GET_COMMENT_REPLY_LIKE,
 } from './constants';
 import {
   loadingAction,
@@ -45,6 +46,11 @@ import {
   loadingCommentReplyMoreAction,
   errorCommentReplyMoreAction,
   updateCommentReplyMoreMoviesAction,
+
+  // like reply
+  loadingReplyLikeAction,
+  errorReplyLikeAction,
+  updateReplyLikeAction,
 } from './actions';
 
 function* getMoviesPageWorker({ payload: { id } }) {
@@ -190,19 +196,39 @@ function* getCommentReplyMoreMoviesWorker({ payload: { commentId, params } }) {
   yield requestCall({ url, method, actions });
 }
 
+// reply comment
+function* getCommentReplyLikeWorker({
+  payload: { commentId, replyId, score },
+}) {
+  console.log('>>> saga', { commentId, replyId, score });
+  const url = apiEndpoints.setMovieLike(replyId);
+  const method = 'POST';
+  const actions = {
+    loading: loadingStatus => loadingReplyLikeAction(loadingStatus),
+    success: result =>
+      updateReplyLikeAction({ ...result, commentId, replyId, score }),
+    failure: error => errorReplyLikeAction(error),
+  };
+
+  const data = {
+    score: String(score),
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
 export default function* moviesPageSaga() {
-  yield all([takeLatest(GET_MOVIEPAGE, getMoviesPageWorker)]);
-  yield all([takeLatest(GET_AWARD_MOVIEPAGE, getMoviesAwardsPageWorker)]);
-  yield all([takeLatest(UPDATE_MOVIE_RANK, updateMovieRankWorker)]);
-  yield all([takeLatest(GET_BOOKMARK_MOVIEPAGE, getMoviesBookmarkWorker)]);
   yield all([
+    takeLatest(GET_MOVIEPAGE, getMoviesPageWorker),
+    takeLatest(GET_AWARD_MOVIEPAGE, getMoviesAwardsPageWorker),
+    takeLatest(UPDATE_MOVIE_RANK, updateMovieRankWorker),
+    takeLatest(GET_BOOKMARK_MOVIEPAGE, getMoviesBookmarkWorker),
     takeLatest(GET_BOOKMARK_MOVIEPAGE_DELET, getMoviesBookmarkDelWorker),
-  ]);
-  yield all([takeLatest(GET_COMMENT_MOVIES, getCommentMoviesWorker)]);
-  yield all([takeLatest(SET_COMMENT_MOVIES, enterSetCommentWorker)]);
-  yield all([takeLatest(SET_MOVIE_LIKE, setMovieLikeWorker)]);
-  yield all([takeLatest(SET_REPLY_COMMENT_MOVIES, SetReplyCommentWorker)]);
-  yield all([
+    takeLatest(GET_COMMENT_MOVIES, getCommentMoviesWorker),
+    takeLatest(SET_COMMENT_MOVIES, enterSetCommentWorker),
+    takeLatest(SET_MOVIE_LIKE, setMovieLikeWorker),
+    takeLatest(SET_REPLY_COMMENT_MOVIES, SetReplyCommentWorker),
     takeLatest(GET_COMMENT_MOVIES_REPLY_MORE, getCommentReplyMoreMoviesWorker),
+    takeLatest(GET_COMMENT_REPLY_LIKE, getCommentReplyLikeWorker),
   ]);
 }

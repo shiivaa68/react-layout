@@ -16,6 +16,7 @@ import {
 
 const Reply = ({
   id,
+  commentId,
   avatar,
   comment,
   created_date,
@@ -27,14 +28,14 @@ const Reply = ({
   // console.log(id,'man to reply ghalbam')
   const {
     data,
-    actions: { handleMovieLikeComment, getCommentReplyMoreMovies },
+    actions: { handleReplyLike },
   } = useMoviePageContext() || { data: {} };
 
-  const handlelikeMovieClick = useCallback(likeType => {
-    if (likeType === 'LIKE') handleMovieLikeComment({ id, score: false });
+  const handleLikeReply = useCallback(likeType => {
+    if (likeType === 'LIKE')
+      handleReplyLike({ commentId, replyId: id, score: false });
     else if (likeType === 'DISLIKE')
-      handleMovieLikeComment({ id, score: true });
-    //   console.log({id},'comment page')
+      handleReplyLike({ commentId, replyId: id, score: true });
   }, []);
 
   return (
@@ -53,12 +54,11 @@ const Reply = ({
         <Favorite>
           <div>
             {your_score === 1 ? (
-              <div onClick={() => handlelikeMovieClick('LIKE')}>
-                {' '}
+              <div onClick={() => handleLikeReply('LIKE')}>
                 <Img src={FAVARITE} width="30" height="25" />
               </div>
             ) : (
-              <div onClick={() => handlelikeMovieClick('DISLIKE')}>
+              <div onClick={() => handleLikeReply('DISLIKE')}>
                 <Img src={FAVARITE_BORDER} width="30" height="25" />
               </div>
             )}

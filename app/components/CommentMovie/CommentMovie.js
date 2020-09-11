@@ -101,14 +101,15 @@ const CommentMovie = ({
         {Boolean(has_replay) ? (
           <ReplyArea>
             {replies.length > 0 &&
-              replies.map(reply => <Reply key={reply.id} {...reply} />)}
+              replies.map(reply => (
+                <Reply key={reply.id} commentId={id} {...reply} />
+              ))}
 
             {total_replies > 10 && !(replies.length >= total_replies) && (
               <button onClick={handleLoadMoreReply}>GET_MORE_COMMENTS</button>
             )}
           </ReplyArea>
         ) : null}
-        {/* {replies.length > 5 && <div>inja show bishtar...</div>} */}
       </Container>
     </CommentWrapper>
   );

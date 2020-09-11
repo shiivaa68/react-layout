@@ -31,6 +31,7 @@ import {
   ERROR_MOVIE_COMMENT_REPLY_MORE,
   LOADING_MOVIE_COMMENT_REPLY_MORE,
   UPDATE_COMMENT_MOVIES_REPLY_MORE,
+  UPDATE_COMMENT_REPLY_LIKE,
 } from './constants';
 
 const MoviesPageReducer = (state = initialState, action) =>
@@ -132,10 +133,7 @@ const MoviesPageReducer = (state = initialState, action) =>
         return draft;
 
       case UPDATE_MOVIE_LIKE: {
-        console.log(action.payload, 'movie commentam');
         const { commentId, comment_score, score } = action.payload;
-
-        console.log({ commentId, comment_score, score });
 
         const targetIndex = draft.comment_movie.findIndex(
           comment => comment.id === commentId,
@@ -180,6 +178,27 @@ const MoviesPageReducer = (state = initialState, action) =>
           ...draft.comment_movie[targetIndex].replies,
           ...result,
         ];
+
+        return draft;
+      }
+
+      case UPDATE_COMMENT_REPLY_LIKE: {
+        const { commentId, replyId, comment_score, score } = action.payload;
+
+        const targetCommentIndex = draft.comment_movie.findIndex(
+          comment => comment.id === commentId,
+        );
+
+        const targetReplyIndex = draft.comment_movie[
+          targetCommentIndex
+        ].replies.findIndex(reply => reply.id === replyId);
+
+        draft.comment_movie[targetCommentIndex].replies[
+          targetReplyIndex
+        ].score = comment_score;
+        draft.comment_movie[targetCommentIndex].replies[
+          targetReplyIndex
+        ].your_score = Number(score);
 
         return draft;
       }
