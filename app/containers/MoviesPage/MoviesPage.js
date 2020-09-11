@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import CommentMovie from 'components/CommentMovie';
 import { FormattedMessage } from 'react-intl';
@@ -40,6 +40,7 @@ const MoviesPage = ({ match, history }) => {
       activeCommentIdForReply,
     },
     actions,
+    actions: { handleCommentNextPage },
   } = MoviePageManager({ match, history });
 
   return (
@@ -87,7 +88,7 @@ const MoviesPage = ({ match, history }) => {
                 ))}
 
               <WayPointArea>
-                {/* <Waypoint onEnter={handleNextPage} /> */}
+                <Waypoint onEnter={handleCommentNextPage} />
               </WayPointArea>
             </MainWrapperComment>
           </>

@@ -33,7 +33,7 @@ const MoviePageManager = ({ match }) => {
 
   const { isMobile } = useMyMediaQuery();
 
-  const [page, setPage] = useState(0);
+  const [commentPage, setCommentPage] = useState(1);
   const [activeCommentIdForReply, setActiveCommentIdForReply] = useState(null);
 
   const [
@@ -83,14 +83,17 @@ const MoviePageManager = ({ match }) => {
     const movieId = match.params.movieId;
     const { pageLimit } = globalConfigs;
 
-    const options = {
-      limit: pageLimit,
-    };
     getMoviesPage({ id: movieId });
     getMoviesAwards({ movieId });
     getMoviesBookmark({ movieId });
     getMoviesDelBookmark({ movieId });
-    getCommentMovies({ movieId, options });
+
+    // const options = {
+    //   page: commentPage,
+    //   limit: pageLimit,
+    // };
+    // getCommentMovies({ movieId, options });
+    // setCommentPage(state => state + 1);
   }, []);
 
   // const getNextPage = useCallback(() => {
@@ -109,10 +112,6 @@ const MoviePageManager = ({ match }) => {
   //   const nextPageIndex = page + 1;
   //   getNextPage(nextPageIndex);
   // }, [page]);
-
-  useEffect(() => {
-    // console.log({ activeCommentIdForReply });
-  }, [activeCommentIdForReply]);
 
   const handleMovieLikeDislike = useCallback((movieId, rank) => {
     updateMovieRank({ movieId, rank });
@@ -179,6 +178,17 @@ const MoviePageManager = ({ match }) => {
     getCommentReplyMoreMovies({ commentId, params });
   }, []);
 
+  const handleCommentNextPage = useCallback(() => {
+    const movieId = match.params.movieId;
+    const { pageLimit } = globalConfigs;
+    const options = {
+      page: commentPage,
+      limit: pageLimit,
+    };
+    getCommentMovies({ movieId, options });
+    setCommentPage(state => state + 1);
+  }, [commentPage]);
+
   return {
     data: {
       loading,
@@ -208,6 +218,7 @@ const MoviePageManager = ({ match }) => {
       handleActiveCommentForReply,
       handleLoadMoreReplyAPI,
       handleReplyLike,
+      handleCommentNextPage,
     },
   };
 };

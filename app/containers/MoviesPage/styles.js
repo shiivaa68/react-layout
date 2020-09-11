@@ -11,17 +11,15 @@ export const SubTitle = styled.h3`
   margin: 1rem 0;
 `;
 
-
 export const MainWrapperComment = styled.section`
-margin-right:16rem;
+  /* margin-right: 16rem; */
+  max-width: 968px;
+  margin: auto;
 `;
 
 export const WayPointArea = styled.div`
-position: relative;
-width: 100vw;
-height: 10px;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color:red;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background-color: red;
 `;

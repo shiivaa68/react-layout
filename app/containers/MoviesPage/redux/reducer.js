@@ -107,7 +107,9 @@ const MoviesPageReducer = (state = initialState, action) =>
         return draft;
 
       case UPDATE_COMMENT_MOVIES:
-        draft.comment_movie = action.payload;
+        console.log({ comments: action.payload });
+
+        draft.comment_movie = [...draft.comment_movie, ...action.payload];
         return draft;
 
       //COMMENT SEND
