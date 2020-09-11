@@ -43,6 +43,11 @@ import {
   SET_REPLY_COMMENT_MOVIES,
   UPDATE_COMMENT_MOVIES_SEND_REPLY,
 
+  ERROR_MOVIE_COMMENT_REPLY_MORE,
+  LOADING_MOVIE_COMMENT_REPLY_MORE,
+  GET_COMMENT_MOVIES_REPLY_MORE,
+  UPDATE_COMMENT_MOVIES_REPLY_MORE,
+
 } from './constants';
 
 export function loadingAction(loadingStatus) {
@@ -299,6 +304,36 @@ export function setReplyCommentMoviesAction({ ...options }) {
 export function updateSetReplyCommentMoviesAction(data) {
   return {
     type: UPDATE_COMMENT_MOVIES_SEND_REPLY,
+    payload: data,
+  };
+}
+
+//REPLY -COMMNET -MORE THAN 10
+
+export function loadingCommentReplyMoreAction(loadingStatus) {
+  return {
+    type: LOADING_MOVIE_COMMENT_REPLY_MORE,
+    payload: { loadingStatus },
+  };
+}
+
+export function errorCommentReplyMoreAction(error) {
+  return {
+    type: ERROR_MOVIE_COMMENT_REPLY_MORE,
+    payload: { error },
+  };
+}
+
+export function getCommentReplyMoreMoviesAction({ ...options }) {
+  return {
+    type: GET_COMMENT_MOVIES_REPLY_MORE,
+    payload: { ...options },
+  };
+}
+
+export function updateCommentReplyMoreMoviesAction(data) {
+  return {
+    type: UPDATE_COMMENT_MOVIES_REPLY_MORE,
     payload: data,
   };
 }

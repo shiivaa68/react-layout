@@ -43,6 +43,12 @@ const initialState = {
   loading_send_reply_comment:false,
   send_reply_comment:{},
 
+    //commnet 
+  //get reply comment more than 10
+  error_comment_reply_more: false,
+  loading_comment_reply_more: false,
+  comment_movie_reply_more: {},
+
 };
 
 

@@ -15,3 +15,13 @@ export const SubTitle = styled.h3`
 export const MainWrapperComment = styled.section`
 margin-right:16rem;
 `;
+
+export const WayPointArea = styled.div`
+position: relative;
+width: 100vw;
+height: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color:red;
+`;

@@ -7,7 +7,7 @@ import HeadingCover from 'components/HeadingCover';
 import Casts from 'components/Casts';
 import ScreenShots from 'components/ScreenShots';
 import MovieSuggestions from 'containers/MovieSuggestions';
-
+import { Waypoint } from 'react-waypoint';
 import { EnterComment } from './components';
 import { Helmet } from 'react-helmet';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -15,7 +15,12 @@ import { MoviePageContext } from './context';
 import Img from 'react-cool-img';
 import MoviePageManager from './MoviePageManager';
 import SEND from 'images/send.svg';
-import { MoviesContainer, SubTitle, MainWrapperComment } from './styles';
+import {
+  MoviesContainer,
+  SubTitle,
+  MainWrapperComment,
+  WayPointArea,
+} from './styles';
 
 const MoviesPage = ({ match, history }) => {
   const {
@@ -80,6 +85,10 @@ const MoviesPage = ({ match, history }) => {
                 comment_movie.map(comment => (
                   <CommentMovie key={comment.id} {...comment} />
                 ))}
+
+              <WayPointArea>
+                {/* <Waypoint onEnter={handleNextPage} /> */}
+              </WayPointArea>
             </MainWrapperComment>
           </>
         )}

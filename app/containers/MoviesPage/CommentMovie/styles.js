@@ -20,23 +20,10 @@ export const Container = styled.div`
   background-color: var(--side-bg);
   display: flex;
   justify-content: flex-start;
-  flex-direction: column;
   min-height: 15vh;
   width: 90%;
   margin-right: 4rem;
-`;
-
-export const CommentArea = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-`;
-
-export const ReplyArea = styled.div`
-  width: 100%;
-  height: fit-content;
-  padding-right: 15%;
+  // border-bottom: 1px solid  #37383e63;
 `;
 
 export const Image = styled.div`
@@ -101,7 +88,9 @@ export const Favorite = styled.div`
 `;
 
 export const WrapperReply = styled.div`
-  background-color: red;
-  min-height: 100%;
-  width: 80%;
+background-color:red;
+min-height: 100%;
+width: 80%;
+
+
 `;

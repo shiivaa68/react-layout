@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import responsive from '../../../../responsive';
 
+
 export const Container = styled.div`
   background-color: var(--side-bg);
-  display: flex;
-  flex-direction: row;
+  display:flex;
+  felx-direction:column;
   justify-content: flex-start;
   min-height: 15vh;
-  width: 100%;
-  background-color: #484b5a26;
+  width:200%;
+  background-color:#484b5a26;
+ 
 `;
 
 export const Image = styled.div`
@@ -26,35 +28,39 @@ export const Image = styled.div`
 `;
 
 export const Description = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  flex-wrap: wrap;
+
+display:flex;
+justify-content: center;
+align-items: flex-start;
+flex-direction: column;
+flex-wrap: wrap;
   text-align: center;
   color: #aaaaaa;
   vertical-align: middle;
   font-size: 12px;
   min-height: 10%;
-  width: 80%;
-  padding: 1rem;
+  width:80%;
+  padding:1rem;
   user-select: text;
+
 `;
 
 export const Desuser = styled.div`
-  & > span {
-    padding: 0.75rem;
-  }
+& > span {
+  padding:0.75rem;
+  
+}
 `;
 export const Title = styled.h4`
   padding: 0 1rem;
 `;
 
 export const Text = styled.div`
-  margin: 1rem;
-  font-size: 1.15rem;
-  color: white;
+margin:1rem;
+font-size:1.15rem;
+color:white;
 `;
+
 
 export const Favorite = styled.div`
   display: flex;
@@ -70,10 +76,14 @@ export const Favorite = styled.div`
   }
 `;
 export const ReplyWrapper = styled.div`
-  padding: 1rem 1rem;
 
-  // justify-content: space-between;
-  @media ${responsive.tablet} {
-    justify-content: unset;
-  }
+
+padding:1rem 1rem;
+
+// justify-content: space-between;
+@media ${responsive.tablet} {
+ justify-content: unset;
+}
+
+
 `;

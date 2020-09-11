@@ -19,6 +19,7 @@ import {
   setCommentMoviesAction,
   setMovieLikeAction,
   setReplyCommentMoviesAction,
+  getCommentReplyMoreMoviesAction,
 } from './redux/actions';
 import initialState from './redux/initialState';
 import useMyMediaQuery from 'utils/useMyMediaQuery';
@@ -31,6 +32,7 @@ const MoviePageManager = ({ match }) => {
 
   const { isMobile } = useMyMediaQuery();
 
+  const [page, setPage] = useState(0);
   const [activeCommentIdForReply, setActiveCommentIdForReply] = useState(null);
 
   const [
@@ -43,6 +45,7 @@ const MoviePageManager = ({ match }) => {
     setCommentMovies,
     setMovieLike,
     setReplyCommentMovies,
+    getCommentReplyMoreMovies,
   ] = useBindDispatch([
     getMoviesAction,
     getMoviesAwardsAction,
@@ -53,6 +56,7 @@ const MoviePageManager = ({ match }) => {
     setCommentMoviesAction,
     setMovieLikeAction,
     setReplyCommentMoviesAction,
+    getCommentReplyMoreMoviesAction,
   ]);
 
   const {
@@ -86,8 +90,25 @@ const MoviePageManager = ({ match }) => {
     getCommentMovies({ movieId, options });
   }, []);
 
+  // const getNextPage = useCallback(() => {
+  //   const newPageIndex = page + 1;
+  //   setPage(newPageIndex);
+  //   const movieId = match.params.movieId;
+  //   const { pageLimit } = globalConfigs;
+  //   const options = {
+  //     limit: pageLimit,
+  //   };
+  //   getCommentMovies({ pageLimit, page: newPageIndex, });
+
+  // }, []);
+
+  // const handleNextPage = useCallback(() => {
+  //   const nextPageIndex = page + 1;
+  //   getNextPage(nextPageIndex);
+  // }, [page]);
+
   useEffect(() => {
-    console.log({ activeCommentIdForReply });
+    // console.log({ activeCommentIdForReply });
   }, [activeCommentIdForReply]);
 
   const handleMovieLikeDislike = useCallback((movieId, rank) => {
@@ -121,18 +142,35 @@ const MoviePageManager = ({ match }) => {
     setMovieLike({ id, score });
   }, []);
 
-  const handleSetReplyComment = useCallback(({ comment, id }) => {
-    console.log({ comment, id });
-    setReplyCommentMovies({ comment, id });
-  }, []);
+  const handleSetReplyComment = useCallback(
+    ({ comment, activeCommentIdForReply }) => {
+      console.log({ activeCommentIdForReply });
+      const movieId = match.params.movieId;
+      const { pageLimit } = globalConfigs;
+      const options = {
+        limit: pageLimit,
+      };
+      setReplyCommentMovies({ comment, id: activeCommentIdForReply });
+      setTimeout(() => {
+        getCommentMovies({ movieId, options });
+      }, 1000);
+    },
+    [],
+  );
 
   const handleActiveCommentForReply = useCallback(
     id => {
-      console.log({ id });
       setActiveCommentIdForReply(id);
     },
     [setActiveCommentIdForReply],
   );
+
+  const handleLoadMoreReplyAPI = useCallback(({ commentId, replyPage }) => {
+    let params = {
+      page: replyPage,
+    };
+    getCommentReplyMoreMovies({ commentId, params });
+  }, []);
 
   return {
     data: {
@@ -161,6 +199,7 @@ const MoviePageManager = ({ match }) => {
       handleMovieLikeComment,
       handleSetReplyComment,
       handleActiveCommentForReply,
+      handleLoadMoreReplyAPI,
     },
   };
 };

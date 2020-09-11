@@ -1,8 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import Img from 'react-cool-img';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import FAVARITE from 'images/favorite.svg';
 import FAVARITE_BORDER from 'images/favorite_border.svg';
 import REPLY from 'images/reply.svg';
@@ -14,6 +12,8 @@ import {
   Text,
   Favorite,
   Desuser,
+  CommentArea,
+  ReplyArea,
 } from './styles';
 import Reply from './components/Reply';
 import useMoviePageContext from 'containers/MoviesPage/context';
@@ -28,7 +28,10 @@ const CommentMovie = ({
   your_score,
   score,
   replies,
+  total_replies,
 }) => {
+  const [replyPage, setReplyPage] = useState(2);
+
   const {
     data,
     data: { activeCommentIdForReply },
@@ -36,15 +39,9 @@ const CommentMovie = ({
       handleMovieLikeComment,
       handleSetReplyComment,
       handleActiveCommentForReply,
+      handleLoadMoreReplyAPI,
     },
   } = useMoviePageContext() || { data: {} };
-
-  // console.log({
-  //   data,
-  //   isTrue: activeCommentIdForReply === id,
-  //   activeCommentIdForReply,
-  //   id,
-  // });
 
   const handlelikeMovieClick = useCallback(likeType => {
     if (likeType === 'LIKE') handleMovieLikeComment({ id, score: false });
@@ -52,49 +49,66 @@ const CommentMovie = ({
       handleMovieLikeComment({ id, score: true });
   }, []);
 
+  const handleLoadMoreReply = useCallback(() => {
+    handleLoadMoreReplyAPI({ commentId: id, replyPage });
+    setReplyPage(state => state + 1);
+  }, [id, replyPage]);
+
   return (
     <CommentWrapper>
       <Container>
-        <Image>
-          <Img src={avatar} />
-        </Image>
-        <Description>
-          <Desuser>
-            <span>{display_name}</span> -<span>{created_date}</span>
-          </Desuser>
-          <Text>{comment}</Text>
+        <CommentArea>
+          <Image>
+            <Img src={avatar} />
+          </Image>
+          <Description>
+            <Desuser>
+              <span>{display_name}</span> -<span>{created_date}</span>
+            </Desuser>
+            <Text>{comment}</Text>
 
-          {activeCommentIdForReply === id && <EnterReplyComment />}
-
-          <div>
+            {activeCommentIdForReply === id && <EnterReplyComment />}
+          </Description>
+          <Favorite>
+            <div>
+              {your_score === 1 ? (
+                <div onClick={() => handlelikeMovieClick('LIKE')}>
+                  <Img src={FAVARITE} width="30" height="25" />
+                </div>
+              ) : (
+                <div onClick={() => handlelikeMovieClick('DISLIKE')}>
+                  <Img src={FAVARITE_BORDER} width="30" height="25" />
+                </div>
+              )}
+            </div>
+            <div>
+              <span>{score}</span>
+            </div>
+            <div>
+              <Img
+                src={REPLY}
+                width="20"
+                height="20"
+                onClick={() => {
+                  if (activeCommentIdForReply === id)
+                    return handleActiveCommentForReply(-1);
+                  handleActiveCommentForReply(id);
+                }}
+              />
+            </div>
+          </Favorite>
+        </CommentArea>
+        {Boolean(has_replay) ? (
+          <ReplyArea>
             {replies.length > 0 &&
               replies.map(reply => <Reply key={reply.id} {...reply} />)}
-          </div>
-        </Description>
-        <Favorite>
-          <div>
-            {your_score === 1 ? (
-              <div onClick={() => handlelikeMovieClick('LIKE')}>
-                <Img src={FAVARITE} width="30" height="25" />
-              </div>
-            ) : (
-              <div onClick={() => handlelikeMovieClick('DISLIKE')}>
-                <Img src={FAVARITE_BORDER} width="30" height="25" />
-              </div>
+
+            {total_replies > 10 && !(replies.length >= total_replies) && (
+              <button onClick={handleLoadMoreReply}>GET_MORE_COMMENTS</button>
             )}
-          </div>
-          <div>
-            <span>{score}</span>
-          </div>
-          <div>
-            <Img
-              src={REPLY}
-              width="20"
-              height="20"
-              onClick={() => handleActiveCommentForReply(id)}
-            />
-          </div>
-        </Favorite>
+          </ReplyArea>
+        ) : null}
+        {/* {replies.length > 5 && <div>inja show bishtar...</div>} */}
       </Container>
     </CommentWrapper>
   );

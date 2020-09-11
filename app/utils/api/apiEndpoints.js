@@ -63,28 +63,32 @@ const apiEndpoints = {
   //like dislike bookmark
   updateMovieRank: (movieId, rank) =>
     `${baseURL}/movies/rank/${movieId}/${rank}`,
-    updateSeriesRank: (serieId, rank) =>
+  updateSeriesRank: (serieId, rank) =>
     `${baseURL}/series/rank/${serieId}/${rank}`,
 
   //bookmark movie and series
   setBookmarkMovies: movieId => `${baseURL}/users/favorites/movies/${movieId}`,
-  deletBookmarkMovies: movieId => `${baseURL}/users/favorites/movies/${movieId}`,
+  deletBookmarkMovies: movieId =>
+    `${baseURL}/users/favorites/movies/${movieId}`,
   setBookmarkSeries: serieId => `${baseURL}/users/favorites/series/${serieId}`,
-  deletBookmarkSeries: serieId =>`${baseURL}/users/favorites/series/${serieId}`,
+  deletBookmarkSeries: serieId =>
+    `${baseURL}/users/favorites/series/${serieId}`,
 
   //COMMENT MOVIE
-    getCommentMovies: (movieId, queryOptions) =>
+  getCommentMovies: (movieId, queryOptions) =>
     `${baseURL}/comments/movies/${movieId}?${toUrlParams(queryOptions)}`,
-    sendComment: (movieId) => `${baseURL}/comments/movies/${movieId}`,
-    setMovieLike:(id) => `${baseURL}/comments/movies/like/${id}`,
-    sendReplyComment: (id) => `${baseURL}/comments/movies/replay/${id}`,
+  sendComment: movieId => `${baseURL}/comments/movies/${movieId}`,
+  setMovieLike: id => `${baseURL}/comments/movies/like/${id}`,
+  sendReplyComment: id => `${baseURL}/comments/movies/replay/${id}`,
+  getCommentMoreReplyMovies: (commentId, params) =>
+    `${baseURL}/comments/movies/replay/${commentId}?${toUrlParams(params)}`,
 
-    //comment Series
-    getCommentSeries: (serieId, queryOptions) =>
+  //comment Series
+  getCommentSeries: (serieId, queryOptions) =>
     `${baseURL}/comments/series/${serieId}?${toUrlParams(queryOptions)}`,
-    sendCommentSeries: (serieId) => `${baseURL}/comments/series/${serieId}`,
-    setSeriesLike:(id) => `${baseURL}/comments/series/like/${id}`,
-
+  sendCommentSeries: serieId => `${baseURL}/comments/series/${serieId}`,
+  setSeriesLike: id => `${baseURL}/comments/series/like/${id}`,
+  sendReplyCommentSeries: id => `${baseURL}/comments/series/replay/${id}`,
 };
 
 export default apiEndpoints;

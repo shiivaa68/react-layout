@@ -12,6 +12,7 @@ import {
   SET_COMMENT_MOVIES,
   SET_MOVIE_LIKE,
   SET_REPLY_COMMENT_MOVIES,
+  GET_COMMENT_MOVIES_REPLY_MORE,
 } from './constants';
 import {
   loadingAction,
@@ -41,6 +42,9 @@ import {
   loadingSetReplyCommentAction,
   errorSetReplyCommentAction,
   updateSetReplyCommentMoviesAction,
+  loadingCommentReplyMoreAction,
+  errorCommentReplyMoreAction,
+  updateCommentReplyMoreMoviesAction,
 } from './actions';
 
 function* getMoviesPageWorker({ payload: { id } }) {
@@ -167,11 +171,23 @@ function* SetReplyCommentWorker({ payload: { comment, id } }) {
     },
   };
 
-  const data = {
-    comment,
-  };
+  const data = comment;
 
   yield requestCall({ url, method, actions, data });
+}
+
+//GET MORE REPLY COMMENT
+function* getCommentReplyMoreMoviesWorker({ payload: { commentId, params } }) {
+  const url = apiEndpoints.getCommentMoreReplyMovies(commentId, params);
+  const method = 'GET';
+  const actions = {
+    loading: loadingStatus => loadingCommentReplyMoreAction(loadingStatus),
+    success: result =>
+      updateCommentReplyMoreMoviesAction({ commentId, result }),
+    failure: error => errorCommentReplyMoreAction(error),
+  };
+
+  yield requestCall({ url, method, actions });
 }
 
 export default function* moviesPageSaga() {
@@ -186,4 +202,7 @@ export default function* moviesPageSaga() {
   yield all([takeLatest(SET_COMMENT_MOVIES, enterSetCommentWorker)]);
   yield all([takeLatest(SET_MOVIE_LIKE, setMovieLikeWorker)]);
   yield all([takeLatest(SET_REPLY_COMMENT_MOVIES, SetReplyCommentWorker)]);
+  yield all([
+    takeLatest(GET_COMMENT_MOVIES_REPLY_MORE, getCommentReplyMoreMoviesWorker),
+  ]);
 }

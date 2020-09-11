@@ -1,15 +1,10 @@
 import React, { useCallback } from 'react';
 import Form from 'components/Form';
-import { Button } from 'components/kit';
 import InputField from '../EnterComment/component/InputField/InputField';
-import { ButtonTypes } from 'components/kit/Button/constants';
-import { FormattedMessage } from 'react-intl';
 import useMoviePageContext from 'containers/MoviesPage/context';
 import { initialValues, validationSchema } from './form';
-import messages from '../../messages';
 import SEND from 'images/send.svg';
 import IMG_COMMENT from 'images/imgcomment.svg';
-import Img from 'react-cool-img';
 import { ButtonsGroup, ErrorContainer, CommentBox, Imgprofile } from './styles';
 
 const EnterComment = () => {

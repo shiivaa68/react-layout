@@ -28,6 +28,9 @@ import {
   ERROR_MOVIE_COMMENT_SEND_REPLY,
   LOADING_MOVIE_COMMENT_SEND_REPLY,
   UPDATE_COMMENT_MOVIES_SEND_REPLY,
+  ERROR_MOVIE_COMMENT_REPLY_MORE,
+  LOADING_MOVIE_COMMENT_REPLY_MORE,
+  UPDATE_COMMENT_MOVIES_REPLY_MORE,
 } from './constants';
 
 const MoviesPageReducer = (state = initialState, action) =>
@@ -129,6 +132,7 @@ const MoviesPageReducer = (state = initialState, action) =>
         return draft;
 
       case UPDATE_MOVIE_LIKE: {
+        console.log(action.payload, 'movie commentam');
         const { commentId, comment_score, score } = action.payload;
 
         console.log({ commentId, comment_score, score });
@@ -155,6 +159,30 @@ const MoviesPageReducer = (state = initialState, action) =>
       case UPDATE_COMMENT_MOVIES_SEND_REPLY:
         draft.send_reply_comment = action.payload;
         return draft;
+      //GET REPLY MORE COMMENT
+      //COMMENT MOVIE
+      case ERROR_MOVIE_COMMENT_REPLY_MORE:
+        draft.error_comment_reply_more = action.payload.error.message;
+        return draft;
+
+      case LOADING_MOVIE_COMMENT_REPLY_MORE:
+        draft.loading_comment_reply_more = action.payload.loadingStatus;
+        return draft;
+
+      case UPDATE_COMMENT_MOVIES_REPLY_MORE: {
+        const { commentId, result } = action.payload;
+
+        const targetIndex = draft.comment_movie.findIndex(
+          comment => comment.id === commentId,
+        );
+
+        draft.comment_movie[targetIndex].replies = [
+          ...draft.comment_movie[targetIndex].replies,
+          ...result,
+        ];
+
+        return draft;
+      }
     }
   });
 

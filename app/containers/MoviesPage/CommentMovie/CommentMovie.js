@@ -1,20 +1,22 @@
 import React, { useCallback } from 'react';
+
+import Img from 'react-cool-img';
 import FAVARITE from 'images/favorite.svg';
 import FAVARITE_BORDER from 'images/favorite_border.svg';
-import Img from 'react-cool-img';
-
-import useMoviePageContext from 'containers/MoviesPage/context';
+import REPLY from 'images/reply.svg';
 import {
-  ReplyWrapper,
+  CommentWrapper,
   Container,
   Image,
   Description,
-  Favorite,
   Text,
+  Favorite,
   Desuser,
 } from './styles';
-
-const Reply = ({
+import Reply from './components/Reply';
+import useMoviePageContext from 'containers/MoviesPage/context';
+import EnterReplyComment from './components/EnterReplyComment';
+const CommentMovie = ({
   id,
   avatar,
   comment,
@@ -23,38 +25,48 @@ const Reply = ({
   has_replay,
   your_score,
   score,
+  replies,
 }) => {
-  // console.log(id,'man to reply ghalbam')
   const {
     data,
-    actions: { handleMovieLikeComment, getCommentReplyMoreMovies },
+    data: { activeCommentIdForReply },
+    actions: {
+      handleMovieLikeComment,
+      handleSetReplyComment,
+      handleActiveCommentForReply,
+    },
   } = useMoviePageContext() || { data: {} };
 
   const handlelikeMovieClick = useCallback(likeType => {
     if (likeType === 'LIKE') handleMovieLikeComment({ id, score: false });
     else if (likeType === 'DISLIKE')
       handleMovieLikeComment({ id, score: true });
-    //   console.log({id},'comment page')
   }, []);
 
   return (
-    <ReplyWrapper>
+    <CommentWrapper>
       <Container>
         <Image>
           <Img src={avatar} />
         </Image>
         <Description>
           <Desuser>
-            <span>{display_name}</span>
-            <span>{created_date}</span>
+            <span>{display_name}</span> -<span>{created_date}</span>
           </Desuser>
           <Text>{comment}</Text>
+
+          {activeCommentIdForReply === id && <EnterReplyComment />}
+
+          <div>
+            {replies.length > 0 &&
+              replies.map(reply => <Reply key={reply.id} {...reply} />)}
+          </div>
+          {replies.length > 5 && <div>inja show bishtar...</div>}
         </Description>
         <Favorite>
           <div>
             {your_score === 1 ? (
               <div onClick={() => handlelikeMovieClick('LIKE')}>
-                {' '}
                 <Img src={FAVARITE} width="30" height="25" />
               </div>
             ) : (
@@ -66,10 +78,22 @@ const Reply = ({
           <div>
             <span>{score}</span>
           </div>
+          <div>
+            <Img
+              src={REPLY}
+              width="20"
+              height="20"
+              onClick={() => {
+                if (activeCommentIdForReply === id)
+                  return handleActiveCommentForReply(-1);
+                handleActiveCommentForReply(id);
+              }}
+            />
+          </div>
         </Favorite>
       </Container>
-    </ReplyWrapper>
+    </CommentWrapper>
   );
 };
 
-export default Reply;
+export default CommentMovie;
