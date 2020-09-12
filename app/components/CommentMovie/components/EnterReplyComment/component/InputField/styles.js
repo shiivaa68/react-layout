@@ -12,7 +12,7 @@ export const InputLabel = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 120%;
+  width: 140%;
   min-height: 42px;
   border: 0px;
   outline: 0px;

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const ButtonsGroup = styled.div`
-  width: 20%;
-  height: 100px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,23 +33,26 @@ border-radius:5px;
 
 export const CommentBox = styled.article`
   min-height: 20vh;
-  width:80%;
+  width:100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
   background-color:var(--side-bg);
-  padding:2rem;
+  padding:1rem;
+  & > div {
+    margin:1rem;
+  }
 `;
 
 export const Imgprofile=styled.div`
-width:50px;
-height:50px;
-font-size: 1rem;
-border-radius:80px;
-background-color:white;
-margin-bottom:2rem;
-margin-left:2rem;
-
+padding-bottom:2rem;
+ & >img {
+  width:50px;
+  height:50px;
+  font-size: 1rem;
+  background-color:white;
+  border-radius:80px;
+ }
 `;
 

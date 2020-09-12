@@ -1,13 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import responsive from '../../responsive';
 
 export const CommentWrapper = styled.section`
-  width: 80%;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  //  border-radius: 5px;
   padding: 0.25rem;
   background-color: var(--side-bg);
   justify-content: space-between;
@@ -31,12 +29,34 @@ export const CommentArea = styled.div`
   height: auto;
   display: flex;
   flex-direction: row;
+  margin: 1rem;
 `;
 
 export const ReplyArea = styled.div`
   width: 100%;
   height: fit-content;
-  padding-right: 15%;
+  padding-right: 8%;
+`;
+
+export const WrapperButtonMore = styled.div`
+  text-align: center;
+
+  & > button {
+    unset: all;
+    align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    background: transparent;
+    //  &  button img {
+
+    // }
+
+    //  &:hover {
+    //   background-color: var(--dark-blue);
+    //   color: var(--primary-light);
+    // }
+  }
 `;
 
 export const Image = styled.div`
@@ -84,6 +104,13 @@ export const Text = styled.div`
   margin: 1rem;
   font-size: 1.25rem;
   color: white;
+  text-align: justify;
+
+  ${props =>
+    props.isSpoil &&
+    css`
+      filter: blur(5px);
+    `}
 `;
 
 export const Favorite = styled.div`
@@ -101,7 +128,6 @@ export const Favorite = styled.div`
 `;
 
 export const WrapperReply = styled.div`
-  background-color: red;
   min-height: 100%;
   width: 80%;
 `;

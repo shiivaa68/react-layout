@@ -15,11 +15,12 @@ export const MainWrapperComment = styled.section`
   /* margin-right: 16rem; */
   max-width: 968px;
   margin: auto;
+  
 `;
 
 export const WayPointArea = styled.div`
   position: relative;
   width: 100%;
   height: 30px;
-  background-color: red;
+ 
 `;

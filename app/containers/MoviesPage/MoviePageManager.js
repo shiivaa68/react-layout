@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useSelector } from 'react-redux';
 import globalConfigs from 'utils/globalConfigs';
@@ -88,30 +88,13 @@ const MoviePageManager = ({ match }) => {
     getMoviesBookmark({ movieId });
     getMoviesDelBookmark({ movieId });
 
-    // const options = {
-    //   page: commentPage,
-    //   limit: pageLimit,
-    // };
-    // getCommentMovies({ movieId, options });
-    // setCommentPage(state => state + 1);
+    const options = {
+      page: commentPage,
+      limit: pageLimit,
+    };
+    getCommentMovies({ movieId, options });
+    setCommentPage(state => state + 1);
   }, []);
-
-  // const getNextPage = useCallback(() => {
-  //   const newPageIndex = page + 1;
-  //   setPage(newPageIndex);
-  //   const movieId = match.params.movieId;
-  //   const { pageLimit } = globalConfigs;
-  //   const options = {
-  //     limit: pageLimit,
-  //   };
-  //   getCommentMovies({ pageLimit, page: newPageIndex, });
-
-  // }, []);
-
-  // const handleNextPage = useCallback(() => {
-  //   const nextPageIndex = page + 1;
-  //   getNextPage(nextPageIndex);
-  // }, [page]);
 
   const handleMovieLikeDislike = useCallback((movieId, rank) => {
     updateMovieRank({ movieId, rank });
@@ -126,18 +109,22 @@ const MoviePageManager = ({ match }) => {
   }, []);
 
   /** Handlers */
-  const handleSetComment = useCallback(({ comment }) => {
-    const movieId = match.params.movieId;
-    const { pageLimit } = globalConfigs;
-    const options = {
-      limit: pageLimit,
-    };
+  const handleSetComment = useCallback(
+    ({ comment }) => {
+      const movieId = match.params.movieId;
+      const { pageLimit } = globalConfigs;
+      const options = {
+        limit: pageLimit,
+      };
 
-    setCommentMovies({ comment, movieId });
-    setTimeout(() => {
-      getCommentMovies({ movieId, options });
-    }, 1000);
-  }, []);
+      setCommentMovies({ comment, movieId });
+      setTimeout(() => {
+        getCommentMovies({ movieId, options });
+        setCommentPage(state => state + 1);
+      }, 1000);
+    },
+    [commentPage],
+  );
 
   const handleMovieLikeComment = useCallback(({ score, id }) => {
     console.log({ score }, 'injaaa movie manager');
@@ -159,9 +146,10 @@ const MoviePageManager = ({ match }) => {
       setReplyCommentMovies({ comment, id: activeCommentIdForReply });
       setTimeout(() => {
         getCommentMovies({ movieId, options });
+        setCommentPage(state => state + 1);
       }, 1000);
     },
-    [],
+    [commentPage],
   );
 
   const handleActiveCommentForReply = useCallback(

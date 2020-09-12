@@ -1,9 +1,13 @@
 import React, { useState, useCallback } from 'react';
-
+import Button from '../kit/Button';
 import Img from 'react-cool-img';
 import FAVARITE from 'images/favorite.svg';
 import FAVARITE_BORDER from 'images/favorite_border.svg';
 import REPLY from 'images/reply.svg';
+import ICONPLUS from 'images/iconplus.svg';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+
 import {
   CommentWrapper,
   Container,
@@ -14,6 +18,7 @@ import {
   Desuser,
   CommentArea,
   ReplyArea,
+  WrapperButtonMore,
 } from './styles';
 import Reply from './components/Reply';
 import useMoviePageContext from 'containers/MoviesPage/context';
@@ -27,6 +32,7 @@ const CommentMovie = ({
   has_replay,
   your_score,
   score,
+  is_spoil,
   replies,
   total_replies,
 }) => {
@@ -65,7 +71,8 @@ const CommentMovie = ({
             <Desuser>
               <span>{display_name}</span> -<span>{created_date}</span>
             </Desuser>
-            <Text>{comment}</Text>
+
+            <Text isSpoil={is_spoil}>{comment}</Text>
 
             {activeCommentIdForReply === id && <EnterReplyComment />}
           </Description>
@@ -106,7 +113,17 @@ const CommentMovie = ({
               ))}
 
             {total_replies > 10 && !(replies.length >= total_replies) && (
-              <button onClick={handleLoadMoreReply}>GET_MORE_COMMENTS</button>
+              <WrapperButtonMore>
+                <button onClick={handleLoadMoreReply}>
+                  <Img src={ICONPLUS} width="20" height="20" />
+                </button>
+
+                {/* <Button
+                type="fullfill"
+                label={<FormattedMessage {...messages.more} />}
+                onClick={handleLoadMoreReply}
+              /> */}
+              </WrapperButtonMore>
             )}
           </ReplyArea>
         ) : null}

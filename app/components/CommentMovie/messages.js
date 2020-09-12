@@ -11,4 +11,8 @@ export default defineMessages({
     id: `${scope}.commentPlaceHolder`,
     defaultMessage: ' "نظرتان راجع به این فیلم چیست؟"',
   },
+  more: {
+    id: `${scope}.more`,
+    defaultMessage: 'بیشتر ...',
+  },
 });
